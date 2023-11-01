@@ -1,0 +1,678 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "CoreAPI/Base"
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:9292/core/v1/"
+    }
+  ],
+  "paths": {
+    "/example/format": {
+      "get": {
+        "operationId": "get:example_format",
+        "tags": [
+          "Core"
+        ],
+        "parameters": [
+          {
+            "name": "time[unix]",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "time[string]",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "timezone",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/CoreAPI_Objects_TimeZone"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Format the given time",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "formatted_time": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "formatted_time"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "post:example_format",
+        "tags": [
+          "Core"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "time": {
+                    "$ref": "#/components/schemas/CoreAPI_ArgumentSets_TimeLookupArgumentSet"
+                  },
+                  "timezone": {
+                    "$ref": "#/components/schemas/CoreAPI_Objects_TimeZone"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Format the given time",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "formatted_time": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "formatted_time"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/example/format_multiple": {
+      "post": {
+        "operationId": "post:example_format_multiple",
+        "tags": [
+          "Core"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "times": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/CoreAPI_ArgumentSets_TimeLookupArgumentSet"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Format the given times",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "formatted_times": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "times": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "unix": {
+                            "type": "integer"
+                          },
+                          "year": {
+                            "type": "object",
+                            "properties": {
+                              "as_string": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "as_array_of_objects": {
+                            "type": "object",
+                            "properties": {
+                              "as_integer": {
+                                "type": "integer"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "formatted_times",
+                    "times"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/time/now": {
+      "get": {
+        "operationId": "get:time_now",
+        "tags": [
+          "Core"
+        ],
+        "parameters": [
+          {
+            "name": "timezone",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/CoreAPI_Objects_TimeZone"
+            }
+          },
+          {
+            "name": "time_zones[]",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/CoreAPI_Objects_TimeZone"
+              }
+            }
+          },
+          {
+            "name": "filters[]",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the current time",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "time": {
+                      "$ref": "#/components/schemas/CoreAPI_Objects_Time"
+                    },
+                    "time_zones": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/CoreAPI_Objects_TimeZone"
+                      }
+                    },
+                    "filters": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "my_polymorph": {
+                      "oneOf": [
+                        {
+                          "$ref": "#/components/schemas/CoreAPI_Objects_MonthLong"
+                        },
+                        {
+                          "$ref": "#/components/schemas/CoreAPI_Objects_MonthShort"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "time",
+                    "time_zones",
+                    "filters",
+                    "my_polymorph"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "post:time_now",
+        "tags": [
+          "Core"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "timezone": {
+                    "$ref": "#/components/schemas/CoreAPI_Objects_TimeZone"
+                  },
+                  "time_zones": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/CoreAPI_Objects_TimeZone"
+                    }
+                  },
+                  "filters": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the current time",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "time": {
+                      "$ref": "#/components/schemas/CoreAPI_Objects_Time"
+                    },
+                    "time_zones": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/CoreAPI_Objects_TimeZone"
+                      }
+                    },
+                    "filters": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "my_polymorph": {
+                      "oneOf": [
+                        {
+                          "$ref": "#/components/schemas/CoreAPI_Objects_MonthLong"
+                        },
+                        {
+                          "$ref": "#/components/schemas/CoreAPI_Objects_MonthShort"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "time",
+                    "time_zones",
+                    "filters",
+                    "my_polymorph"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/test/:object": {
+      "get": {
+        "operationId": "get:test_object",
+        "tags": [
+          "Core"
+        ],
+        "parameters": [
+          {
+            "name": "object[id]",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "object[permalink]",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the current time",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "time": {
+                      "type": "object",
+                      "properties": {
+                        "unix": {
+                          "type": "integer"
+                        },
+                        "day_of_week": {
+                          "$ref": "#/components/schemas/CoreAPI_Objects_Day"
+                        },
+                        "year": {
+                          "type": "object",
+                          "properties": {
+                            "as_string": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "object_id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "object_id"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "post:test_object",
+        "tags": [
+          "Core"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "object": {
+                    "$ref": "#/components/schemas/CoreAPI_ArgumentSets_ObjectLookup"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the current time",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "time": {
+                      "type": "object",
+                      "properties": {
+                        "unix": {
+                          "type": "integer"
+                        },
+                        "day_of_week": {
+                          "$ref": "#/components/schemas/CoreAPI_Objects_Day"
+                        },
+                        "year": {
+                          "type": "object",
+                          "properties": {
+                            "as_string": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "object_id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "object_id"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/time/formatting/format": {
+      "get": {
+        "operationId": "get:time_formatting_format",
+        "tags": [
+          "Core"
+        ],
+        "parameters": [
+          {
+            "name": "time[unix]",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "time[string]",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "timezone",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/CoreAPI_Objects_TimeZone"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Format the given time",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "formatted_time": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "formatted_time"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "post:time_formatting_format",
+        "tags": [
+          "Core"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "time": {
+                    "$ref": "#/components/schemas/CoreAPI_ArgumentSets_TimeLookupArgumentSet"
+                  },
+                  "timezone": {
+                    "$ref": "#/components/schemas/CoreAPI_Objects_TimeZone"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Format the given time",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "formatted_time": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "formatted_time"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CoreAPI_Objects_TimeZone": {
+        "type": "string",
+        "enum": [
+          "Europe/London",
+          "Europe/Madrid",
+          "Asia/Singapore"
+        ]
+      },
+      "CoreAPI_ArgumentSets_TimeLookupArgumentSet": {
+        "type": "object",
+        "properties": {
+          "unix": {
+            "type": "string"
+          },
+          "string": {
+            "type": "string"
+          }
+        }
+      },
+      "CoreAPI_Objects_Time": {
+        "type": "object",
+        "properties": {
+          "unix": {
+            "type": "integer"
+          },
+          "day_of_week": {
+            "$ref": "#/components/schemas/CoreAPI_Objects_Day"
+          },
+          "full": {
+            "type": "string"
+          },
+          "year": {
+            "$ref": "#/components/schemas/CoreAPI_Objects_Year"
+          },
+          "month": {
+            "$ref": "#/components/schemas/CoreAPI_Objects_MonthPolymorph"
+          },
+          "as_array": {
+            "type": "integer"
+          },
+          "as_array_of_objects": {
+            "$ref": "#/components/schemas/CoreAPI_Objects_Year"
+          },
+          "as_decimal": {
+            "type": "number"
+          },
+          "as_base64": {
+            "type": "string"
+          }
+        }
+      },
+      "CoreAPI_Objects_Day": {
+        "type": "string",
+        "enum": [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday"
+        ]
+      },
+      "CoreAPI_Objects_Year": {
+        "type": "object",
+        "properties": {
+          "as_integer": {
+            "type": "integer"
+          },
+          "as_string": {
+            "type": "string"
+          }
+        }
+      },
+      "CoreAPI_Objects_MonthPolymorph": {
+        "type": "object",
+        "properties": {
+          "month": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/CoreAPI_Objects_MonthLong"
+              },
+              {
+                "$ref": "#/components/schemas/CoreAPI_Objects_MonthShort"
+              }
+            ]
+          }
+        }
+      },
+      "CoreAPI_Objects_MonthLong": {
+        "type": "object",
+        "properties": {
+          "month_long": {
+            "type": "string"
+          }
+        }
+      },
+      "CoreAPI_Objects_MonthShort": {
+        "type": "object",
+        "properties": {
+          "month_short": {
+            "type": "string"
+          }
+        }
+      },
+      "CoreAPI_ArgumentSets_ObjectLookup": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "permalink": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "CoreAPI_MainAuthenticator": {
+        "scheme": "bearer",
+        "type": "http"
+      }
+    }
+  },
+  "security": [
+    {
+      "CoreAPI_MainAuthenticator": [
+
+      ]
+    }
+  ]
+}
