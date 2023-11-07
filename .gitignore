@@ -1,0 +1,17 @@
+/.bundle/
+/.yardoc
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+/tmp/
+.DS_Store
+
+# rspec failure tracking
+.rspec_status
+
+# rubocop cache of remote rules file
+.rubocop-https---dev-k-io-rubocop-*
+
+*.gem
