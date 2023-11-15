@@ -16,7 +16,7 @@ module CoreAPI
     routes do
       schema
 
-      get "example/format", controller: Controllers::TimeController, endpoint: :format
+      get "time_formatting/format", controller: Controllers::TimeController, endpoint: :format
       post "example/format", controller: Controllers::TimeController, endpoint: :format
       post "example/format_multiple", controller: Controllers::TimeController, endpoint: :format_multiple
 

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "core_api/objects/time"
+require "core_api/argument_sets/another_lookup_argument_set"
 require "core_api/argument_sets/time_lookup_argument_set"
 require "core_api/endpoints/time_now_endpoint"
 
@@ -28,7 +29,7 @@ module CoreAPI
 
       endpoint :format_multiple do
         description "Format the given times"
-        argument :times, type: [ArgumentSets::TimeLookupArgumentSet], required: true
+        argument :times, type: [ArgumentSets::AnotherLookupArgumentSet], required: false
         field :formatted_times, type: [:string]
         field :times, type: [Objects::Time], include: "unix,year[as_string],as_array_of_objects[as_integer]"
         action do

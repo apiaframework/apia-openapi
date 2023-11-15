@@ -94,8 +94,6 @@ module Apia
 
           id = "#{@route.request_method}:#{result_parts.join('_')}"
           if @path_ids.include?(id)
-            # TODO: make sure example app triggers this
-            # an existing route has already produced the same id, fallback to the full path
             id = "#{@route.request_method}:#{@route.path}"
           end
           @path_ids << id

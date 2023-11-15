@@ -10,9 +10,9 @@
     }
   ],
   "paths": {
-    "/example/format": {
+    "/time_formatting/format": {
       "get": {
-        "operationId": "get:example_format",
+        "operationId": "get:time_formatting_format",
         "tags": [
           "Core"
         ],
@@ -58,7 +58,9 @@
             }
           }
         }
-      },
+      }
+    },
+    "/example/format": {
       "post": {
         "operationId": "post:example_format",
         "tags": [
@@ -115,7 +117,7 @@
                   "times": {
                     "type": "array",
                     "items": {
-                      "$ref": "#/components/schemas/CoreAPI_ArgumentSets_TimeLookupArgumentSet"
+                      "$ref": "#/components/schemas/CoreAPI_ArgumentSets_AnotherLookupArgumentSet"
                     }
                   }
                 }
@@ -153,10 +155,13 @@
                             }
                           },
                           "as_array_of_objects": {
-                            "type": "object",
-                            "properties": {
-                              "as_integer": {
-                                "type": "integer"
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "as_integer": {
+                                  "type": "integer"
+                                }
                               }
                             }
                           }
@@ -351,6 +356,13 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "scalar",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -404,6 +416,9 @@
                 "properties": {
                   "object": {
                     "$ref": "#/components/schemas/CoreAPI_ArgumentSets_ObjectLookup"
+                  },
+                  "scalar": {
+                    "type": "string"
                   }
                 }
               }
@@ -452,7 +467,7 @@
     },
     "/time/formatting/format": {
       "get": {
-        "operationId": "get:time_formatting_format",
+        "operationId": "get:time/formatting/format",
         "tags": [
           "Core"
         ],
@@ -563,6 +578,17 @@
           }
         }
       },
+      "CoreAPI_ArgumentSets_AnotherLookupArgumentSet": {
+        "type": "object",
+        "properties": {
+          "unix": {
+            "type": "string"
+          },
+          "string": {
+            "type": "string"
+          }
+        }
+      },
       "CoreAPI_Objects_Time": {
         "type": "object",
         "properties": {
@@ -582,10 +608,16 @@
             "$ref": "#/components/schemas/CoreAPI_Objects_MonthPolymorph"
           },
           "as_array": {
-            "type": "integer"
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
           },
           "as_array_of_objects": {
-            "$ref": "#/components/schemas/CoreAPI_Objects_Year"
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CoreAPI_Objects_Year"
+            }
           },
           "as_decimal": {
             "type": "number"

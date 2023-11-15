@@ -11,7 +11,9 @@ RSpec.describe Apia::OpenApi::Specification do
 
       spec = described_class.new(example_api, base_url, "Core")
 
-      expected_spec = File.read("spec/support/fixtures/openapi.json")
+      expected_spec = File.read("spec/support/fixtures/openapi.json").strip
+
+      puts "class: #{expected_spec.class.inspect}"
 
       expect(spec.json).to eq(expected_spec)
     end
