@@ -13,8 +13,6 @@ RSpec.describe Apia::OpenApi::Specification do
 
       expected_spec = File.read("spec/support/fixtures/openapi.json").strip
 
-      puts "class: #{expected_spec.class.inspect}"
-
       expect(spec.json).to eq(expected_spec)
     end
   end

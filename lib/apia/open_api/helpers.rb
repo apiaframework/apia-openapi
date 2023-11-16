@@ -16,7 +16,6 @@ module Apia
         Objects::Schema.new(spec: @spec, definition: definition, schema: component_schema).add_to_spec
       end
 
-      # TODO: prob turn into case statement and explicitly declare all types, raise on unknown type
       def convert_type_to_open_api_data_type(type)
         if type.klass == Apia::Scalars::UnixTime
           "integer"

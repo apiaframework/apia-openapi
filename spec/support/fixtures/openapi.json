@@ -117,7 +117,7 @@
                   "times": {
                     "type": "array",
                     "items": {
-                      "$ref": "#/components/schemas/CoreAPI_ArgumentSets_AnotherLookupArgumentSet"
+                      "$ref": "#/components/schemas/CoreAPI_ArgumentSets_TimeLookupArgumentSet"
                     }
                   }
                 }
@@ -578,17 +578,6 @@
           }
         }
       },
-      "CoreAPI_ArgumentSets_AnotherLookupArgumentSet": {
-        "type": "object",
-        "properties": {
-          "unix": {
-            "type": "string"
-          },
-          "string": {
-            "type": "string"
-          }
-        }
-      },
       "CoreAPI_Objects_Time": {
         "type": "object",
         "properties": {
@@ -647,6 +636,18 @@
           },
           "as_string": {
             "type": "string"
+          },
+          "as_array_of_strings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "as_array_of_enums": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CoreAPI_Objects_Day"
+            }
           }
         }
       },

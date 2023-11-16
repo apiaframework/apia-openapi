@@ -54,8 +54,6 @@ module Apia
             end
           end
 
-          # TODO: description
-          # TODO: required
           @route_spec[:requestBody] = {
             content: {
               "application/json": {
