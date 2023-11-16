@@ -8,7 +8,7 @@ module CoreAPI
 
       description "Returns the current time"
       argument :object, type: ArgumentSets::ObjectLookup, required: true
-      argument :scalar, type: :string
+      argument :scalar, type: :string, required: true
       field :time, type: Objects::Time, include: "unix,day_of_week,year[as_string]", null: true do
         condition do |o|
           o[:time].year.to_s == "2023"

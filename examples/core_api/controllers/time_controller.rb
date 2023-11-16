@@ -18,7 +18,7 @@ module CoreAPI
       endpoint :format do
         description "Format the given time"
         argument :time, type: ArgumentSets::TimeLookupArgumentSet, required: true
-        argument :timezone, type: Objects::TimeZone
+        argument :timezone, type: Objects::TimeZone, required: true
         field :formatted_time, type: :string, null: true
         action do
           time = request.arguments[:time]

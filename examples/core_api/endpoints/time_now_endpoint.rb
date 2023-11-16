@@ -8,7 +8,7 @@ module CoreAPI
 
       description "Returns the current time"
       argument :timezone, type: Objects::TimeZone
-      argument :time_zones, [Objects::TimeZone]
+      argument :time_zones, [Objects::TimeZone], required: true
       argument :filters, [:string]
       field :time, type: Objects::Time
       field :time_zones, type: [Objects::TimeZone]

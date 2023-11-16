@@ -36,7 +36,8 @@
             "in": "query",
             "schema": {
               "$ref": "#/components/schemas/CoreAPI_Objects_TimeZone"
-            }
+            },
+            "required": true
           }
         ],
         "responses": {
@@ -204,7 +205,8 @@
               "items": {
                 "$ref": "#/components/schemas/CoreAPI_Objects_TimeZone"
               }
-            }
+            },
+            "required": true
           },
           {
             "name": "filters[]",
@@ -386,7 +388,8 @@
             "in": "query",
             "schema": {
               "type": "string"
-            }
+            },
+            "required": true
           }
         ],
         "responses": {
@@ -517,7 +520,8 @@
             "in": "query",
             "schema": {
               "$ref": "#/components/schemas/CoreAPI_Objects_TimeZone"
-            }
+            },
+            "required": true
           }
         ],
         "responses": {
