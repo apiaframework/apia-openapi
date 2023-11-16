@@ -46,7 +46,7 @@ module Apia
               add_to_parameters(param)
             end
           elsif @argument.array?
-            if @argument.type.enum? || @argument.type.object? # polymorph?
+            if @argument.type.enum? || @argument.type.object?
               items = generate_schema_ref(@argument.type.klass.definition)
               add_to_components_schemas(@argument)
             else

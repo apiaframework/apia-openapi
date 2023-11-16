@@ -48,12 +48,9 @@ module Apia
           if @definition.type.polymorph?
             build_schema_for_polymorph
             return @schema
-          elsif @definition.respond_to?(:array?) && @definition.array?
-            build_schema_for_array
           end
 
           generate_child_schemas
-
           @schema
         end
 
@@ -68,31 +65,6 @@ module Apia
             add_to_components_schemas(polymorph_option)
           end
           @schema[:properties][@definition.name.to_s] = { oneOf: refs }
-        end
-
-        def build_schema_for_array
-          @schema[:type] = "object"
-          @schema[:properties] ||= {}
-          if @definition.type.argument_set? || @definition.type.enum? || @definition.type.object?
-            if @definition.type.argument_set?
-              # TODO: add array of argument sets to the example app (refer to CoreAPI::ArgumentSets::KeyValue)
-              @children = @definition.type.klass.definition.arguments.values
-            else
-              @children = @definition.type.klass.definition.fields.values
-            end
-          else
-            items = { type: convert_type_to_open_api_data_type(@definition.type) }
-          end
-
-          return unless items
-
-          # TODO: ensure this is triggered by example API
-
-          @schema[:properties][@definition.name.to_s] = {
-            type: "array",
-            items: items
-          }
-          @schema
         end
 
         def generate_child_schemas
@@ -110,43 +82,64 @@ module Apia
           @children.each do |child|
             next unless @endpoint.nil? || (!@definition.type.enum? && @endpoint.include_field?(@path + [child.name]))
 
-            generate_schema_for_child(child, all_properties_included)
+            if child.respond_to?(:array?) && child.array?
+              generate_schema_for_child_array(@schema, child, all_properties_included)
+            else
+              generate_schema_for_child(@schema, child, all_properties_included)
+            end
           end
         end
 
-        def generate_schema_for_child(child, all_properties_included)
+        def generate_schema_for_child_array(schema, child, all_properties_included)
+          child_schema = generate_schema_for_child({}, child, all_properties_included)
+          items = child_schema.dig(:properties, child.name.to_s)
+          return unless items.present?
+
+          schema[:properties] ||= {}
+          schema[:properties][child.name.to_s] = {
+            type: "array",
+            items: items
+          }
+        end
+
+        def generate_schema_for_child(schema, child, all_properties_included)
           if @definition.type.enum?
-            @schema[:type] = "string"
-            @schema[:enum] = @children.map { |c| c[:name] }
+            schema[:type] = "string"
+            schema[:enum] = @children.map { |c| c[:name] }
           elsif child.type.argument_set? || child.type.enum? || child.type.polymorph?
-            @schema[:type] = "object"
-            @schema[:properties] ||= {}
-            @schema[:properties][child.name.to_s] = generate_schema_ref(child.type.klass.definition)
+            schema[:type] = "object"
+            schema[:properties] ||= {}
+            schema[:properties][child.name.to_s] = generate_schema_ref(child.type.klass.definition)
             add_to_components_schemas(child)
           elsif child.type.object?
-            @schema[:type] = "object"
-            @schema[:properties] ||= {}
-            if all_properties_included
-              @schema[:properties][child.name.to_s] = generate_schema_ref(child.type.klass.definition)
-              add_to_components_schemas(child)
-            else
-              child_path = @path.nil? ? nil : @path + [child]
-              child_schema = {}
-              @schema[:properties][child.name.to_s] = child_schema
-              self.class.new(
-                spec: @spec,
-                definition: child,
-                schema: child_schema,
-                endpoint: @endpoint,
-                path: child_path
-              ).add_to_spec
-            end
+            generate_properties_for_object(schema, child, all_properties_included)
           else # scalar
-            @schema[:type] = "object"
-            @schema[:properties] ||= {}
-            @schema[:properties][child.name.to_s] = {
+            schema[:type] = "object"
+            schema[:properties] ||= {}
+            schema[:properties][child.name.to_s] = {
               type: convert_type_to_open_api_data_type(child.type)
             }
+          end
+          schema
+        end
+
+        def generate_properties_for_object(schema, child, all_properties_included)
+          schema[:type] = "object"
+          schema[:properties] ||= {}
+          if all_properties_included
+            schema[:properties][child.name.to_s] = generate_schema_ref(child.type.klass.definition)
+            add_to_components_schemas(child)
+          else
+            child_path = @path.nil? ? nil : @path + [child]
+            child_schema = {}
+            schema[:properties][child.name.to_s] = child_schema
+            self.class.new(
+              spec: @spec,
+              definition: child,
+              schema: child_schema,
+              endpoint: @endpoint,
+              path: child_path
+            ).add_to_spec
           end
         end
 

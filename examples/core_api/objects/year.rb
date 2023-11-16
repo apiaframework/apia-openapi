@@ -16,6 +16,14 @@ module CoreAPI
         backend(&:to_s)
       end
 
+      field :as_array_of_strings, type: [:string] do
+        backend { |y| y.chars }
+      end
+
+      field :as_array_of_enums, type: [Day] do
+        backend { %w[Sunday Monday] }
+      end
+
     end
   end
 end

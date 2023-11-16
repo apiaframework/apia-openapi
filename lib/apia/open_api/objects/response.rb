@@ -84,7 +84,7 @@ module Apia
         end
 
         def build_properties_for_polymorph(field_name, field, properties)
-          if field.include.nil?
+          if field_includes_all_properties?(field)
             refs = []
             field.type.klass.definition.options.map do |_, polymorph_option|
               refs << generate_schema_ref(polymorph_option.type.klass.definition)
@@ -92,12 +92,12 @@ module Apia
             end
             properties[field_name] = { oneOf: refs }
           else
-            # TODO
+            # TODO: https://github.com/krystal/apia-openapi/issues/13
           end
         end
 
         def build_properties_for_array(field_name, field, properties)
-          if field.type.object? || field.type.enum? # polymorph?
+          if field.type.object? || field.type.enum?
             if field_includes_all_properties?(field)
               items = generate_schema_ref(field.type.klass.definition)
               add_to_components_schemas(field)

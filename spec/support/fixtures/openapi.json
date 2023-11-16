@@ -10,9 +10,9 @@
     }
   ],
   "paths": {
-    "/example/format": {
+    "/time_formatting/format": {
       "get": {
-        "operationId": "get:example_format",
+        "operationId": "get:time_formatting_format",
         "tags": [
           "Core"
         ],
@@ -58,7 +58,9 @@
             }
           }
         }
-      },
+      }
+    },
+    "/example/format": {
       "post": {
         "operationId": "post:example_format",
         "tags": [
@@ -153,10 +155,13 @@
                             }
                           },
                           "as_array_of_objects": {
-                            "type": "object",
-                            "properties": {
-                              "as_integer": {
-                                "type": "integer"
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "as_integer": {
+                                  "type": "integer"
+                                }
                               }
                             }
                           }
@@ -351,6 +356,13 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "scalar",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -404,6 +416,9 @@
                 "properties": {
                   "object": {
                     "$ref": "#/components/schemas/CoreAPI_ArgumentSets_ObjectLookup"
+                  },
+                  "scalar": {
+                    "type": "string"
                   }
                 }
               }
@@ -452,7 +467,7 @@
     },
     "/time/formatting/format": {
       "get": {
-        "operationId": "get:time_formatting_format",
+        "operationId": "get:time/formatting/format",
         "tags": [
           "Core"
         ],
@@ -582,10 +597,16 @@
             "$ref": "#/components/schemas/CoreAPI_Objects_MonthPolymorph"
           },
           "as_array": {
-            "type": "integer"
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
           },
           "as_array_of_objects": {
-            "$ref": "#/components/schemas/CoreAPI_Objects_Year"
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CoreAPI_Objects_Year"
+            }
           },
           "as_decimal": {
             "type": "number"
@@ -615,6 +636,18 @@
           },
           "as_string": {
             "type": "string"
+          },
+          "as_array_of_strings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "as_array_of_enums": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CoreAPI_Objects_Day"
+            }
           }
         }
       },

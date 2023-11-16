@@ -45,7 +45,7 @@ module Apia
 
       def add_info
         @spec[:info] = {
-          version: "1.0.0", # TODO: can we actually read the api version?
+          version: "1.0.0",
           title: @api.definition.name || @api.definition.id
         }
         @spec[:info][:description] = @api.definition.description unless @api.definition.description.nil?
