@@ -79,7 +79,11 @@
                   "timezone": {
                     "$ref": "#/components/schemas/CoreAPI_Objects_TimeZone"
                   }
-                }
+                },
+                "required": [
+                  "time",
+                  "timezone"
+                ]
               }
             }
           }
@@ -123,7 +127,10 @@
                       "$ref": "#/components/schemas/CoreAPI_ArgumentSets_TimeLookupArgumentSet"
                     }
                   }
-                }
+                },
+                "required": [
+                  "times"
+                ]
               }
             }
           }
@@ -300,7 +307,10 @@
                       "type": "string"
                     }
                   }
-                }
+                },
+                "required": [
+                  "time_zones"
+                ]
               }
             }
           }
@@ -448,7 +458,11 @@
                   "scalar": {
                     "type": "string"
                   }
-                }
+                },
+                "required": [
+                  "object",
+                  "scalar"
+                ]
               }
             }
           }
@@ -561,7 +575,11 @@
                   "timezone": {
                     "$ref": "#/components/schemas/CoreAPI_Objects_TimeZone"
                   }
-                }
+                },
+                "required": [
+                  "time",
+                  "timezone"
+                ]
               }
             }
           }
