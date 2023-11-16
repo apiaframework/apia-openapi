@@ -246,13 +246,22 @@
                           "$ref": "#/components/schemas/CoreAPI_Objects_MonthShort"
                         }
                       ]
+                    },
+                    "my_partial_polymorph": {
+                      "type": "object",
+                      "properties": {
+                        "number": {
+                          "type": "integer"
+                        }
+                      }
                     }
                   },
                   "required": [
                     "time",
                     "time_zones",
                     "filters",
-                    "my_polymorph"
+                    "my_polymorph",
+                    "my_partial_polymorph"
                   ]
                 }
               }
@@ -321,13 +330,22 @@
                           "$ref": "#/components/schemas/CoreAPI_Objects_MonthShort"
                         }
                       ]
+                    },
+                    "my_partial_polymorph": {
+                      "type": "object",
+                      "properties": {
+                        "number": {
+                          "type": "integer"
+                        }
+                      }
                     }
                   },
                   "required": [
                     "time",
                     "time_zones",
                     "filters",
-                    "my_polymorph"
+                    "my_polymorph",
+                    "my_partial_polymorph"
                   ]
                 }
               }
@@ -669,6 +687,9 @@
       "CoreAPI_Objects_MonthLong": {
         "type": "object",
         "properties": {
+          "number": {
+            "type": "integer"
+          },
           "month_long": {
             "type": "string"
           }
@@ -677,6 +698,9 @@
       "CoreAPI_Objects_MonthShort": {
         "type": "object",
         "properties": {
+          "number": {
+            "type": "integer"
+          },
           "month_short": {
             "type": "string"
           }

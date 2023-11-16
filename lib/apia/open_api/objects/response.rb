@@ -92,7 +92,17 @@ module Apia
             end
             properties[field_name] = { oneOf: refs }
           else
-            # TODO: https://github.com/krystal/apia-openapi/issues/13
+            # we assume the partially selected attributes must be present in all of the polymorph options
+            # and that each option returns the same data type for that attribute
+            object_schema = {}
+            Objects::Schema.new(
+              spec: @spec,
+              definition: field.type.klass.definition.options.values.first,
+              schema: object_schema,
+              endpoint: @endpoint,
+              path: [field]
+            ).add_to_spec
+            properties[field_name] = object_schema
           end
         end
 
