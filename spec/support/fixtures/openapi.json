@@ -626,7 +626,10 @@
           "string": {
             "type": "string"
           }
-        }
+        },
+        "required": [
+          "unix"
+        ]
       },
       "CoreAPI_Objects_Time": {
         "type": "object",

@@ -120,6 +120,11 @@ module Apia
               type: convert_type_to_open_api_data_type(child.type)
             }
           end
+
+          if child.try(:required?)
+            schema[:required] ||= []
+            schema[:required] << child.name.to_s
+          end
           schema
         end
 

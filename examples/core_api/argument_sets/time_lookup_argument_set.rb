@@ -4,7 +4,7 @@ module CoreAPI
   module ArgumentSets
     class TimeLookupArgumentSet < Apia::LookupArgumentSet
 
-      argument :unix, type: :string
+      argument :unix, type: :string, required: true
       argument :string, type: :string
 
       potential_error "InvalidTime" do
