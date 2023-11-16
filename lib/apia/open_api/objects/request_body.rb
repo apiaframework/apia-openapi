@@ -31,7 +31,9 @@ module Apia
         end
 
         def add_to_spec
+          required = []
           @route.endpoint.definition.argument_set.definition.arguments.each_value do |arg|
+            required << arg.name.to_s if arg.required?
             if arg.array?
               if arg.type.argument_set? || arg.type.enum?
                 items = generate_schema_ref(arg.type.klass.definition)
@@ -54,12 +56,13 @@ module Apia
             end
           end
 
+          schema = { properties: @properties }
+          schema[:required] = required unless required.empty?
+
           @route_spec[:requestBody] = {
             content: {
               "application/json": {
-                schema: {
-                  properties: @properties
-                }
+                schema: schema
               }
             }
           }

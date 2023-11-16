@@ -61,6 +61,7 @@ module Apia
                 items: items
               }
             }
+            param[:required] = true if @argument.required?
             add_to_parameters(param)
           elsif @argument.type.enum?
             param = {
@@ -68,6 +69,7 @@ module Apia
               in: "query",
               schema: generate_schema_ref(@argument.type.klass.definition)
             }
+            param[:required] = true if @argument.required?
             add_to_parameters(param)
             add_to_components_schemas(@argument)
           else
@@ -78,6 +80,7 @@ module Apia
                 type: convert_type_to_open_api_data_type(@argument.type)
               }
             }
+            param[:required] = true if @argument.required?
             add_to_parameters(param)
           end
         end

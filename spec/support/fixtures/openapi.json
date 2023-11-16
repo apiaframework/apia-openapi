@@ -36,7 +36,8 @@
             "in": "query",
             "schema": {
               "$ref": "#/components/schemas/CoreAPI_Objects_TimeZone"
-            }
+            },
+            "required": true
           }
         ],
         "responses": {
@@ -78,7 +79,11 @@
                   "timezone": {
                     "$ref": "#/components/schemas/CoreAPI_Objects_TimeZone"
                   }
-                }
+                },
+                "required": [
+                  "time",
+                  "timezone"
+                ]
               }
             }
           }
@@ -122,7 +127,10 @@
                       "$ref": "#/components/schemas/CoreAPI_ArgumentSets_TimeLookupArgumentSet"
                     }
                   }
-                }
+                },
+                "required": [
+                  "times"
+                ]
               }
             }
           }
@@ -204,7 +212,8 @@
               "items": {
                 "$ref": "#/components/schemas/CoreAPI_Objects_TimeZone"
               }
-            }
+            },
+            "required": true
           },
           {
             "name": "filters[]",
@@ -298,7 +307,10 @@
                       "type": "string"
                     }
                   }
-                }
+                },
+                "required": [
+                  "time_zones"
+                ]
               }
             }
           }
@@ -386,7 +398,8 @@
             "in": "query",
             "schema": {
               "type": "string"
-            }
+            },
+            "required": true
           }
         ],
         "responses": {
@@ -445,7 +458,11 @@
                   "scalar": {
                     "type": "string"
                   }
-                }
+                },
+                "required": [
+                  "object",
+                  "scalar"
+                ]
               }
             }
           }
@@ -517,7 +534,8 @@
             "in": "query",
             "schema": {
               "$ref": "#/components/schemas/CoreAPI_Objects_TimeZone"
-            }
+            },
+            "required": true
           }
         ],
         "responses": {
@@ -557,7 +575,11 @@
                   "timezone": {
                     "$ref": "#/components/schemas/CoreAPI_Objects_TimeZone"
                   }
-                }
+                },
+                "required": [
+                  "time",
+                  "timezone"
+                ]
               }
             }
           }
@@ -604,7 +626,10 @@
           "string": {
             "type": "string"
           }
-        }
+        },
+        "required": [
+          "unix"
+        ]
       },
       "CoreAPI_Objects_Time": {
         "type": "object",
