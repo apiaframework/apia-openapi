@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+require "active_support"
 require "active_support/inflector"
+require "active_support/core_ext"
 require_relative "helpers"
 require_relative "objects"
 

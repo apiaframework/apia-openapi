@@ -6,6 +6,10 @@ module CoreAPI
 
       description "Represents a month"
 
+      field :number, type: :integer do
+        backend { |t| t.strftime("%-m") }
+      end
+
       field :month_long, type: :string do
         backend { |t| t.strftime("%B") }
       end

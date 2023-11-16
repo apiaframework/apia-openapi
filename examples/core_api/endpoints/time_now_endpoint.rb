@@ -14,6 +14,7 @@ module CoreAPI
       field :time_zones, type: [Objects::TimeZone]
       field :filters, [:string]
       field :my_polymorph, type: Objects::MonthPolymorph
+      field :my_partial_polymorph, type: Objects::MonthPolymorph, include: "number"
       scope "time"
 
       def call
