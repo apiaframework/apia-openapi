@@ -12,9 +12,9 @@ module CoreAPI
       argument :filters, [:string]
       field :time, type: Objects::Time
       field :time_zones, type: [Objects::TimeZone]
-      field :filters, [:string]
+      field :filters, [:string], null: true
       field :my_polymorph, type: Objects::MonthPolymorph
-      field :my_partial_polymorph, type: Objects::MonthPolymorph, include: "number"
+      field :my_partial_polymorph, type: Objects::MonthPolymorph, include: "number", null: true
       scope "time"
 
       def call

@@ -80,6 +80,7 @@ module Apia
               type: convert_type_to_open_api_data_type(field.type)
             }
           end
+          properties[field_name][:nullable] = true if field.null?
           properties
         end
 

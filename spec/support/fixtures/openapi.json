@@ -47,7 +47,8 @@
                 "schema": {
                   "properties": {
                     "formatted_time": {
-                      "type": "string"
+                      "type": "string",
+                      "nullable": true
                     }
                   },
                   "required": [
@@ -90,7 +91,8 @@
                 "schema": {
                   "properties": {
                     "formatted_time": {
-                      "type": "string"
+                      "type": "string",
+                      "nullable": true
                     }
                   },
                   "required": [
@@ -235,7 +237,8 @@
                       "type": "array",
                       "items": {
                         "type": "string"
-                      }
+                      },
+                      "nullable": true
                     },
                     "my_polymorph": {
                       "oneOf": [
@@ -253,7 +256,8 @@
                         "number": {
                           "type": "integer"
                         }
-                      }
+                      },
+                      "nullable": true
                     }
                   },
                   "required": [
@@ -319,7 +323,8 @@
                       "type": "array",
                       "items": {
                         "type": "string"
-                      }
+                      },
+                      "nullable": true
                     },
                     "my_polymorph": {
                       "oneOf": [
@@ -337,7 +342,8 @@
                         "number": {
                           "type": "integer"
                         }
-                      }
+                      },
+                      "nullable": true
                     }
                   },
                   "required": [
@@ -407,7 +413,8 @@
                             }
                           }
                         }
-                      }
+                      },
+                      "nullable": true
                     },
                     "object_id": {
                       "type": "string"
@@ -467,7 +474,8 @@
                             }
                           }
                         }
-                      }
+                      },
+                      "nullable": true
                     },
                     "object_id": {
                       "type": "string"
@@ -520,7 +528,8 @@
                 "schema": {
                   "properties": {
                     "formatted_time": {
-                      "type": "string"
+                      "type": "string",
+                      "nullable": true
                     }
                   },
                   "required": [
@@ -561,7 +570,8 @@
                 "schema": {
                   "properties": {
                     "formatted_time": {
-                      "type": "string"
+                      "type": "string",
+                      "nullable": true
                     }
                   },
                   "required": [

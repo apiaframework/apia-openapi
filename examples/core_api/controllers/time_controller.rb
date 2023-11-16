@@ -19,7 +19,7 @@ module CoreAPI
         description "Format the given time"
         argument :time, type: ArgumentSets::TimeLookupArgumentSet, required: true
         argument :timezone, type: Objects::TimeZone
-        field :formatted_time, type: :string
+        field :formatted_time, type: :string, null: true
         action do
           time = request.arguments[:time]
           response.add_field :formatted_time, time.resolve.to_s
