@@ -579,23 +579,29 @@
             "type": "integer"
           },
           "year": {
-            "type": "object",
-            "properties": {
-              "as_string": {
-                "type": "string"
-              }
-            }
+            "$ref": "#/components/schemas/post_example_format_multiple_200_response_times_year"
           },
           "as_array_of_objects": {
             "type": "array",
             "items": {
-              "type": "object",
-              "properties": {
-                "as_integer": {
-                  "type": "integer"
-                }
-              }
+              "$ref": "#/components/schemas/post_example_format_multiple_200_response_times_as_array_of_objects"
             }
+          }
+        }
+      },
+      "post_example_format_multiple_200_response_times_year": {
+        "type": "object",
+        "properties": {
+          "as_string": {
+            "type": "string"
+          }
+        }
+      },
+      "post_example_format_multiple_200_response_times_as_array_of_objects": {
+        "type": "object",
+        "properties": {
+          "as_integer": {
+            "type": "integer"
           }
         }
       },
@@ -735,12 +741,15 @@
             "$ref": "#/components/schemas/CoreAPI_Objects_Day"
           },
           "year": {
-            "type": "object",
-            "properties": {
-              "as_string": {
-                "type": "string"
-              }
-            }
+            "$ref": "#/components/schemas/get_test_object_200_response_time_year"
+          }
+        }
+      },
+      "get_test_object_200_response_time_year": {
+        "type": "object",
+        "properties": {
+          "as_string": {
+            "type": "string"
           }
         }
       },
@@ -766,12 +775,15 @@
             "$ref": "#/components/schemas/CoreAPI_Objects_Day"
           },
           "year": {
-            "type": "object",
-            "properties": {
-              "as_string": {
-                "type": "string"
-              }
-            }
+            "$ref": "#/components/schemas/post_test_object_200_response_time_year"
+          }
+        }
+      },
+      "post_test_object_200_response_time_year": {
+        "type": "object",
+        "properties": {
+          "as_string": {
+            "type": "string"
           }
         }
       }

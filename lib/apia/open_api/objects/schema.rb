@@ -35,10 +35,11 @@ module Apia
 
         include Apia::OpenApi::Helpers
 
-        def initialize(spec:, definition:, schema:, endpoint: nil, path: nil)
+        def initialize(spec:, definition:, schema:, id:, endpoint: nil, path: nil)
           @spec = spec
           @definition = definition
           @schema = schema
+          @id = id
           @endpoint = endpoint
           @path = path
           @children = []
@@ -134,15 +135,12 @@ module Apia
             schema[:properties][child.name.to_s] = generate_schema_ref(child)
           else
             child_path = @path.nil? ? nil : @path + [child]
-            child_schema = {}
-            schema[:properties][child.name.to_s] = child_schema
-            self.class.new(
-              spec: @spec,
-              definition: child,
-              schema: child_schema,
+            schema[:properties][child.name.to_s] = generate_schema_ref(
+              child,
+              id: "#{@id}_#{child.name}",
               endpoint: @endpoint,
               path: child_path
-            ).add_to_spec
+            )
           end
         end
 

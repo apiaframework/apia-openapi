@@ -16,6 +16,7 @@ module Apia
           spec: @spec,
           definition: definition,
           schema: component_schema,
+          id: id,
           **schema_opts
         ).add_to_spec
       end
