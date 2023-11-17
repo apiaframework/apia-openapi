@@ -61,8 +61,7 @@ module Apia
           @schema[:properties] ||= {}
           refs = []
           @definition.type.klass.definition.options.map do |_, polymorph_option|
-            refs << generate_schema_ref(polymorph_option.type.klass.definition)
-            add_to_components_schemas(polymorph_option)
+            refs << generate_schema_ref(polymorph_option)
           end
           @schema[:properties][@definition.name.to_s] = { oneOf: refs }
         end
@@ -110,8 +109,7 @@ module Apia
           elsif child.type.argument_set? || child.type.enum? || child.type.polymorph?
             schema[:type] = "object"
             schema[:properties] ||= {}
-            schema[:properties][child.name.to_s] = generate_schema_ref(child.type.klass.definition)
-            add_to_components_schemas(child)
+            schema[:properties][child.name.to_s] = generate_schema_ref(child)
           elsif child.type.object?
             generate_properties_for_object(schema, child, all_properties_included)
           else # scalar
@@ -133,8 +131,7 @@ module Apia
           schema[:type] = "object"
           schema[:properties] ||= {}
           if all_properties_included
-            schema[:properties][child.name.to_s] = generate_schema_ref(child.type.klass.definition)
-            add_to_components_schemas(child)
+            schema[:properties][child.name.to_s] = generate_schema_ref(child)
           else
             child_path = @path.nil? ? nil : @path + [child]
             child_schema = {}

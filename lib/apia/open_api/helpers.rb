@@ -7,8 +7,7 @@ module Apia
 
       # A component schema is a re-usable schema that can be referenced by other parts of the spec
       # e.g. { "$ref": "#/components/schemas/PaginationObject" }
-      def add_to_components_schemas(definition)
-        id = generate_id_from_definition(definition.type.klass.definition)
+      def add_to_components_schemas(definition, id)
         return unless @spec.dig(:components, :schemas, id).nil?
 
         component_schema = {}
@@ -29,7 +28,8 @@ module Apia
       end
 
       def generate_schema_ref(definition)
-        id = generate_id_from_definition(definition)
+        id = generate_id_from_definition(definition.type.klass.definition)
+        add_to_components_schemas(definition, id)
         { "$ref": "#/components/schemas/#{id}" }
       end
 

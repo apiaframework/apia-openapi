@@ -88,8 +88,7 @@ module Apia
           if field_includes_all_properties?(field)
             refs = []
             field.type.klass.definition.options.map do |_, polymorph_option|
-              refs << generate_schema_ref(polymorph_option.type.klass.definition)
-              add_to_components_schemas(polymorph_option)
+              refs << generate_schema_ref(polymorph_option)
             end
             properties[field_name] = { oneOf: refs }
           else
@@ -110,8 +109,7 @@ module Apia
         def build_properties_for_array(field_name, field, properties)
           if field.type.object? || field.type.enum?
             if field_includes_all_properties?(field)
-              items = generate_schema_ref(field.type.klass.definition)
-              add_to_components_schemas(field)
+              items = generate_schema_ref(field)
             else
               array_schema = {}
               Objects::Schema.new(
@@ -138,8 +136,7 @@ module Apia
 
         def build_properties_for_object_or_enum(field_name, field, properties)
           if field_includes_all_properties?(field)
-            properties[field_name] = generate_schema_ref(field.type.klass.definition)
-            add_to_components_schemas(field)
+            properties[field_name] = generate_schema_ref(field)
           else
             object_schema = {}
             Objects::Schema.new(
