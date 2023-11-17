@@ -8,7 +8,9 @@ module CoreAPI
       description "Provides for objects to be looked up"
 
       argument :id, type: :string
-      argument :permalink, type: :string
+      argument :permalink, type: :string do
+        description "The permalink of the object to look up"
+      end
 
       potential_error "ObjectNotFound" do
         code :object_not_found
