@@ -34,6 +34,7 @@ module Apia
           @route = route
           @endpoint = route.endpoint
           @route_spec = route_spec
+          @http_status = @endpoint.definition.http_status
         end
 
         def add_to_spec
@@ -45,7 +46,7 @@ module Apia
           response_schema[:required] = required_fields.keys if required_fields.any?
 
           @route_spec[:responses] = {
-            "#{@endpoint.definition.http_status}": {
+            "#{@http_status}": {
               description: @endpoint.definition.description || "",
               content: {
                 "application/json": {
@@ -94,15 +95,12 @@ module Apia
           else
             # we assume the partially selected attributes must be present in all of the polymorph options
             # and that each option returns the same data type for that attribute
-            object_schema = {}
-            Objects::Schema.new(
-              spec: @spec,
-              definition: field.type.klass.definition.options.values.first,
-              schema: object_schema,
+            properties[field_name] = generate_schema_ref(
+              field.type.klass.definition.options.values.first,
+              id: generate_field_id(field_name),
               endpoint: @endpoint,
               path: [field]
-            ).add_to_spec
-            properties[field_name] = object_schema
+            )
           end
         end
 
@@ -111,17 +109,12 @@ module Apia
             if field_includes_all_properties?(field)
               items = generate_schema_ref(field)
             else
-              array_schema = {}
-              Objects::Schema.new(
-                spec: @spec,
-                definition: field,
-                schema: array_schema,
+              items = generate_schema_ref(
+                field,
+                id: generate_field_id(field_name),
                 endpoint: @endpoint,
                 path: [field]
-              ).add_to_spec
-              if array_schema[:properties].any?
-                items = array_schema
-              end
+              )
             end
           else
             items = { type: convert_type_to_open_api_data_type(field.type) }
@@ -138,20 +131,26 @@ module Apia
           if field_includes_all_properties?(field)
             properties[field_name] = generate_schema_ref(field)
           else
-            object_schema = {}
-            Objects::Schema.new(
-              spec: @spec,
-              definition: field,
-              schema: object_schema,
+            properties[field_name] = generate_schema_ref(
+              field,
+              id: generate_field_id(field_name),
               endpoint: @endpoint,
               path: [field]
-            ).add_to_spec
-            properties[field_name] = object_schema
+            )
           end
         end
 
         def field_includes_all_properties?(field)
           field.include.nil?
+        end
+
+        def generate_field_id(field_name)
+          [
+            @route_spec[:operationId].sub(":", "_").gsub(":", "").split("/"),
+            @http_status,
+            "response",
+            field_name
+          ].flatten.join("_")
         end
 
       end
