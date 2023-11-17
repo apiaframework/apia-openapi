@@ -36,8 +36,7 @@ module Apia
             required << arg.name.to_s if arg.required?
             if arg.array?
               if arg.type.argument_set? || arg.type.enum?
-                items = generate_schema_ref(arg.type.klass.definition)
-                add_to_components_schemas(arg)
+                items = generate_schema_ref(arg)
               else
                 items = { type: convert_type_to_open_api_data_type(arg.type) }
               end
@@ -47,8 +46,7 @@ module Apia
                 items: items
               }
             elsif arg.type.argument_set? || arg.type.enum?
-              @properties[arg.name.to_s] = generate_schema_ref(arg.type.klass.definition)
-              add_to_components_schemas(arg)
+              @properties[arg.name.to_s] = generate_schema_ref(arg)
             else # scalar
               @properties[arg.name.to_s] = {
                 type: convert_type_to_open_api_data_type(arg.type)

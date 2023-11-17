@@ -37,8 +37,7 @@ module Apia
             generate_argument_set_params
           elsif @argument.array?
             if @argument.type.enum? || @argument.type.object?
-              items = generate_schema_ref(@argument.type.klass.definition)
-              add_to_components_schemas(@argument)
+              items = generate_schema_ref(@argument)
             else
               items = { type: convert_type_to_open_api_data_type(@argument.type) }
             end
@@ -57,11 +56,10 @@ module Apia
             param = {
               name: @argument.name.to_s,
               in: "query",
-              schema: generate_schema_ref(@argument.type.klass.definition)
+              schema: generate_schema_ref(@argument)
             }
             param[:required] = true if @argument.required?
             add_to_parameters(param)
-            add_to_components_schemas(@argument)
           else
             param = {
               name: @argument.name.to_s,

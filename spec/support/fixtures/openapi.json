@@ -153,31 +153,7 @@
                     "times": {
                       "type": "array",
                       "items": {
-                        "type": "object",
-                        "properties": {
-                          "unix": {
-                            "type": "integer"
-                          },
-                          "year": {
-                            "type": "object",
-                            "properties": {
-                              "as_string": {
-                                "type": "string"
-                              }
-                            }
-                          },
-                          "as_array_of_objects": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "as_integer": {
-                                  "type": "integer"
-                                }
-                              }
-                            }
-                          }
-                        }
+                        "$ref": "#/components/schemas/post_example_format_multiple_200_response_times"
                       }
                     }
                   },
@@ -262,12 +238,7 @@
                       ]
                     },
                     "my_partial_polymorph": {
-                      "type": "object",
-                      "properties": {
-                        "number": {
-                          "type": "integer"
-                        }
-                      },
+                      "$ref": "#/components/schemas/get_time_now_200_response_my_partial_polymorph",
                       "nullable": true
                     }
                   },
@@ -351,12 +322,7 @@
                       ]
                     },
                     "my_partial_polymorph": {
-                      "type": "object",
-                      "properties": {
-                        "number": {
-                          "type": "integer"
-                        }
-                      },
+                      "$ref": "#/components/schemas/post_time_now_200_response_my_partial_polymorph",
                       "nullable": true
                     }
                   },
@@ -414,23 +380,7 @@
                 "schema": {
                   "properties": {
                     "time": {
-                      "type": "object",
-                      "properties": {
-                        "unix": {
-                          "type": "integer"
-                        },
-                        "day_of_week": {
-                          "$ref": "#/components/schemas/CoreAPI_Objects_Day"
-                        },
-                        "year": {
-                          "type": "object",
-                          "properties": {
-                            "as_string": {
-                              "type": "string"
-                            }
-                          }
-                        }
-                      },
+                      "$ref": "#/components/schemas/get_test_object_200_response_time",
                       "nullable": true
                     },
                     "object_id": {
@@ -479,23 +429,7 @@
                 "schema": {
                   "properties": {
                     "time": {
-                      "type": "object",
-                      "properties": {
-                        "unix": {
-                          "type": "integer"
-                        },
-                        "day_of_week": {
-                          "$ref": "#/components/schemas/CoreAPI_Objects_Day"
-                        },
-                        "year": {
-                          "type": "object",
-                          "properties": {
-                            "as_string": {
-                              "type": "string"
-                            }
-                          }
-                        }
-                      },
+                      "$ref": "#/components/schemas/post_test_object_200_response_time",
                       "nullable": true
                     },
                     "object_id": {
@@ -638,6 +572,39 @@
           "unix"
         ]
       },
+      "post_example_format_multiple_200_response_times": {
+        "type": "object",
+        "properties": {
+          "unix": {
+            "type": "integer"
+          },
+          "year": {
+            "$ref": "#/components/schemas/post_example_format_multiple_200_response_times_year"
+          },
+          "as_array_of_objects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/post_example_format_multiple_200_response_times_as_array_of_objects"
+            }
+          }
+        }
+      },
+      "post_example_format_multiple_200_response_times_year": {
+        "type": "object",
+        "properties": {
+          "as_string": {
+            "type": "string"
+          }
+        }
+      },
+      "post_example_format_multiple_200_response_times_as_array_of_objects": {
+        "type": "object",
+        "properties": {
+          "as_integer": {
+            "type": "integer"
+          }
+        }
+      },
       "CoreAPI_Objects_Time": {
         "type": "object",
         "properties": {
@@ -748,6 +715,44 @@
           }
         }
       },
+      "get_time_now_200_response_my_partial_polymorph": {
+        "type": "object",
+        "properties": {
+          "number": {
+            "type": "integer"
+          }
+        }
+      },
+      "post_time_now_200_response_my_partial_polymorph": {
+        "type": "object",
+        "properties": {
+          "number": {
+            "type": "integer"
+          }
+        }
+      },
+      "get_test_object_200_response_time": {
+        "type": "object",
+        "properties": {
+          "unix": {
+            "type": "integer"
+          },
+          "day_of_week": {
+            "$ref": "#/components/schemas/CoreAPI_Objects_Day"
+          },
+          "year": {
+            "$ref": "#/components/schemas/get_test_object_200_response_time_year"
+          }
+        }
+      },
+      "get_test_object_200_response_time_year": {
+        "type": "object",
+        "properties": {
+          "as_string": {
+            "type": "string"
+          }
+        }
+      },
       "CoreAPI_ArgumentSets_ObjectLookup": {
         "description": "All 'object[]' params are mutually exclusive, only one can be provided.",
         "type": "object",
@@ -756,6 +761,28 @@
             "type": "string"
           },
           "permalink": {
+            "type": "string"
+          }
+        }
+      },
+      "post_test_object_200_response_time": {
+        "type": "object",
+        "properties": {
+          "unix": {
+            "type": "integer"
+          },
+          "day_of_week": {
+            "$ref": "#/components/schemas/CoreAPI_Objects_Day"
+          },
+          "year": {
+            "$ref": "#/components/schemas/post_test_object_200_response_time_year"
+          }
+        }
+      },
+      "post_test_object_200_response_time_year": {
+        "type": "object",
+        "properties": {
+          "as_string": {
             "type": "string"
           }
         }

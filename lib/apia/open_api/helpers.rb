@@ -7,13 +7,18 @@ module Apia
 
       # A component schema is a re-usable schema that can be referenced by other parts of the spec
       # e.g. { "$ref": "#/components/schemas/PaginationObject" }
-      def add_to_components_schemas(definition)
-        id = generate_id_from_definition(definition.type.klass.definition)
+      def add_to_components_schemas(definition, id, **schema_opts)
         return unless @spec.dig(:components, :schemas, id).nil?
 
         component_schema = {}
         @spec[:components][:schemas][id] = component_schema
-        Objects::Schema.new(spec: @spec, definition: definition, schema: component_schema).add_to_spec
+        Objects::Schema.new(
+          spec: @spec,
+          definition: definition,
+          schema: component_schema,
+          id: id,
+          **schema_opts
+        ).add_to_spec
       end
 
       def convert_type_to_open_api_data_type(type)
@@ -28,8 +33,9 @@ module Apia
         end
       end
 
-      def generate_schema_ref(definition)
-        id = generate_id_from_definition(definition)
+      def generate_schema_ref(definition, id: nil, **schema_opts)
+        id ||= generate_id_from_definition(definition.type.klass.definition)
+        add_to_components_schemas(definition, id, **schema_opts)
         { "$ref": "#/components/schemas/#{id}" }
       end
 
