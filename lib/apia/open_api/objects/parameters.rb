@@ -34,17 +34,7 @@ module Apia
 
         def add_to_spec
           if @argument.type.argument_set?
-            # complex argument sets are not supported in query params (e.g. nested objects)
-            @argument.type.klass.definition.arguments.each_value do |child_arg|
-              param = {
-                name: "#{@argument.name}[#{child_arg.name}]",
-                in: "query",
-                schema: {
-                  type: convert_type_to_open_api_data_type(child_arg.type)
-                }
-              }
-              add_to_parameters(param)
-            end
+            generate_argument_set_params
           elsif @argument.array?
             if @argument.type.enum? || @argument.type.object?
               items = generate_schema_ref(@argument.type.klass.definition)
@@ -86,6 +76,27 @@ module Apia
         end
 
         private
+
+        # Complex argument sets are not supported in query params (e.g. nested objects)
+        # For any LookupArgumentSet only one argument is expected to be provided.
+        # However, OpenAPI does not currently support describing mutually exclusive query params.
+        # refer to: https://swagger.io/docs/specification/describing-parameters/#dependencies
+        def generate_argument_set_params
+          @argument.type.klass.definition.arguments.each_value do |child_arg|
+            param = {
+              name: "#{@argument.name}[#{child_arg.name}]",
+              in: "query",
+              schema: {
+                type: convert_type_to_open_api_data_type(child_arg.type)
+              }
+            }
+            description = []
+            description << formatted_description(child_arg.description) if child_arg.description.present?
+            description << "All '#{@argument.name}[]' params are mutually exclusive, only one can be provided."
+            param[:description] = description.join(" ")
+            add_to_parameters(param)
+          end
+        end
 
         def add_to_parameters(param)
           @route_spec[:parameters] << param

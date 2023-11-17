@@ -38,6 +38,12 @@ module Apia
         definition.id.gsub(/\//, "_")
       end
 
+      def formatted_description(description)
+        return description if description.end_with?(".")
+
+        "#{description}."
+      end
+
     end
   end
 end

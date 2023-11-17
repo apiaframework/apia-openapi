@@ -70,6 +70,7 @@ module Apia
         def generate_child_schemas
           if @definition.type.argument_set?
             @children = @definition.type.klass.definition.arguments.values
+            @schema[:description] = "All '#{@definition.name}[]' params are mutually exclusive, only one can be provided."
           elsif @definition.type.object?
             @children = @definition.type.klass.definition.fields.values
           elsif @definition.type.enum?
