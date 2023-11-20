@@ -46,7 +46,7 @@ module Apia
         end
 
         def add_to_spec
-          if @definition.type.polymorph?
+          if @definition.try(:type)&.polymorph?
             build_schema_for_polymorph
             return @schema
           end
@@ -67,21 +67,32 @@ module Apia
           @schema[:properties][@definition.name.to_s] = { oneOf: refs }
         end
 
+        def error_definition?
+          @definition.is_a?(Apia::Definitions::Error)
+        end
+
+        def enum_definition?
+          @definition.try(:type)&.enum?
+        end
+
         def generate_child_schemas
-          if @definition.type.argument_set?
+          if error_definition?
+            @children = @definition.fields.values
+          elsif @definition.type.argument_set?
             @children = @definition.type.klass.definition.arguments.values
-            @schema[:description] = "All '#{@definition.name}[]' params are mutually exclusive, only one can be provided."
+            @schema[:description] =
+              "All '#{@definition.name}[]' params are mutually exclusive, only one can be provided."
           elsif @definition.type.object?
             @children = @definition.type.klass.definition.fields.values
-          elsif @definition.type.enum?
+          elsif enum_definition?
             @children = @definition.type.klass.definition.values.values
           end
 
           return if @children.empty?
 
-          all_properties_included = @definition.type.enum? || @endpoint.nil?
+          all_properties_included = error_definition? || enum_definition? || @endpoint.nil?
           @children.each do |child|
-            next unless @endpoint.nil? || (!@definition.type.enum? && @endpoint.include_field?(@path + [child.name]))
+            next unless @endpoint.nil? || (!enum_definition? && @endpoint.include_field?(@path + [child.name]))
 
             if child.respond_to?(:array?) && child.array?
               generate_schema_for_child_array(@schema, child, all_properties_included)
@@ -104,7 +115,7 @@ module Apia
         end
 
         def generate_schema_for_child(schema, child, all_properties_included)
-          if @definition.type.enum?
+          if enum_definition?
             schema[:type] = "string"
             schema[:enum] = @children.map { |c| c[:name] }
           elsif child.type.argument_set? || child.type.enum? || child.type.polymorph?
@@ -137,7 +148,7 @@ module Apia
             child_path = @path.nil? ? nil : @path + [child]
             schema[:properties][child.name.to_s] = generate_schema_ref(
               child,
-              id: "#{@id}_#{child.name}",
+              id: "#{@id}_#{child.name}".camelize,
               endpoint: @endpoint,
               path: child_path
             )

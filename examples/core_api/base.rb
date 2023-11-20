@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require "core_api/main_authenticator"
+require "core_api/authenticators/main_authenticator"
 require "core_api/controllers/time_controller"
 require "core_api/endpoints/test_endpoint"
 
 module CoreAPI
   class Base < Apia::API
 
-    authenticator MainAuthenticator
+    authenticator Authenticators::MainAuthenticator
 
     scopes do
       add "time", "Allows time telling functions"

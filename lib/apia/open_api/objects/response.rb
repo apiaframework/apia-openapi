@@ -28,38 +28,43 @@ module Apia
 
         include Apia::OpenApi::Helpers
 
-        def initialize(spec:, path_ids:, route:, route_spec:)
+        def initialize(spec:, path_ids:, route:, route_spec:, api_authenticator:)
           @spec = spec
           @path_ids = path_ids
           @route = route
           @endpoint = route.endpoint
           @route_spec = route_spec
+          @api_authenticator = api_authenticator
           @http_status = @endpoint.definition.http_status
         end
 
         def add_to_spec
-          response_schema = {
-            properties: generate_properties_for_response
-          }
+          add_sucessful_response_schema
+          add_error_response_schemas
+        end
 
+        private
+
+        def add_sucessful_response_schema
+          content_schema = {
+            properties: generate_properties_for_successful_response
+          }
           required_fields = @endpoint.definition.fields.select { |_, field| field.condition.nil? }
-          response_schema[:required] = required_fields.keys if required_fields.any?
+          content_schema[:required] = required_fields.keys if required_fields.any?
 
           @route_spec[:responses] = {
             "#{@http_status}": {
               description: @endpoint.definition.description || "",
               content: {
                 "application/json": {
-                  schema: response_schema
+                  schema: content_schema
                 }
               }
             }
           }
         end
 
-        private
-
-        def generate_properties_for_response
+        def generate_properties_for_successful_response
           @endpoint.definition.fields.reduce({}) do |props, (name, field)|
             props.merge(generate_properties_for_field(name, field))
           end
@@ -146,11 +151,127 @@ module Apia
 
         def generate_field_id(field_name)
           [
-            @route_spec[:operationId].sub(":", "_").gsub(":", "").split("/"),
+            @route_spec[:operationId].gsub(":", "_").gsub("/", "_").camelize,
             @http_status,
-            "response",
-            field_name
-          ].flatten.join("_")
+            "Response",
+            field_name.to_s
+          ].flatten.join("_").camelize
+        end
+
+        def add_error_response_schemas
+          grouped_potential_errors = potential_errors.map(&:definition).group_by do |d|
+            d.http_status_code.to_s.to_sym
+          end
+
+          sorted_grouped_potential_errors = grouped_potential_errors.sort_by do |http_status_code, _|
+            http_status_code.to_s.to_i
+          end
+
+          sorted_grouped_potential_errors.each do |http_status_code, potential_errors|
+            add_error_response_schema_for_http_status_code(http_status_code, potential_errors)
+          end
+        end
+
+        def api_authenticator_potential_errors
+          @api_authenticator&.definition&.potential_errors
+        end
+
+        def potential_errors
+          argument_set = @endpoint.definition.argument_set
+          lookup_argument_set_errors = argument_set.collate_objects(Apia::ObjectSet.new).values.map do |o|
+            o.type.klass.definition.try(:potential_errors)
+          end.compact
+
+          [
+            api_authenticator_potential_errors,
+            @route.controller&.definition&.authenticator&.definition&.potential_errors,
+            @endpoint.definition&.authenticator&.definition&.potential_errors,
+            lookup_argument_set_errors,
+            @endpoint.definition.potential_errors
+          ].compact.flatten
+        end
+
+        def add_error_response_schema_for_http_status_code(http_status_code, potential_errors)
+          response_schema = generate_potential_error_ref(http_status_code, potential_errors)
+          @route_spec[:responses].merge!(response_schema)
+        end
+
+        def generate_potential_error_ref(http_status_code, potential_errors)
+          { "#{http_status_code}": generate_ref("responses", http_status_code, potential_errors) }
+        end
+
+        def generate_ref(namespace, http_status_code, definitions)
+          id = generate_id_for_error_ref(http_status_code, definitions)
+          if namespace == "responses"
+            add_to_responses_components(http_status_code, definitions, id)
+          else
+            add_to_schemas_components(definitions.first, id)
+          end
+          { "$ref": "#/components/#{namespace}/#{id}" }
+        end
+
+        def generate_id_for_error_ref(http_status_code, definitions)
+          if definitions == api_authenticator_potential_errors.map(&:definition)
+            "APIAuthenticator#{http_status_code}Response"
+          elsif definitions.length == 1
+            "#{generate_id_from_definition(definitions.first)}Response"
+          else
+            [
+              @route_spec[:operationId].sub(":", "_").gsub(":", "").split("/"),
+              http_status_code,
+              "Response"
+            ].flatten.join("_").camelize
+          end
+        end
+
+        def add_to_responses_components(http_status_code, definitions, id)
+          return unless @spec.dig(:components, :components, id).nil?
+
+          component_schema = {
+            description: "#{http_status_code} error response"
+          }
+
+          if definitions.length == 1
+            definition = definitions.first
+            component_schema[:description] = definition.description if definition.description.present?
+            schema = generate_schema_properties_for_definition(definition)
+          else # the same http status code is used for multiple errors
+            schema = { oneOf: definitions.map { |d| generate_ref("schemas", http_status_code, [d]) } }
+          end
+
+          component_schema[:content] = {
+            "application/json": {
+              schema: schema
+            }
+          }
+          @spec[:components][:responses] ||= {}
+          @spec[:components][:responses][id] = component_schema
+          component_schema
+        end
+
+        def generate_schema_properties_for_definition(definition)
+          detail = generate_schema_ref(definition, id: generate_id_from_definition(definition))
+          {
+            properties: {
+              code: {
+                type: "string",
+                enum: [definition.code]
+              },
+              description: { type: "string" },
+              detail: detail
+            }
+          }
+        end
+
+        def add_to_schemas_components(definition, id)
+          @spec[:components][:schemas] ||= {}
+          component_schema = {
+            type: "object"
+          }
+          component_schema[:description] = definition.description if definition.description.present?
+          component_schema.merge!(generate_schema_properties_for_definition(definition))
+          @spec[:components][:schemas][id] = component_schema
+          component_schema
         end
 
       end

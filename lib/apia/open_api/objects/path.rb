@@ -29,10 +29,11 @@ module Apia
 
         include Apia::OpenApi::Helpers
 
-        def initialize(spec:, path_ids:, route:, name:)
+        def initialize(spec:, path_ids:, route:, name:, api_authenticator:)
           @spec = spec
           @path_ids = path_ids
           @route = route
+          @api_authenticator = api_authenticator
           @route_spec = {
             operationId: convert_route_to_id,
             tags: [name]
@@ -69,7 +70,13 @@ module Apia
         end
 
         def add_responses
-          Response.new(spec: @spec, path_ids: @path_ids, route: @route, route_spec: @route_spec).add_to_spec
+          Response.new(
+            spec: @spec,
+            path_ids: @path_ids,
+            route: @route,
+            route_spec: @route_spec,
+            api_authenticator: @api_authenticator
+          ).add_to_spec
         end
 
         # It's worth creating a 'nice' operationId for each route, as this is used as the
