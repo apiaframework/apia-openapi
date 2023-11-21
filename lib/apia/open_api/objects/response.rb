@@ -211,13 +211,18 @@ module Apia
         end
 
         def generate_id_for_error_ref(http_status_code, definitions)
-          if definitions == api_authenticator_potential_errors.map(&:definition)
+          api_authenticator_error_defs = api_authenticator_potential_errors.map(&:definition).select do |d|
+            d.http_status_code.to_s == http_status_code.to_s
+          end
+          if api_authenticator_error_defs.any? && api_authenticator_error_defs == definitions
             "APIAuthenticator#{http_status_code}Response"
           elsif definitions.length == 1
             "#{generate_id_from_definition(definitions.first)}Response"
           else
             [
-              @route_spec[:operationId].sub(":", "_").gsub(":", "").split("/"),
+              (definitions - api_authenticator_error_defs).map do |d|
+                generate_id_from_definition(d)
+              end.join,
               http_status_code,
               "Response"
             ].flatten.join("_").camelize
@@ -236,7 +241,12 @@ module Apia
             component_schema[:description] = definition.description if definition.description.present?
             schema = generate_schema_properties_for_definition(definition)
           else # the same http status code is used for multiple errors
-            schema = { oneOf: definitions.map { |d| generate_ref("schemas", http_status_code, [d]) } }
+            one_of_id = "OneOf#{id}"
+            @spec[:components][:schemas][one_of_id] = {
+              oneOf: definitions.map { |d| generate_ref("schemas", http_status_code, [d]) }
+            }
+
+            schema = { "$ref": "#/components/schemas/#{one_of_id}" }
           end
 
           component_schema[:content] = {
