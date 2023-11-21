@@ -49,9 +49,8 @@ module Apia
         end
       end
 
-      # forward slashes do not work in ids (e.g. schema ids)
       def generate_id_from_definition(definition)
-        definition.id.gsub(/\//, "")
+        definition.id.split("/").last
       end
 
       def formatted_description(description)
