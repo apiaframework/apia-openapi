@@ -434,7 +434,7 @@
             }
           },
           "400": {
-            "$ref": "#/components/responses/GetTestObject400Response"
+            "$ref": "#/components/responses/InvalidTestAnotherInvalidTest400Response"
           },
           "403": {
             "$ref": "#/components/responses/APIAuthenticator403Response"
@@ -492,7 +492,7 @@
             }
           },
           "400": {
-            "$ref": "#/components/responses/PostTestObject400Response"
+            "$ref": "#/components/responses/InvalidTestAnotherInvalidTest400Response"
           },
           "403": {
             "$ref": "#/components/responses/APIAuthenticator403Response"
@@ -683,6 +683,16 @@
             "$ref": "#/components/schemas/UnauthorizedNetworkForAPIToken"
           }
         }
+      },
+      "OneOfAPIAuthenticator403Response": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/InvalidTokenResponse"
+          },
+          {
+            "$ref": "#/components/schemas/UnauthorizedNetworkForAPITokenResponse"
+          }
+        ]
       },
       "RateLimitReached": {
         "type": "object",
@@ -922,6 +932,16 @@
           }
         }
       },
+      "OneOfInvalidTestAnotherInvalidTest400Response": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/InvalidTestResponse"
+          },
+          {
+            "$ref": "#/components/schemas/AnotherInvalidTestResponse"
+          }
+        ]
+      },
       "ObjectLookup": {
         "description": "All 'object[]' params are mutually exclusive, only one can be provided.",
         "type": "object",
@@ -986,14 +1006,7 @@
         "content": {
           "application/json": {
             "schema": {
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/InvalidTokenResponse"
-                },
-                {
-                  "$ref": "#/components/schemas/UnauthorizedNetworkForAPITokenResponse"
-                }
-              ]
+              "$ref": "#/components/schemas/OneOfAPIAuthenticator403Response"
             }
           }
         }
@@ -1044,19 +1057,12 @@
           }
         }
       },
-      "GetTestObject400Response": {
+      "InvalidTestAnotherInvalidTest400Response": {
         "description": "400 error response",
         "content": {
           "application/json": {
             "schema": {
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/InvalidTestResponse"
-                },
-                {
-                  "$ref": "#/components/schemas/AnotherInvalidTestResponse"
-                }
-              ]
+              "$ref": "#/components/schemas/OneOfInvalidTestAnotherInvalidTest400Response"
             }
           }
         }
@@ -1080,23 +1086,6 @@
                   "type": "object"
                 }
               }
-            }
-          }
-        }
-      },
-      "PostTestObject400Response": {
-        "description": "400 error response",
-        "content": {
-          "application/json": {
-            "schema": {
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/InvalidTestResponse"
-                },
-                {
-                  "$ref": "#/components/schemas/AnotherInvalidTestResponse"
-                }
-              ]
             }
           }
         }
