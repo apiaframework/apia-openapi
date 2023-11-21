@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "core_api/authenticators/time_now_authenticator"
 require "core_api/objects/time_zone"
 
 module CoreAPI
@@ -7,14 +8,19 @@ module CoreAPI
     class TimeNowEndpoint < Apia::Endpoint
 
       description "Returns the current time"
+
+      authenticator Authenticators::TimeNowAuthenticator
+
       argument :timezone, type: Objects::TimeZone
       argument :time_zones, [Objects::TimeZone], required: true
       argument :filters, [:string]
+
       field :time, type: Objects::Time
       field :time_zones, type: [Objects::TimeZone]
       field :filters, [:string], null: true
       field :my_polymorph, type: Objects::MonthPolymorph
       field :my_partial_polymorph, type: Objects::MonthPolymorph, include: "number", null: true
+
       scope "time"
 
       def call

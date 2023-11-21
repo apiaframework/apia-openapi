@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "core_api/objects/time"
+require "core_api/authenticators/time_controller_authenticator"
 require "core_api/argument_sets/time_lookup_argument_set"
 require "core_api/endpoints/time_now_endpoint"
 
@@ -10,6 +11,8 @@ module CoreAPI
 
       name "Time API"
       description "Returns the time in varying ways"
+
+      authenticator Authenticators::TimeControllerAuthenticator
 
       endpoint :now, Endpoints::TimeNowEndpoint
 

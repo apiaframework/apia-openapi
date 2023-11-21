@@ -61,7 +61,13 @@ module Apia
         @api.definition.route_set.routes.each do |route|
           next unless route.endpoint.definition.schema? # not all routes should be documented
 
-          Objects::Path.new(spec: @spec, path_ids: @path_ids, route: route, name: @name).add_to_spec
+          Objects::Path.new(
+            spec: @spec,
+            path_ids: @path_ids,
+            route: route,
+            name: @name,
+            api_authenticator: @api.definition.authenticator
+          ).add_to_spec
         end
       end
 

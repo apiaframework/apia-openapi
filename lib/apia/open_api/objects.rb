@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Dir.glob(File.join(File.dirname(__FILE__), "objects", "*.rb")).each do |file|
+Dir.glob(File.join(File.dirname(__FILE__), "objects", "*.rb")).sort.each do |file|
   require_relative file
 end
 

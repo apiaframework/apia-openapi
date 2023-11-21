@@ -8,7 +8,7 @@ module Apia
       # A component schema is a re-usable schema that can be referenced by other parts of the spec
       # e.g. { "$ref": "#/components/schemas/PaginationObject" }
       def add_to_components_schemas(definition, id, **schema_opts)
-        return unless @spec.dig(:components, :schemas, id).nil?
+        return true unless @spec.dig(:components, :schemas, id).nil?
 
         component_schema = {}
         @spec[:components][:schemas][id] = component_schema
@@ -19,6 +19,11 @@ module Apia
           id: id,
           **schema_opts
         ).add_to_spec
+
+        return true if component_schema.present?
+
+        @spec[:components][:schemas].delete(id)
+        false
       end
 
       def convert_type_to_open_api_data_type(type)
@@ -35,13 +40,18 @@ module Apia
 
       def generate_schema_ref(definition, id: nil, **schema_opts)
         id ||= generate_id_from_definition(definition.type.klass.definition)
-        add_to_components_schemas(definition, id, **schema_opts)
-        { "$ref": "#/components/schemas/#{id}" }
+        success = add_to_components_schemas(definition, id, **schema_opts)
+
+        if success
+          { "$ref": "#/components/schemas/#{id}" }
+        else # no properties were defined, so just declare an object with unknown properties
+          { type: "object" }
+        end
       end
 
       # forward slashes do not work in ids (e.g. schema ids)
       def generate_id_from_definition(definition)
-        definition.id.gsub(/\//, "_")
+        definition.id.gsub(/\//, "")
       end
 
       def formatted_description(description)

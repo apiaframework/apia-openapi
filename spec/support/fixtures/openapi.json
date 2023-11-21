@@ -37,7 +37,7 @@
             "name": "timezone",
             "in": "query",
             "schema": {
-              "$ref": "#/components/schemas/CoreAPI_Objects_TimeZone"
+              "$ref": "#/components/schemas/CoreAPIObjectsTimeZone"
             },
             "required": true
           }
@@ -60,6 +60,15 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/CoreAPIArgumentSetsTimeLookupArgumentSetInvalidTimeResponse"
+          },
+          "403": {
+            "$ref": "#/components/responses/APIAuthenticator403Response"
+          },
+          "429": {
+            "$ref": "#/components/responses/CoreAPIErrorsRateLimitReachedResponse"
           }
         }
       }
@@ -76,10 +85,10 @@
               "schema": {
                 "properties": {
                   "time": {
-                    "$ref": "#/components/schemas/CoreAPI_ArgumentSets_TimeLookupArgumentSet"
+                    "$ref": "#/components/schemas/CoreAPIArgumentSetsTimeLookupArgumentSet"
                   },
                   "timezone": {
-                    "$ref": "#/components/schemas/CoreAPI_Objects_TimeZone"
+                    "$ref": "#/components/schemas/CoreAPIObjectsTimeZone"
                   }
                 },
                 "required": [
@@ -108,6 +117,15 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/CoreAPIArgumentSetsTimeLookupArgumentSetInvalidTimeResponse"
+          },
+          "403": {
+            "$ref": "#/components/responses/APIAuthenticator403Response"
+          },
+          "429": {
+            "$ref": "#/components/responses/CoreAPIErrorsRateLimitReachedResponse"
           }
         }
       }
@@ -126,7 +144,7 @@
                   "times": {
                     "type": "array",
                     "items": {
-                      "$ref": "#/components/schemas/CoreAPI_ArgumentSets_TimeLookupArgumentSet"
+                      "$ref": "#/components/schemas/CoreAPIArgumentSetsTimeLookupArgumentSet"
                     }
                   }
                 },
@@ -153,7 +171,7 @@
                     "times": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/post_example_format_multiple_200_response_times"
+                        "$ref": "#/components/schemas/PostExampleFormatMultiple200ResponseTimes"
                       }
                     }
                   },
@@ -164,6 +182,15 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/CoreAPIArgumentSetsTimeLookupArgumentSetInvalidTimeResponse"
+          },
+          "403": {
+            "$ref": "#/components/responses/APIAuthenticator403Response"
+          },
+          "429": {
+            "$ref": "#/components/responses/CoreAPIErrorsRateLimitReachedResponse"
           }
         }
       }
@@ -179,7 +206,7 @@
             "name": "timezone",
             "in": "query",
             "schema": {
-              "$ref": "#/components/schemas/CoreAPI_Objects_TimeZone"
+              "$ref": "#/components/schemas/CoreAPIObjectsTimeZone"
             }
           },
           {
@@ -188,7 +215,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/components/schemas/CoreAPI_Objects_TimeZone"
+                "$ref": "#/components/schemas/CoreAPIObjectsTimeZone"
               }
             },
             "required": true
@@ -212,12 +239,12 @@
                 "schema": {
                   "properties": {
                     "time": {
-                      "$ref": "#/components/schemas/CoreAPI_Objects_Time"
+                      "$ref": "#/components/schemas/CoreAPIObjectsTime"
                     },
                     "time_zones": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/CoreAPI_Objects_TimeZone"
+                        "$ref": "#/components/schemas/CoreAPIObjectsTimeZone"
                       }
                     },
                     "filters": {
@@ -230,15 +257,15 @@
                     "my_polymorph": {
                       "oneOf": [
                         {
-                          "$ref": "#/components/schemas/CoreAPI_Objects_MonthLong"
+                          "$ref": "#/components/schemas/CoreAPIObjectsMonthLong"
                         },
                         {
-                          "$ref": "#/components/schemas/CoreAPI_Objects_MonthShort"
+                          "$ref": "#/components/schemas/CoreAPIObjectsMonthShort"
                         }
                       ]
                     },
                     "my_partial_polymorph": {
-                      "$ref": "#/components/schemas/get_time_now_200_response_my_partial_polymorph",
+                      "$ref": "#/components/schemas/GetTimeNow200ResponseMyPartialPolymorph",
                       "nullable": true
                     }
                   },
@@ -252,6 +279,12 @@
                 }
               }
             }
+          },
+          "403": {
+            "$ref": "#/components/responses/APIAuthenticator403Response"
+          },
+          "503": {
+            "$ref": "#/components/responses/CoreAPIAuthenticatorsTimeNowAuthenticatorWrongDayOfWeekResponse"
           }
         }
       },
@@ -266,12 +299,12 @@
               "schema": {
                 "properties": {
                   "timezone": {
-                    "$ref": "#/components/schemas/CoreAPI_Objects_TimeZone"
+                    "$ref": "#/components/schemas/CoreAPIObjectsTimeZone"
                   },
                   "time_zones": {
                     "type": "array",
                     "items": {
-                      "$ref": "#/components/schemas/CoreAPI_Objects_TimeZone"
+                      "$ref": "#/components/schemas/CoreAPIObjectsTimeZone"
                     }
                   },
                   "filters": {
@@ -296,12 +329,12 @@
                 "schema": {
                   "properties": {
                     "time": {
-                      "$ref": "#/components/schemas/CoreAPI_Objects_Time"
+                      "$ref": "#/components/schemas/CoreAPIObjectsTime"
                     },
                     "time_zones": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/CoreAPI_Objects_TimeZone"
+                        "$ref": "#/components/schemas/CoreAPIObjectsTimeZone"
                       }
                     },
                     "filters": {
@@ -314,15 +347,15 @@
                     "my_polymorph": {
                       "oneOf": [
                         {
-                          "$ref": "#/components/schemas/CoreAPI_Objects_MonthLong"
+                          "$ref": "#/components/schemas/CoreAPIObjectsMonthLong"
                         },
                         {
-                          "$ref": "#/components/schemas/CoreAPI_Objects_MonthShort"
+                          "$ref": "#/components/schemas/CoreAPIObjectsMonthShort"
                         }
                       ]
                     },
                     "my_partial_polymorph": {
-                      "$ref": "#/components/schemas/post_time_now_200_response_my_partial_polymorph",
+                      "$ref": "#/components/schemas/PostTimeNow200ResponseMyPartialPolymorph",
                       "nullable": true
                     }
                   },
@@ -336,6 +369,12 @@
                 }
               }
             }
+          },
+          "403": {
+            "$ref": "#/components/responses/APIAuthenticator403Response"
+          },
+          "503": {
+            "$ref": "#/components/responses/CoreAPIAuthenticatorsTimeNowAuthenticatorWrongDayOfWeekResponse"
           }
         }
       }
@@ -380,7 +419,7 @@
                 "schema": {
                   "properties": {
                     "time": {
-                      "$ref": "#/components/schemas/get_test_object_200_response_time",
+                      "$ref": "#/components/schemas/GetTestObject200ResponseTime",
                       "nullable": true
                     },
                     "object_id": {
@@ -393,6 +432,15 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/GetTestObject400Response"
+          },
+          "403": {
+            "$ref": "#/components/responses/APIAuthenticator403Response"
+          },
+          "404": {
+            "$ref": "#/components/responses/CoreAPIArgumentSetsObjectLookupObjectNotFoundResponse"
           }
         }
       },
@@ -407,7 +455,7 @@
               "schema": {
                 "properties": {
                   "object": {
-                    "$ref": "#/components/schemas/CoreAPI_ArgumentSets_ObjectLookup"
+                    "$ref": "#/components/schemas/CoreAPIArgumentSetsObjectLookup"
                   },
                   "scalar": {
                     "type": "string"
@@ -429,7 +477,7 @@
                 "schema": {
                   "properties": {
                     "time": {
-                      "$ref": "#/components/schemas/post_test_object_200_response_time",
+                      "$ref": "#/components/schemas/PostTestObject200ResponseTime",
                       "nullable": true
                     },
                     "object_id": {
@@ -442,6 +490,15 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/PostTestObject400Response"
+          },
+          "403": {
+            "$ref": "#/components/responses/APIAuthenticator403Response"
+          },
+          "404": {
+            "$ref": "#/components/responses/CoreAPIArgumentSetsObjectLookupObjectNotFoundResponse"
           }
         }
       }
@@ -473,7 +530,7 @@
             "name": "timezone",
             "in": "query",
             "schema": {
-              "$ref": "#/components/schemas/CoreAPI_Objects_TimeZone"
+              "$ref": "#/components/schemas/CoreAPIObjectsTimeZone"
             },
             "required": true
           }
@@ -496,6 +553,15 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/CoreAPIArgumentSetsTimeLookupArgumentSetInvalidTimeResponse"
+          },
+          "403": {
+            "$ref": "#/components/responses/APIAuthenticator403Response"
+          },
+          "429": {
+            "$ref": "#/components/responses/CoreAPIErrorsRateLimitReachedResponse"
           }
         }
       },
@@ -510,10 +576,10 @@
               "schema": {
                 "properties": {
                   "time": {
-                    "$ref": "#/components/schemas/CoreAPI_ArgumentSets_TimeLookupArgumentSet"
+                    "$ref": "#/components/schemas/CoreAPIArgumentSetsTimeLookupArgumentSet"
                   },
                   "timezone": {
-                    "$ref": "#/components/schemas/CoreAPI_Objects_TimeZone"
+                    "$ref": "#/components/schemas/CoreAPIObjectsTimeZone"
                   }
                 },
                 "required": [
@@ -542,6 +608,15 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/CoreAPIArgumentSetsTimeLookupArgumentSetInvalidTimeResponse"
+          },
+          "403": {
+            "$ref": "#/components/responses/APIAuthenticator403Response"
+          },
+          "429": {
+            "$ref": "#/components/responses/CoreAPIErrorsRateLimitReachedResponse"
           }
         }
       }
@@ -549,7 +624,7 @@
   },
   "components": {
     "schemas": {
-      "CoreAPI_Objects_TimeZone": {
+      "CoreAPIObjectsTimeZone": {
         "type": "string",
         "enum": [
           "Europe/London",
@@ -557,7 +632,67 @@
           "Asia/Singapore"
         ]
       },
-      "CoreAPI_ArgumentSets_TimeLookupArgumentSet": {
+      "CoreAPIAuthenticatorsMainAuthenticatorInvalidToken": {
+        "type": "object",
+        "properties": {
+          "given_token": {
+            "type": "string"
+          }
+        }
+      },
+      "CoreAPIAuthenticatorsMainAuthenticatorInvalidTokenResponse": {
+        "type": "object",
+        "description": "The token provided is invalid. In this example, you should provide 'example'.",
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "invalid_token"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "detail": {
+            "$ref": "#/components/schemas/CoreAPIAuthenticatorsMainAuthenticatorInvalidToken"
+          }
+        }
+      },
+      "CoreAPIAuthenticatorsMainAuthenticatorUnauthorizedNetworkForAPIToken": {
+        "type": "object",
+        "properties": {
+          "ip_address": {
+            "type": "string"
+          }
+        }
+      },
+      "CoreAPIAuthenticatorsMainAuthenticatorUnauthorizedNetworkForAPITokenResponse": {
+        "type": "object",
+        "description": "Network is not allowed to access the API with this API token",
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "unauthorized_network_for_api_token"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "detail": {
+            "$ref": "#/components/schemas/CoreAPIAuthenticatorsMainAuthenticatorUnauthorizedNetworkForAPIToken"
+          }
+        }
+      },
+      "CoreAPIErrorsRateLimitReached": {
+        "type": "object",
+        "properties": {
+          "total_permitted": {
+            "type": "integer"
+          }
+        }
+      },
+      "CoreAPIArgumentSetsTimeLookupArgumentSet": {
         "description": "All 'time[]' params are mutually exclusive, only one can be provided.",
         "type": "object",
         "properties": {
@@ -572,24 +707,24 @@
           "unix"
         ]
       },
-      "post_example_format_multiple_200_response_times": {
+      "PostExampleFormatMultiple200ResponseTimes": {
         "type": "object",
         "properties": {
           "unix": {
             "type": "integer"
           },
           "year": {
-            "$ref": "#/components/schemas/post_example_format_multiple_200_response_times_year"
+            "$ref": "#/components/schemas/PostExampleFormatMultiple200ResponseTimesYear"
           },
           "as_array_of_objects": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/post_example_format_multiple_200_response_times_as_array_of_objects"
+              "$ref": "#/components/schemas/PostExampleFormatMultiple200ResponseTimesAsArrayOfObjects"
             }
           }
         }
       },
-      "post_example_format_multiple_200_response_times_year": {
+      "PostExampleFormatMultiple200ResponseTimesYear": {
         "type": "object",
         "properties": {
           "as_string": {
@@ -597,7 +732,7 @@
           }
         }
       },
-      "post_example_format_multiple_200_response_times_as_array_of_objects": {
+      "PostExampleFormatMultiple200ResponseTimesAsArrayOfObjects": {
         "type": "object",
         "properties": {
           "as_integer": {
@@ -605,23 +740,23 @@
           }
         }
       },
-      "CoreAPI_Objects_Time": {
+      "CoreAPIObjectsTime": {
         "type": "object",
         "properties": {
           "unix": {
             "type": "integer"
           },
           "day_of_week": {
-            "$ref": "#/components/schemas/CoreAPI_Objects_Day"
+            "$ref": "#/components/schemas/CoreAPIObjectsDay"
           },
           "full": {
             "type": "string"
           },
           "year": {
-            "$ref": "#/components/schemas/CoreAPI_Objects_Year"
+            "$ref": "#/components/schemas/CoreAPIObjectsYear"
           },
           "month": {
-            "$ref": "#/components/schemas/CoreAPI_Objects_MonthPolymorph"
+            "$ref": "#/components/schemas/CoreAPIObjectsMonthPolymorph"
           },
           "as_array": {
             "type": "array",
@@ -632,7 +767,7 @@
           "as_array_of_objects": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/CoreAPI_Objects_Year"
+              "$ref": "#/components/schemas/CoreAPIObjectsYear"
             }
           },
           "as_decimal": {
@@ -643,7 +778,7 @@
           }
         }
       },
-      "CoreAPI_Objects_Day": {
+      "CoreAPIObjectsDay": {
         "type": "string",
         "enum": [
           "Sunday",
@@ -655,7 +790,7 @@
           "Saturday"
         ]
       },
-      "CoreAPI_Objects_Year": {
+      "CoreAPIObjectsYear": {
         "type": "object",
         "properties": {
           "as_integer": {
@@ -673,27 +808,27 @@
           "as_array_of_enums": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/CoreAPI_Objects_Day"
+              "$ref": "#/components/schemas/CoreAPIObjectsDay"
             }
           }
         }
       },
-      "CoreAPI_Objects_MonthPolymorph": {
+      "CoreAPIObjectsMonthPolymorph": {
         "type": "object",
         "properties": {
           "month": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/CoreAPI_Objects_MonthLong"
+                "$ref": "#/components/schemas/CoreAPIObjectsMonthLong"
               },
               {
-                "$ref": "#/components/schemas/CoreAPI_Objects_MonthShort"
+                "$ref": "#/components/schemas/CoreAPIObjectsMonthShort"
               }
             ]
           }
         }
       },
-      "CoreAPI_Objects_MonthLong": {
+      "CoreAPIObjectsMonthLong": {
         "type": "object",
         "properties": {
           "number": {
@@ -704,7 +839,7 @@
           }
         }
       },
-      "CoreAPI_Objects_MonthShort": {
+      "CoreAPIObjectsMonthShort": {
         "type": "object",
         "properties": {
           "number": {
@@ -715,7 +850,7 @@
           }
         }
       },
-      "get_time_now_200_response_my_partial_polymorph": {
+      "GetTimeNow200ResponseMyPartialPolymorph": {
         "type": "object",
         "properties": {
           "number": {
@@ -723,7 +858,7 @@
           }
         }
       },
-      "post_time_now_200_response_my_partial_polymorph": {
+      "PostTimeNow200ResponseMyPartialPolymorph": {
         "type": "object",
         "properties": {
           "number": {
@@ -731,21 +866,21 @@
           }
         }
       },
-      "get_test_object_200_response_time": {
+      "GetTestObject200ResponseTime": {
         "type": "object",
         "properties": {
           "unix": {
             "type": "integer"
           },
           "day_of_week": {
-            "$ref": "#/components/schemas/CoreAPI_Objects_Day"
+            "$ref": "#/components/schemas/CoreAPIObjectsDay"
           },
           "year": {
-            "$ref": "#/components/schemas/get_test_object_200_response_time_year"
+            "$ref": "#/components/schemas/GetTestObject200ResponseTimeYear"
           }
         }
       },
-      "get_test_object_200_response_time_year": {
+      "GetTestObject200ResponseTimeYear": {
         "type": "object",
         "properties": {
           "as_string": {
@@ -753,7 +888,41 @@
           }
         }
       },
-      "CoreAPI_ArgumentSets_ObjectLookup": {
+      "CoreAPIEndpointsTestEndpointInvalidTestResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "invalid_test"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "detail": {
+            "type": "object"
+          }
+        }
+      },
+      "CoreAPIEndpointsTestEndpointAnotherInvalidTestResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "another_invalid_test"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "detail": {
+            "type": "object"
+          }
+        }
+      },
+      "CoreAPIArgumentSetsObjectLookup": {
         "description": "All 'object[]' params are mutually exclusive, only one can be provided.",
         "type": "object",
         "properties": {
@@ -765,21 +934,21 @@
           }
         }
       },
-      "post_test_object_200_response_time": {
+      "PostTestObject200ResponseTime": {
         "type": "object",
         "properties": {
           "unix": {
             "type": "integer"
           },
           "day_of_week": {
-            "$ref": "#/components/schemas/CoreAPI_Objects_Day"
+            "$ref": "#/components/schemas/CoreAPIObjectsDay"
           },
           "year": {
-            "$ref": "#/components/schemas/post_test_object_200_response_time_year"
+            "$ref": "#/components/schemas/PostTestObject200ResponseTimeYear"
           }
         }
       },
-      "post_test_object_200_response_time_year": {
+      "PostTestObject200ResponseTimeYear": {
         "type": "object",
         "properties": {
           "as_string": {
@@ -788,8 +957,153 @@
         }
       }
     },
+    "responses": {
+      "CoreAPIArgumentSetsTimeLookupArgumentSetInvalidTimeResponse": {
+        "description": "400 error response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "enum": [
+                    "invalid_time"
+                  ]
+                },
+                "description": {
+                  "type": "string"
+                },
+                "detail": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      },
+      "APIAuthenticator403Response": {
+        "description": "403 error response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/CoreAPIAuthenticatorsMainAuthenticatorInvalidTokenResponse"
+                },
+                {
+                  "$ref": "#/components/schemas/CoreAPIAuthenticatorsMainAuthenticatorUnauthorizedNetworkForAPITokenResponse"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "CoreAPIErrorsRateLimitReachedResponse": {
+        "description": "You have reached the rate limit for this type of request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "enum": [
+                    "rate_limit_reached"
+                  ]
+                },
+                "description": {
+                  "type": "string"
+                },
+                "detail": {
+                  "$ref": "#/components/schemas/CoreAPIErrorsRateLimitReached"
+                }
+              }
+            }
+          }
+        }
+      },
+      "CoreAPIAuthenticatorsTimeNowAuthenticatorWrongDayOfWeekResponse": {
+        "description": "You called this API on the wrong day of the week, try again tomorrow",
+        "content": {
+          "application/json": {
+            "schema": {
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "enum": [
+                    "wrong_day_of_week"
+                  ]
+                },
+                "description": {
+                  "type": "string"
+                },
+                "detail": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      },
+      "GetTestObject400Response": {
+        "description": "400 error response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/CoreAPIEndpointsTestEndpointInvalidTestResponse"
+                },
+                {
+                  "$ref": "#/components/schemas/CoreAPIEndpointsTestEndpointAnotherInvalidTestResponse"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "CoreAPIArgumentSetsObjectLookupObjectNotFoundResponse": {
+        "description": "No object was found matching any of the criteria provided in the arguments",
+        "content": {
+          "application/json": {
+            "schema": {
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "enum": [
+                    "object_not_found"
+                  ]
+                },
+                "description": {
+                  "type": "string"
+                },
+                "detail": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      },
+      "PostTestObject400Response": {
+        "description": "400 error response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/CoreAPIEndpointsTestEndpointInvalidTestResponse"
+                },
+                {
+                  "$ref": "#/components/schemas/CoreAPIEndpointsTestEndpointAnotherInvalidTestResponse"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
     "securitySchemes": {
-      "CoreAPI_MainAuthenticator": {
+      "CoreAPIAuthenticatorsMainAuthenticator": {
         "scheme": "bearer",
         "type": "http"
       }
@@ -797,7 +1111,7 @@
   },
   "security": [
     {
-      "CoreAPI_MainAuthenticator": [
+      "CoreAPIAuthenticatorsMainAuthenticator": [
 
       ]
     }
