@@ -786,6 +786,10 @@
           },
           "as_base64": {
             "type": "string"
+          },
+          "as_date": {
+            "type": "string",
+            "format": "date"
           }
         }
       },
