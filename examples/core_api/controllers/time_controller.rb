@@ -20,9 +20,13 @@ module CoreAPI
       # we are handing circular references correctly
       endpoint :format do
         description "Format the given time"
-        argument :time, type: ArgumentSets::TimeLookupArgumentSet, required: true
+        argument :time, type: ArgumentSets::TimeLookupArgumentSet, required: true do
+          description "Time is a lookup argument set"
+        end
         argument :timezone, type: Objects::TimeZone, required: true
-        field :formatted_time, type: :string, null: true
+        field :formatted_time, type: :string, null: true do
+          description "Time formatted time as a string"
+        end
         action do
           time = request.arguments[:time]
           response.add_field :formatted_time, time.resolve.to_s

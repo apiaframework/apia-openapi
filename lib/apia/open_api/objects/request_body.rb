@@ -38,7 +38,7 @@ module Apia
               if arg.type.argument_set? || arg.type.enum?
                 items = generate_schema_ref(arg)
               else
-                items = generate_scalar_schema(arg.type)
+                items = generate_scalar_schema(arg)
               end
 
               @properties[arg.name.to_s] = {
@@ -48,7 +48,7 @@ module Apia
             elsif arg.type.argument_set? || arg.type.enum?
               @properties[arg.name.to_s] = generate_schema_ref(arg)
             else
-              @properties[arg.name.to_s] = generate_scalar_schema(arg.type)
+              @properties[arg.name.to_s] = generate_scalar_schema(arg)
             end
           end
 

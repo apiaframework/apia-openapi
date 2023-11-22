@@ -23,7 +23,7 @@
             "schema": {
               "type": "string"
             },
-            "description": "All 'time[]' params are mutually exclusive, only one can be provided."
+            "description": "Time is a lookup argument set. All 'time[]' params are mutually exclusive, only one can be provided."
           },
           {
             "name": "time[string]",
@@ -31,7 +31,7 @@
             "schema": {
               "type": "string"
             },
-            "description": "All 'time[]' params are mutually exclusive, only one can be provided."
+            "description": "Time is a lookup argument set. All 'time[]' params are mutually exclusive, only one can be provided."
           },
           {
             "name": "timezone",
@@ -51,6 +51,7 @@
                   "properties": {
                     "formatted_time": {
                       "type": "string",
+                      "description": "Time formatted time as a string",
                       "nullable": true
                     }
                   },
@@ -108,6 +109,7 @@
                   "properties": {
                     "formatted_time": {
                       "type": "string",
+                      "description": "Time formatted time as a string",
                       "nullable": true
                     }
                   },
@@ -218,6 +220,7 @@
                 "$ref": "#/components/schemas/TimeZone"
               }
             },
+            "description": "An array of any Timezone objects",
             "required": true
           },
           {
@@ -239,7 +242,12 @@
                 "schema": {
                   "properties": {
                     "time": {
-                      "$ref": "#/components/schemas/Time"
+                      "description": "A Time object",
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/Time"
+                        }
+                      ]
                     },
                     "time_zones": {
                       "type": "array",
@@ -252,6 +260,7 @@
                       "items": {
                         "type": "string"
                       },
+                      "description": "An array of strings, might be null",
                       "nullable": true
                     },
                     "my_polymorph": {
@@ -262,10 +271,16 @@
                         {
                           "$ref": "#/components/schemas/MonthShort"
                         }
-                      ]
+                      ],
+                      "description": "A polymorphic field!"
                     },
                     "my_partial_polymorph": {
-                      "$ref": "#/components/schemas/GetTimeNow200ResponseMyPartialPolymorph",
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/GetTimeNow200ResponseMyPartialPolymorph"
+                        }
+                      ],
+                      "description": "Partial polymorph",
                       "nullable": true
                     }
                   },
@@ -329,7 +344,12 @@
                 "schema": {
                   "properties": {
                     "time": {
-                      "$ref": "#/components/schemas/Time"
+                      "description": "A Time object",
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/Time"
+                        }
+                      ]
                     },
                     "time_zones": {
                       "type": "array",
@@ -342,6 +362,7 @@
                       "items": {
                         "type": "string"
                       },
+                      "description": "An array of strings, might be null",
                       "nullable": true
                     },
                     "my_polymorph": {
@@ -352,10 +373,16 @@
                         {
                           "$ref": "#/components/schemas/MonthShort"
                         }
-                      ]
+                      ],
+                      "description": "A polymorphic field!"
                     },
                     "my_partial_polymorph": {
-                      "$ref": "#/components/schemas/PostTimeNow200ResponseMyPartialPolymorph",
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/PostTimeNow200ResponseMyPartialPolymorph"
+                        }
+                      ],
+                      "description": "Partial polymorph",
                       "nullable": true
                     }
                   },
@@ -398,7 +425,8 @@
             "name": "object[permalink]",
             "in": "query",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "The permalink of the object to look up"
             },
             "description": "The permalink of the object to look up. All 'object[]' params are mutually exclusive, only one can be provided."
           },
@@ -406,8 +434,10 @@
             "name": "scalar",
             "in": "query",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Any string will do, it's not validated"
             },
+            "description": "Any string will do, it's not validated",
             "required": true
           }
         ],
@@ -419,7 +449,11 @@
                 "schema": {
                   "properties": {
                     "time": {
-                      "$ref": "#/components/schemas/GetTestObject200ResponseTime",
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/GetTestObject200ResponseTime"
+                        }
+                      ],
                       "nullable": true
                     },
                     "object_id": {
@@ -458,7 +492,8 @@
                     "$ref": "#/components/schemas/ObjectLookup"
                   },
                   "scalar": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Any string will do, it's not validated"
                   }
                 },
                 "required": [
@@ -477,7 +512,11 @@
                 "schema": {
                   "properties": {
                     "time": {
-                      "$ref": "#/components/schemas/PostTestObject200ResponseTime",
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/PostTestObject200ResponseTime"
+                        }
+                      ],
                       "nullable": true
                     },
                     "object_id": {
@@ -516,7 +555,7 @@
             "schema": {
               "type": "string"
             },
-            "description": "All 'time[]' params are mutually exclusive, only one can be provided."
+            "description": "Time is a lookup argument set. All 'time[]' params are mutually exclusive, only one can be provided."
           },
           {
             "name": "time[string]",
@@ -524,7 +563,7 @@
             "schema": {
               "type": "string"
             },
-            "description": "All 'time[]' params are mutually exclusive, only one can be provided."
+            "description": "Time is a lookup argument set. All 'time[]' params are mutually exclusive, only one can be provided."
           },
           {
             "name": "timezone",
@@ -544,6 +583,7 @@
                   "properties": {
                     "formatted_time": {
                       "type": "string",
+                      "description": "Time formatted time as a string",
                       "nullable": true
                     }
                   },
@@ -599,6 +639,7 @@
                   "properties": {
                     "formatted_time": {
                       "type": "string",
+                      "description": "Time formatted time as a string",
                       "nullable": true
                     }
                   },
@@ -662,7 +703,8 @@
         "type": "object",
         "properties": {
           "ip_address": {
-            "type": "string"
+            "type": "string",
+            "description": "The IP address the request was received from"
           }
         }
       },
@@ -698,7 +740,8 @@
         "type": "object",
         "properties": {
           "total_permitted": {
-            "type": "integer"
+            "type": "integer",
+            "description": "The total number of requests per minute that are permitted"
           }
         }
       },
@@ -955,7 +998,8 @@
             "type": "string"
           },
           "permalink": {
-            "type": "string"
+            "type": "string",
+            "description": "The permalink of the object to look up"
           }
         }
       },

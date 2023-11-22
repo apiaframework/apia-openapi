@@ -82,7 +82,7 @@ module Apia
           elsif field.type.object? || field.type.enum?
             build_properties_for_object_or_enum(field_name, field, properties)
           else
-            properties[field_name] = generate_scalar_schema(field.type)
+            properties[field_name] = generate_scalar_schema(field)
           end
           properties[field_name][:nullable] = true if field.null?
           properties
@@ -96,15 +96,19 @@ module Apia
             end
             properties[field_name] = { oneOf: refs }
           else
-            # we assume the partially selected attributes must be present in all of the polymorph options
-            # and that each option returns the same data type for that attribute
-            properties[field_name] = generate_schema_ref(
+            # We assume the partially selected attributes must be present in all of the polymorph options
+            # and that each option returns the same data type for that attribute.
+            # The same 'allOf workaround' is used here as for objects and enums below.
+            ref = generate_schema_ref(
               field.type.klass.definition.options.values.first,
               id: generate_field_id(field_name),
               endpoint: @endpoint,
               path: [field]
             )
+
+            properties[field_name] = { allOf: [ref] }
           end
+          properties[field_name][:description] = field.description if field.description.present?
         end
 
         def build_properties_for_array(field_name, field, properties)
@@ -128,19 +132,27 @@ module Apia
             type: "array",
             items: items
           }
+          properties[field_name][:description] = field.description if field.description.present?
         end
 
+        # Using allOf is a 'workaround' so that we can include a description for the field
+        # In OpenAPI 3.0 sibling properties are not allowed for $refs (but are allowed in 3.1)
+        # We don't want to put the description on the $ref itself because the description is
+        # specific to the endpoint and not necessarily applicable to all uses of the $ref.
         def build_properties_for_object_or_enum(field_name, field, properties)
+          properties[field_name] = {}
+          properties[field_name][:description] = field.description if field.description.present?
           if field_includes_all_properties?(field)
-            properties[field_name] = generate_schema_ref(field)
+            ref = generate_schema_ref(field)
           else
-            properties[field_name] = generate_schema_ref(
+            ref = generate_schema_ref(
               field,
               id: generate_field_id(field_name),
               endpoint: @endpoint,
               path: [field]
             )
           end
+          properties[field_name][:allOf] = [ref]
         end
 
         def field_includes_all_properties?(field)
