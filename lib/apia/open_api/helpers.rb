@@ -38,6 +38,14 @@ module Apia
         end
       end
 
+      def generate_scalar_schema(type)
+        schema = {
+          type: convert_type_to_open_api_data_type(type)
+        }
+        schema[:format] = "float" if type.klass == Apia::Scalars::Decimal
+        schema
+      end
+
       def generate_schema_ref(definition, id: nil, **schema_opts)
         id ||= generate_id_from_definition(definition.type.klass.definition)
         success = add_to_components_schemas(definition, id, **schema_opts)

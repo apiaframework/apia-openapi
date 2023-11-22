@@ -127,9 +127,7 @@ module Apia
           else # scalar
             schema[:type] = "object"
             schema[:properties] ||= {}
-            schema[:properties][child.name.to_s] = {
-              type: convert_type_to_open_api_data_type(child.type)
-            }
+            schema[:properties][child.name.to_s] = generate_scalar_schema(child.type)
           end
 
           if child.try(:required?)

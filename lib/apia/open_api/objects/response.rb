@@ -81,10 +81,8 @@ module Apia
             build_properties_for_array(field_name, field, properties)
           elsif field.type.object? || field.type.enum?
             build_properties_for_object_or_enum(field_name, field, properties)
-          else # scalar
-            properties[field_name] = {
-              type: convert_type_to_open_api_data_type(field.type)
-            }
+          else
+            properties[field_name] = generate_scalar_schema(field.type)
           end
           properties[field_name][:nullable] = true if field.null?
           properties
