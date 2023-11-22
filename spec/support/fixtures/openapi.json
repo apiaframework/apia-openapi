@@ -2,7 +2,8 @@
   "openapi": "3.0.0",
   "info": {
     "version": "1.0.0",
-    "title": "CoreAPI/Base"
+    "title": "Example API",
+    "description": "Welcome to the documentation for the Example API"
   },
   "servers": [
     {

@@ -9,6 +9,8 @@ module CoreAPI
 
     authenticator Authenticators::MainAuthenticator
 
+    name "Example API"
+
     scopes do
       add "time", "Allows time telling functions"
     end
