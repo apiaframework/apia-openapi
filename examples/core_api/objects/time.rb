@@ -46,6 +46,10 @@ module CoreAPI
         backend { |t| Base64.encode64(t.to_s) }
       end
 
+      field :as_date, type: :date do
+        backend { |t| t.strftime("%Y-%m-%d") }
+      end
+
     end
   end
 end

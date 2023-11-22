@@ -27,14 +27,17 @@ module Apia
       end
 
       def convert_type_to_open_api_data_type(type)
-        if type.klass == Apia::Scalars::UnixTime
-          "integer"
-        elsif type.klass == Apia::Scalars::Decimal
-          "number"
-        elsif type.klass == Apia::Scalars::Base64
+        case type.klass.to_s
+        when "Apia::Scalars::String", "Apia::Scalars::Base64", "Apia::Scalars::Date"
           "string"
+        when "Apia::Scalars::Integer", "Apia::Scalars::UnixTime"
+          "integer"
+        when "Apia::Scalars::Decimal"
+          "number"
+        when "Apia::Scalars::Boolean"
+          "boolean"
         else
-          type.klass.definition.name.downcase
+          raise "Unknown Apia type #{type.klass} mapping to OpenAPI type"
         end
       end
 
@@ -43,6 +46,7 @@ module Apia
           type: convert_type_to_open_api_data_type(type)
         }
         schema[:format] = "float" if type.klass == Apia::Scalars::Decimal
+        schema[:format] = "date" if type.klass == Apia::Scalars::Date
         schema
       end
 
