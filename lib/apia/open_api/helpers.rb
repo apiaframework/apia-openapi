@@ -41,10 +41,12 @@ module Apia
         end
       end
 
-      def generate_scalar_schema(type)
+      def generate_scalar_schema(definition)
+        type = definition.type
         schema = {
           type: convert_type_to_open_api_data_type(type)
         }
+        schema[:description] = definition.description if definition.description.present?
         schema[:format] = "float" if type.klass == Apia::Scalars::Decimal
         schema[:format] = "date" if type.klass == Apia::Scalars::Date
         schema

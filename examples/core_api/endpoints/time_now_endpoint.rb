@@ -12,14 +12,24 @@ module CoreAPI
       authenticator Authenticators::TimeNowAuthenticator
 
       argument :timezone, type: Objects::TimeZone
-      argument :time_zones, [Objects::TimeZone], required: true
+      argument :time_zones, [Objects::TimeZone], required: true do
+        description "An array of any Timezone objects"
+      end
       argument :filters, [:string]
 
-      field :time, type: Objects::Time
+      field :time, type: Objects::Time do
+        description "A Time object"
+      end
       field :time_zones, type: [Objects::TimeZone]
-      field :filters, [:string], null: true
-      field :my_polymorph, type: Objects::MonthPolymorph
-      field :my_partial_polymorph, type: Objects::MonthPolymorph, include: "number", null: true
+      field :filters, [:string], null: true do
+        description "An array of strings, might be null"
+      end
+      field :my_polymorph, type: Objects::MonthPolymorph do
+        description "A polymorphic field!"
+      end
+      field :my_partial_polymorph, type: Objects::MonthPolymorph, include: "number", null: true do
+        description "Partial polymorph"
+      end
 
       scope "time"
 

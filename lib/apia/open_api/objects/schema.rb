@@ -80,7 +80,7 @@ module Apia
             @children = @definition.fields.values
           elsif @definition.type.argument_set?
             @children = @definition.type.klass.definition.arguments.values
-            @schema[:description] =
+            @schema[:description] ||=
               "All '#{@definition.name}[]' params are mutually exclusive, only one can be provided."
           elsif @definition.type.object?
             @children = @definition.type.klass.definition.fields.values
@@ -127,7 +127,7 @@ module Apia
           else # scalar
             schema[:type] = "object"
             schema[:properties] ||= {}
-            schema[:properties][child.name.to_s] = generate_scalar_schema(child.type)
+            schema[:properties][child.name.to_s] = generate_scalar_schema(child)
           end
 
           if child.try(:required?)
