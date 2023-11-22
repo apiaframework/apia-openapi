@@ -39,7 +39,7 @@ module Apia
             if @argument.type.enum? || @argument.type.object?
               items = generate_schema_ref(@argument)
             else
-              items = { type: convert_type_to_open_api_data_type(@argument.type) }
+              items = generate_scalar_schema(@argument.type)
             end
 
             param = {
@@ -64,9 +64,7 @@ module Apia
             param = {
               name: @argument.name.to_s,
               in: "query",
-              schema: {
-                type: convert_type_to_open_api_data_type(@argument.type)
-              }
+              schema: generate_scalar_schema(@argument.type)
             }
             param[:required] = true if @argument.required?
             add_to_parameters(param)
@@ -84,9 +82,7 @@ module Apia
             param = {
               name: "#{@argument.name}[#{child_arg.name}]",
               in: "query",
-              schema: {
-                type: convert_type_to_open_api_data_type(child_arg.type)
-              }
+              schema: generate_scalar_schema(child_arg.type)
             }
             description = []
             description << formatted_description(child_arg.description) if child_arg.description.present?

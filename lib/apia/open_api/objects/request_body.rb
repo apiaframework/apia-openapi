@@ -38,7 +38,7 @@ module Apia
               if arg.type.argument_set? || arg.type.enum?
                 items = generate_schema_ref(arg)
               else
-                items = { type: convert_type_to_open_api_data_type(arg.type) }
+                items = generate_scalar_schema(arg.type)
               end
 
               @properties[arg.name.to_s] = {
@@ -47,10 +47,8 @@ module Apia
               }
             elsif arg.type.argument_set? || arg.type.enum?
               @properties[arg.name.to_s] = generate_schema_ref(arg)
-            else # scalar
-              @properties[arg.name.to_s] = {
-                type: convert_type_to_open_api_data_type(arg.type)
-              }
+            else
+              @properties[arg.name.to_s] = generate_scalar_schema(arg.type)
             end
           end
 
