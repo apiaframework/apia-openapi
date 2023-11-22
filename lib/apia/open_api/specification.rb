@@ -46,11 +46,12 @@ module Apia
       end
 
       def add_info
+        title = @api.definition.name || @api.definition.id
         @spec[:info] = {
           version: "1.0.0",
-          title: @api.definition.name || @api.definition.id
+          title: title
         }
-        @spec[:info][:description] = @api.definition.description unless @api.definition.description.nil?
+        @spec[:info][:description] = @api.definition.description || "Welcome to the documentation for the #{title}"
       end
 
       def add_servers
