@@ -92,7 +92,7 @@ module Apia
 
           all_properties_included = error_definition? || enum_definition? || @endpoint.nil?
           @children.each do |child|
-            next unless @endpoint.nil? || (!enum_definition? && @endpoint.include_field?(@path + [child.name]))
+            next unless @endpoint.nil? || (!enum_definition? && @endpoint.include_field?(@path + [child]))
 
             if child.respond_to?(:array?) && child.array?
               generate_schema_for_child_array(@schema, child, all_properties_included)
