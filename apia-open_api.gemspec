@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.metadata["source_code_uri"] = "https://github.com/krystal/apia-openapi"
   spec.metadata["changelog_uri"] = "https://github.com/krystal/apia-openapi/changelog.md"
 
-  spec.metadata["rubygems_mfa_required"] = "true"
+  spec.metadata["rubygems_mfa_required"] = "false" # rubocop:disable Gemspec/RequireMFA (enabling MFA means we cannot auto publish via the CI)
 
   spec.files = Dir[File.join("lib", "**", "*.rb")] +
                Dir["{*.gemspec,Gemfile,Rakefile,README.*,LICENSE*}"]
