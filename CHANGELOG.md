@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.1](https://github.com/krystal/apia-openapi/compare/v0.0.2...v0.1.1) (2023-12-06)
+
+
+### Miscellaneous Chores
+
+* release 0.0.2 ([806f469](https://github.com/krystal/apia-openapi/commit/806f469bc7ea0fc57caa40ba497e0499fdcb5915))
+* release 0.1.1 ([dcead5d](https://github.com/krystal/apia-openapi/commit/dcead5db386ded0621ebd0fc02118b81482beb24))
+
 ## [0.0.2](https://github.com/krystal/apia-openapi/compare/v0.0.1...v0.0.2) (2023-12-06)
 
 
