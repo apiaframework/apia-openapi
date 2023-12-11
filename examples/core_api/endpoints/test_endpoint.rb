@@ -24,13 +24,30 @@ module CoreAPI
 
       scope "time"
 
-      potential_error "InvalidTest" do
+      # The number of potential errors here is intentionally high to test that
+      # we can successfully generate a truncated $ref ID for the OpenAPI spec.
+      potential_error "SomethingVeryLongProblemBoom" do
         code :invalid_test
+        http_status 400
+      end
+
+      potential_error "SoManyProblemsSoLittleTime" do
+        code :so_many_problems
         http_status 400
       end
 
       potential_error "AnotherInvalidTest" do
         code :another_invalid_test
+        http_status 400
+      end
+
+      potential_error "SomethingWrong" do
+        code :something_wrong
+        http_status 400
+      end
+
+      potential_error "ReallyWrong" do
+        code :really_wrong
         http_status 400
       end
 

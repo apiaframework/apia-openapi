@@ -99,13 +99,31 @@ module Apia
             end
           end
 
-          id = "#{@route.request_method}:#{result_parts.join('_')}"
-          if @path_ids.include?(id)
-            id = "#{@route.request_method}:#{@route.path}"
-          end
+          first_part = "#{@route.request_method}:"
+          id = "#{first_part}#{result_parts.join('_')}"
+
+          id = fallback_id(first_part) if @path_ids.include?(id)
           @path_ids << id
 
           id
+        end
+
+        # IDs can clash if two paths are different, but generate the same ID.
+        # For example:
+        # - /dns_zones/:dns_zone
+        # - /dns/zones/:dns_zone
+        # When there is a duplicate we fallback to using the path, but as the path
+        # ID is used as the prefix for any $ref IDs, we need to make sure it's not
+        # too long. This is because there is a 100 character filename limit imposed
+        # by the rubygems gem builder.
+        def fallback_id(first_part)
+          last_part = @route.path
+          if last_part.length >= 50
+            last_part = last_part.split(/[_:\/]/).map do |word|
+              word[0]
+            end.join("_")
+          end
+          "#{first_part}#{last_part}"
         end
 
       end

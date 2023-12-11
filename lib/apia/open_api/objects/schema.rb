@@ -144,9 +144,14 @@ module Apia
             schema[:properties][child.name.to_s] = generate_schema_ref(child)
           else
             child_path = @path.nil? ? nil : @path + [child]
+
+            # Nested partial fields in the response have the potential to generate
+            # very long IDs, so we truncate them to avoid hitting the 100 character
+            # filename limit imposed by the rubygems gem builder.
+            truncated_id = @id.match(/^(.*?)\d*?(Response|Part).*$/)[1]
             schema[:properties][child.name.to_s] = generate_schema_ref(
               child,
-              id: "#{@id}_#{child.name}".camelize,
+              id: "#{truncated_id}Part_#{child.name}".camelize,
               endpoint: @endpoint,
               path: child_path
             )

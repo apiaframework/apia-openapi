@@ -11,9 +11,9 @@
     }
   ],
   "paths": {
-    "/time_formatting/format": {
+    "/time_formatting/incredibly/super/duper/long/format": {
       "get": {
-        "operationId": "get:time_formatting_format",
+        "operationId": "get:time_formatting_incredibly_super_duper_long_format",
         "tags": [
           "Core"
         ],
@@ -469,7 +469,7 @@
             }
           },
           "400": {
-            "$ref": "#/components/responses/InvalidTestAnotherInvalidTest400Response"
+            "$ref": "#/components/responses/AnotherInvalidTestSomethingVeryLongProblemBoomSomethingWrong400Error"
           },
           "403": {
             "$ref": "#/components/responses/APIAuthenticator403Response"
@@ -532,7 +532,7 @@
             }
           },
           "400": {
-            "$ref": "#/components/responses/InvalidTestAnotherInvalidTest400Response"
+            "$ref": "#/components/responses/AnotherInvalidTestSomethingVeryLongProblemBoomSomethingWrong400Error"
           },
           "403": {
             "$ref": "#/components/responses/APIAuthenticator403Response"
@@ -543,9 +543,9 @@
         }
       }
     },
-    "/time/formatting/format": {
+    "/time/formatting/incredibly/super/duper/long/format": {
       "get": {
-        "operationId": "get:time/formatting/format",
+        "operationId": "get:t_f_i_s_d_l_f",
         "tags": [
           "Core"
         ],
@@ -605,7 +605,9 @@
             "$ref": "#/components/responses/RateLimitReachedResponse"
           }
         }
-      },
+      }
+    },
+    "/time/formatting/format": {
       "post": {
         "operationId": "post:time_formatting_format",
         "tags": [
@@ -768,17 +770,17 @@
             "type": "integer"
           },
           "year": {
-            "$ref": "#/components/schemas/PostExampleFormatMultiple200ResponseTimesYear"
+            "$ref": "#/components/schemas/PostExampleFormatMultiplePartYear"
           },
           "as_array_of_objects": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PostExampleFormatMultiple200ResponseTimesAsArrayOfObjects"
+              "$ref": "#/components/schemas/PostExampleFormatMultiplePartAsArrayOfObjects"
             }
           }
         }
       },
-      "PostExampleFormatMultiple200ResponseTimesYear": {
+      "PostExampleFormatMultiplePartYear": {
         "type": "object",
         "properties": {
           "as_string": {
@@ -786,7 +788,7 @@
           }
         }
       },
-      "PostExampleFormatMultiple200ResponseTimesAsArrayOfObjects": {
+      "PostExampleFormatMultiplePartAsArrayOfObjects": {
         "type": "object",
         "properties": {
           "as_integer": {
@@ -935,11 +937,11 @@
             "$ref": "#/components/schemas/Day"
           },
           "year": {
-            "$ref": "#/components/schemas/GetTestObject200ResponseTimeYear"
+            "$ref": "#/components/schemas/GetTestObjectPartYear"
           }
         }
       },
-      "GetTestObject200ResponseTimeYear": {
+      "GetTestObjectPartYear": {
         "type": "object",
         "properties": {
           "as_string": {
@@ -947,13 +949,30 @@
           }
         }
       },
-      "InvalidTestResponse": {
+      "SomethingVeryLongProblemBoomResponse": {
         "type": "object",
         "properties": {
           "code": {
             "type": "string",
             "enum": [
               "invalid_test"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "detail": {
+            "type": "object"
+          }
+        }
+      },
+      "SoManyProblemsSoLittleTimeResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "so_many_problems"
             ]
           },
           "description": {
@@ -981,13 +1000,56 @@
           }
         }
       },
-      "OneOfInvalidTestAnotherInvalidTest400Response": {
+      "SomethingWrongResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "something_wrong"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "detail": {
+            "type": "object"
+          }
+        }
+      },
+      "ReallyWrongResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "really_wrong"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "detail": {
+            "type": "object"
+          }
+        }
+      },
+      "OneOfAnotherInvalidTestSomethingVeryLongProblemBoomSomethingWrong400Error": {
         "oneOf": [
           {
-            "$ref": "#/components/schemas/InvalidTestResponse"
+            "$ref": "#/components/schemas/SomethingVeryLongProblemBoomResponse"
+          },
+          {
+            "$ref": "#/components/schemas/SoManyProblemsSoLittleTimeResponse"
           },
           {
             "$ref": "#/components/schemas/AnotherInvalidTestResponse"
+          },
+          {
+            "$ref": "#/components/schemas/SomethingWrongResponse"
+          },
+          {
+            "$ref": "#/components/schemas/ReallyWrongResponse"
           }
         ]
       },
@@ -1014,11 +1076,11 @@
             "$ref": "#/components/schemas/Day"
           },
           "year": {
-            "$ref": "#/components/schemas/PostTestObject200ResponseTimeYear"
+            "$ref": "#/components/schemas/PostTestObjectPartYear"
           }
         }
       },
-      "PostTestObject200ResponseTimeYear": {
+      "PostTestObjectPartYear": {
         "type": "object",
         "properties": {
           "as_string": {
@@ -1107,12 +1169,12 @@
           }
         }
       },
-      "InvalidTestAnotherInvalidTest400Response": {
+      "AnotherInvalidTestSomethingVeryLongProblemBoomSomethingWrong400Error": {
         "description": "400 error response",
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/OneOfInvalidTestAnotherInvalidTest400Response"
+              "$ref": "#/components/schemas/OneOfAnotherInvalidTestSomethingVeryLongProblemBoomSomethingWrong400Error"
             }
           }
         }
