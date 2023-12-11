@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/krystal/apia-openapi/compare/v0.1.1...v0.1.2) (2023-12-11)
+
+
+### Features
+
+* limit the generated names of the $refs ([#47](https://github.com/krystal/apia-openapi/issues/47)) ([8dec51f](https://github.com/krystal/apia-openapi/commit/8dec51f56ea8cf1a4deef09bc27166707078e6d6)), closes [#46](https://github.com/krystal/apia-openapi/issues/46)
+
 ## [0.1.1](https://github.com/krystal/apia-openapi/compare/v0.0.2...v0.1.1) (2023-12-06)
 
 
