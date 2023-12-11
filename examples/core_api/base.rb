@@ -18,7 +18,8 @@ module CoreAPI
     routes do
       schema
 
-      get "time_formatting/format", controller: Controllers::TimeController, endpoint: :format
+      get "time_formatting/incredibly/super/duper/long/format", controller: Controllers::TimeController,
+                                                                endpoint: :format
       post "example/format", controller: Controllers::TimeController, endpoint: :format
       post "example/format_multiple", controller: Controllers::TimeController, endpoint: :format_multiple
 
@@ -35,7 +36,7 @@ module CoreAPI
           name "Formatting"
           controller Controllers::TimeController
 
-          get "time/formatting/format", endpoint: :format
+          get "time/formatting/incredibly/super/duper/long/format", endpoint: :format
           post "time/formatting/format", endpoint: :format
         end
       end

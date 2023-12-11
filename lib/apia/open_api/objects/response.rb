@@ -229,14 +229,27 @@ module Apia
           elsif definitions.length == 1
             "#{generate_id_from_definition(definitions.first)}Response"
           else
-            [
-              (definitions - api_authenticator_error_defs).map do |d|
-                generate_id_from_definition(d)
-              end.join,
-              http_status_code,
-              "Response"
-            ].flatten.join("_").camelize
+            generate_short_error_ref(http_status_code, definitions, api_authenticator_error_defs)
           end
+        end
+
+        # When we have multiple errors for the same http status code, we need to generate a unique ID.
+        # By default we join all the error names together, with the http status code and camelize them.
+        # If this is too long, we use only the first and last two error names. Error names are sorted
+        # alphabetically, which should ensure we do not generate the same ID to represent different sets of errors.
+        # The length is important because the rubygems gem builder imposes a 100 character limit on filenames.
+        def generate_short_error_ref(http_status_code, definitions, api_authenticator_error_defs)
+          generated_ids = (definitions - api_authenticator_error_defs).map do |d|
+            generate_id_from_definition(d)
+          end.sort
+          if generated_ids.join.length > 80
+            sliced_ids = [generated_ids.first] + generated_ids[-2..]
+          end
+          [
+            (sliced_ids || generated_ids).join,
+            http_status_code,
+            "Error"
+          ].flatten.join("_").camelize
         end
 
         def add_to_responses_components(http_status_code, definitions, id)
