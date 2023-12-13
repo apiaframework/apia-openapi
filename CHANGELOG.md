@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/krystal/apia-openapi/compare/v0.1.2...v0.1.3) (2023-12-13)
+
+
+### Bug Fixes
+
+* use unique names across schemas and responses ([#50](https://github.com/krystal/apia-openapi/issues/50)) ([b4502d1](https://github.com/krystal/apia-openapi/commit/b4502d1525536c586f53a629a4f2d7ced0922d40)), closes [#49](https://github.com/krystal/apia-openapi/issues/49)
+
 ## [0.1.2](https://github.com/krystal/apia-openapi/compare/v0.1.1...v0.1.2) (2023-12-11)
 
 
