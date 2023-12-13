@@ -469,7 +469,7 @@
             }
           },
           "400": {
-            "$ref": "#/components/responses/AnotherInvalidTestSomethingVeryLongProblemBoomSomethingWrong400Error"
+            "$ref": "#/components/responses/AnotherInvalidTestSomethingVeryLongProblemBoomSomethingWrong400Res"
           },
           "403": {
             "$ref": "#/components/responses/APIAuthenticator403Response"
@@ -532,7 +532,7 @@
             }
           },
           "400": {
-            "$ref": "#/components/responses/AnotherInvalidTestSomethingVeryLongProblemBoomSomethingWrong400Error"
+            "$ref": "#/components/responses/AnotherInvalidTestSomethingVeryLongProblemBoomSomethingWrong400Res"
           },
           "403": {
             "$ref": "#/components/responses/APIAuthenticator403Response"
@@ -684,7 +684,7 @@
           }
         }
       },
-      "InvalidTokenResponse": {
+      "InvalidTokenSchema": {
         "type": "object",
         "description": "The token provided is invalid. In this example, you should provide 'example'.",
         "properties": {
@@ -711,7 +711,7 @@
           }
         }
       },
-      "UnauthorizedNetworkForAPITokenResponse": {
+      "UnauthorizedNetworkForAPITokenSchema": {
         "type": "object",
         "description": "Network is not allowed to access the API with this API token",
         "properties": {
@@ -732,10 +732,10 @@
       "OneOfAPIAuthenticator403Response": {
         "oneOf": [
           {
-            "$ref": "#/components/schemas/InvalidTokenResponse"
+            "$ref": "#/components/schemas/InvalidTokenSchema"
           },
           {
-            "$ref": "#/components/schemas/UnauthorizedNetworkForAPITokenResponse"
+            "$ref": "#/components/schemas/UnauthorizedNetworkForAPITokenSchema"
           }
         ]
       },
@@ -949,7 +949,7 @@
           }
         }
       },
-      "SomethingVeryLongProblemBoomResponse": {
+      "SomethingVeryLongProblemBoomSchema": {
         "type": "object",
         "properties": {
           "code": {
@@ -966,7 +966,7 @@
           }
         }
       },
-      "SoManyProblemsSoLittleTimeResponse": {
+      "SoManyProblemsSoLittleTimeSchema": {
         "type": "object",
         "properties": {
           "code": {
@@ -983,7 +983,7 @@
           }
         }
       },
-      "AnotherInvalidTestResponse": {
+      "AnotherInvalidTestSchema": {
         "type": "object",
         "properties": {
           "code": {
@@ -1000,7 +1000,7 @@
           }
         }
       },
-      "SomethingWrongResponse": {
+      "SomethingWrongSchema": {
         "type": "object",
         "properties": {
           "code": {
@@ -1017,7 +1017,7 @@
           }
         }
       },
-      "ReallyWrongResponse": {
+      "ReallyWrongSchema": {
         "type": "object",
         "properties": {
           "code": {
@@ -1034,22 +1034,22 @@
           }
         }
       },
-      "OneOfAnotherInvalidTestSomethingVeryLongProblemBoomSomethingWrong400Error": {
+      "OneOfAnotherInvalidTestSomethingVeryLongProblemBoomSomethingWrong400Res": {
         "oneOf": [
           {
-            "$ref": "#/components/schemas/SomethingVeryLongProblemBoomResponse"
+            "$ref": "#/components/schemas/SomethingVeryLongProblemBoomSchema"
           },
           {
-            "$ref": "#/components/schemas/SoManyProblemsSoLittleTimeResponse"
+            "$ref": "#/components/schemas/SoManyProblemsSoLittleTimeSchema"
           },
           {
-            "$ref": "#/components/schemas/AnotherInvalidTestResponse"
+            "$ref": "#/components/schemas/AnotherInvalidTestSchema"
           },
           {
-            "$ref": "#/components/schemas/SomethingWrongResponse"
+            "$ref": "#/components/schemas/SomethingWrongSchema"
           },
           {
-            "$ref": "#/components/schemas/ReallyWrongResponse"
+            "$ref": "#/components/schemas/ReallyWrongSchema"
           }
         ]
       },
@@ -1169,12 +1169,12 @@
           }
         }
       },
-      "AnotherInvalidTestSomethingVeryLongProblemBoomSomethingWrong400Error": {
+      "AnotherInvalidTestSomethingVeryLongProblemBoomSomethingWrong400Res": {
         "description": "400 error response",
         "content": {
           "application/json": {
             "schema": {
-              "$ref": "#/components/schemas/OneOfAnotherInvalidTestSomethingVeryLongProblemBoomSomethingWrong400Error"
+              "$ref": "#/components/schemas/OneOfAnotherInvalidTestSomethingVeryLongProblemBoomSomethingWrong400Res"
             }
           }
         }

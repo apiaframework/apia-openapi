@@ -211,7 +211,7 @@ module Apia
         end
 
         def generate_ref(namespace, http_status_code, definitions)
-          id = generate_id_for_error_ref(http_status_code, definitions)
+          id = generate_id_for_error_ref(namespace, http_status_code, definitions)
           if namespace == "responses"
             add_to_responses_components(http_status_code, definitions, id)
           else
@@ -220,16 +220,17 @@ module Apia
           { "$ref": "#/components/#{namespace}/#{id}" }
         end
 
-        def generate_id_for_error_ref(http_status_code, definitions)
+        def generate_id_for_error_ref(namespace, http_status_code, definitions)
+          suffix = namespace == "responses" ? "Response" : "Schema"
           api_authenticator_error_defs = api_authenticator_potential_errors.map(&:definition).select do |d|
             d.http_status_code.to_s == http_status_code.to_s
           end
           if api_authenticator_error_defs.any? && api_authenticator_error_defs == definitions
-            "APIAuthenticator#{http_status_code}Response"
+            "APIAuthenticator#{http_status_code}#{suffix}"
           elsif definitions.length == 1
-            "#{generate_id_from_definition(definitions.first)}Response"
+            "#{generate_id_from_definition(definitions.first)}#{suffix}"
           else
-            generate_short_error_ref(http_status_code, definitions, api_authenticator_error_defs)
+            generate_short_error_ref(suffix, http_status_code, definitions, api_authenticator_error_defs)
           end
         end
 
@@ -238,7 +239,7 @@ module Apia
         # If this is too long, we use only the first and last two error names. Error names are sorted
         # alphabetically, which should ensure we do not generate the same ID to represent different sets of errors.
         # The length is important because the rubygems gem builder imposes a 100 character limit on filenames.
-        def generate_short_error_ref(http_status_code, definitions, api_authenticator_error_defs)
+        def generate_short_error_ref(suffix, http_status_code, definitions, api_authenticator_error_defs)
           generated_ids = (definitions - api_authenticator_error_defs).map do |d|
             generate_id_from_definition(d)
           end.sort
@@ -248,7 +249,7 @@ module Apia
           [
             (sliced_ids || generated_ids).join,
             http_status_code,
-            "Error"
+            suffix.first(3)
           ].flatten.join("_").camelize
         end
 
