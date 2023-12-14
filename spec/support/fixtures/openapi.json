@@ -676,6 +676,12 @@
           "Asia/Singapore"
         ]
       },
+      "InvalidTimeEnum": {
+        "type": "string",
+        "enum": [
+          "invalid_time"
+        ]
+      },
       "InvalidToken": {
         "type": "object",
         "properties": {
@@ -684,15 +690,18 @@
           }
         }
       },
+      "InvalidTokenEnum": {
+        "type": "string",
+        "enum": [
+          "invalid_token"
+        ]
+      },
       "InvalidTokenSchema": {
         "type": "object",
         "description": "The token provided is invalid. In this example, you should provide 'example'.",
         "properties": {
           "code": {
-            "type": "string",
-            "enum": [
-              "invalid_token"
-            ]
+            "$ref": "#/components/schemas/InvalidTokenEnum"
           },
           "description": {
             "type": "string"
@@ -711,15 +720,18 @@
           }
         }
       },
+      "UnauthorizedNetworkForAPITokenEnum": {
+        "type": "string",
+        "enum": [
+          "unauthorized_network_for_api_token"
+        ]
+      },
       "UnauthorizedNetworkForAPITokenSchema": {
         "type": "object",
         "description": "Network is not allowed to access the API with this API token",
         "properties": {
           "code": {
-            "type": "string",
-            "enum": [
-              "unauthorized_network_for_api_token"
-            ]
+            "$ref": "#/components/schemas/UnauthorizedNetworkForAPITokenEnum"
           },
           "description": {
             "type": "string"
@@ -747,6 +759,12 @@
             "description": "The total number of requests per minute that are permitted"
           }
         }
+      },
+      "RateLimitReachedEnum": {
+        "type": "string",
+        "enum": [
+          "rate_limit_reached"
+        ]
       },
       "TimeLookupArgumentSet": {
         "description": "All 'time[]' params are mutually exclusive, only one can be provided.",
@@ -919,6 +937,12 @@
           }
         }
       },
+      "WrongDayOfWeekEnum": {
+        "type": "string",
+        "enum": [
+          "wrong_day_of_week"
+        ]
+      },
       "PostTimeNow200ResponseMyPartialPolymorph": {
         "type": "object",
         "properties": {
@@ -949,14 +973,17 @@
           }
         }
       },
+      "SomethingVeryLongProblemBoomEnum": {
+        "type": "string",
+        "enum": [
+          "invalid_test"
+        ]
+      },
       "SomethingVeryLongProblemBoomSchema": {
         "type": "object",
         "properties": {
           "code": {
-            "type": "string",
-            "enum": [
-              "invalid_test"
-            ]
+            "$ref": "#/components/schemas/SomethingVeryLongProblemBoomEnum"
           },
           "description": {
             "type": "string"
@@ -965,15 +992,18 @@
             "type": "object"
           }
         }
+      },
+      "SoManyProblemsSoLittleTimeEnum": {
+        "type": "string",
+        "enum": [
+          "so_many_problems"
+        ]
       },
       "SoManyProblemsSoLittleTimeSchema": {
         "type": "object",
         "properties": {
           "code": {
-            "type": "string",
-            "enum": [
-              "so_many_problems"
-            ]
+            "$ref": "#/components/schemas/SoManyProblemsSoLittleTimeEnum"
           },
           "description": {
             "type": "string"
@@ -982,15 +1012,18 @@
             "type": "object"
           }
         }
+      },
+      "AnotherInvalidTestEnum": {
+        "type": "string",
+        "enum": [
+          "another_invalid_test"
+        ]
       },
       "AnotherInvalidTestSchema": {
         "type": "object",
         "properties": {
           "code": {
-            "type": "string",
-            "enum": [
-              "another_invalid_test"
-            ]
+            "$ref": "#/components/schemas/AnotherInvalidTestEnum"
           },
           "description": {
             "type": "string"
@@ -999,15 +1032,18 @@
             "type": "object"
           }
         }
+      },
+      "SomethingWrongEnum": {
+        "type": "string",
+        "enum": [
+          "something_wrong"
+        ]
       },
       "SomethingWrongSchema": {
         "type": "object",
         "properties": {
           "code": {
-            "type": "string",
-            "enum": [
-              "something_wrong"
-            ]
+            "$ref": "#/components/schemas/SomethingWrongEnum"
           },
           "description": {
             "type": "string"
@@ -1017,14 +1053,17 @@
           }
         }
       },
+      "ReallyWrongEnum": {
+        "type": "string",
+        "enum": [
+          "really_wrong"
+        ]
+      },
       "ReallyWrongSchema": {
         "type": "object",
         "properties": {
           "code": {
-            "type": "string",
-            "enum": [
-              "really_wrong"
-            ]
+            "$ref": "#/components/schemas/ReallyWrongEnum"
           },
           "description": {
             "type": "string"
@@ -1051,6 +1090,12 @@
           {
             "$ref": "#/components/schemas/ReallyWrongSchema"
           }
+        ]
+      },
+      "ObjectNotFoundEnum": {
+        "type": "string",
+        "enum": [
+          "object_not_found"
         ]
       },
       "ObjectLookup": {
@@ -1097,10 +1142,7 @@
             "schema": {
               "properties": {
                 "code": {
-                  "type": "string",
-                  "enum": [
-                    "invalid_time"
-                  ]
+                  "$ref": "#/components/schemas/InvalidTimeEnum"
                 },
                 "description": {
                   "type": "string"
@@ -1130,10 +1172,7 @@
             "schema": {
               "properties": {
                 "code": {
-                  "type": "string",
-                  "enum": [
-                    "rate_limit_reached"
-                  ]
+                  "$ref": "#/components/schemas/RateLimitReachedEnum"
                 },
                 "description": {
                   "type": "string"
@@ -1153,10 +1192,7 @@
             "schema": {
               "properties": {
                 "code": {
-                  "type": "string",
-                  "enum": [
-                    "wrong_day_of_week"
-                  ]
+                  "$ref": "#/components/schemas/WrongDayOfWeekEnum"
                 },
                 "description": {
                   "type": "string"
@@ -1186,10 +1222,7 @@
             "schema": {
               "properties": {
                 "code": {
-                  "type": "string",
-                  "enum": [
-                    "object_not_found"
-                  ]
+                  "$ref": "#/components/schemas/ObjectNotFoundEnum"
                 },
                 "description": {
                   "type": "string"

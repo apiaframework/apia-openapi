@@ -283,16 +283,31 @@ module Apia
           component_schema
         end
 
+        # We want to declare the code in the error response as an enum, with only
+        # one possible value, as this makes it explicit to the client what the
+        # value will be.
+        #
+        # However, the code field is not defined as an Enum scalar within Apia,
+        # so we generate an Enum definition "on the fly" here.
+        #
+        # This means we can add a schema for the enum and a related $ref, which
+        # helps prompt client generators to generate an explicit enum type for the code.
+        # Otherwise if we generate the enum 'inline' in the response, some client generators
+        # will not generate an enum type for the code.
         def generate_schema_properties_for_definition(definition)
-          detail = generate_schema_ref(definition, id: generate_id_from_definition(definition))
+          id = generate_id_from_definition(definition)
+          detail_ref = generate_schema_ref(definition, id: id)
+
+          code_enum_id = "#{id}Enum"
+          code_enum_field_definition = Definitions::Field.new(:enum, id: code_enum_id)
+          code_enum_field_definition.type = Class.new(Apia::Enum) { value(definition.code) }
+          code_ref = generate_schema_ref(code_enum_field_definition, id: code_enum_id)
+
           {
             properties: {
-              code: {
-                type: "string",
-                enum: [definition.code]
-              },
+              code: code_ref,
               description: { type: "string" },
-              detail: detail
+              detail: detail_ref
             }
           }
         end
