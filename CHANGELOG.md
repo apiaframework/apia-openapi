@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.4](https://github.com/krystal/apia-openapi/compare/v0.1.3...v0.1.4) (2023-12-14)
+
+
+### Features
+
+* extract error response code enums into schemas ([#53](https://github.com/krystal/apia-openapi/issues/53)) ([ce2ba62](https://github.com/krystal/apia-openapi/commit/ce2ba623c6fb7bf82a98bbdbd50f84b763a77245)), closes [#52](https://github.com/krystal/apia-openapi/issues/52)
+
 ## [0.1.3](https://github.com/krystal/apia-openapi/compare/v0.1.2...v0.1.3) (2023-12-13)
 
 
