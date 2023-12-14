@@ -2,17 +2,13 @@
 
 This gem can generate an [OpenAPI](https://www.openapis.org/) compatible schema from an API implemented using [Apia](https://github.com/krystal/apia).
 
-## Installation
+This gem is in the early phases of development and breaking changes may be introduced whilst the gem is in the 0.1.x version range.
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
+## Installation
 
 Install the gem and add to the application's Gemfile by executing:
 
-    $ bundle add UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
-
-If bundler is not being used to manage dependencies, install the gem by executing:
-
-    $ gem install UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+    $ bundle add apia-open_api
 
 ## Usage
 
@@ -85,7 +81,7 @@ You can also run `bin/console` for an interactive prompt that will allow you to 
 
 ## Releasing a new version
 
-TODO: Write instructions for releasing a new version of the gem.
+[Release Please](https://github.com/googleapis/release-please) is configured. The [convential commits](https://www.conventionalcommits.org/en/v1.0.0/) format should be used and upon merging to main, Release Please will open a new PR following semver rules. When that Release Please PR is merged, a new version will be published to RubyGems.
 
 ## Contributing
 
