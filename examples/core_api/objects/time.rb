@@ -22,7 +22,7 @@ module CoreAPI
         backend { |t| t.to_s }
       end
 
-      field :year, type: Objects::Year do
+      field :year, type: Objects::Year, null: true do
         backend { |t| t.year }
       end
 
@@ -46,7 +46,7 @@ module CoreAPI
         backend { |t| Base64.encode64(t.to_s) }
       end
 
-      field :as_date, type: :date do
+      field :as_date, type: :date, null: true do
         backend { |t| t.strftime("%Y-%m-%d") }
       end
 

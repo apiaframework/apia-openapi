@@ -788,12 +788,21 @@
             "type": "integer"
           },
           "year": {
-            "$ref": "#/components/schemas/PostExampleFormatMultiplePartYear"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PostExampleFormatMultiplePartYear"
+              }
+            ],
+            "nullable": true
           },
           "as_array_of_objects": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PostExampleFormatMultiplePartAsArrayOfObjects"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/PostExampleFormatMultiplePartAsArrayOfObjects"
+                }
+              ]
             }
           }
         }
@@ -827,7 +836,12 @@
             "type": "string"
           },
           "year": {
-            "$ref": "#/components/schemas/Year"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Year"
+              }
+            ],
+            "nullable": true
           },
           "month": {
             "$ref": "#/components/schemas/MonthPolymorph"
@@ -841,7 +855,11 @@
           "as_array_of_objects": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Year"
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Year"
+                }
+              ]
             }
           },
           "as_decimal": {
@@ -853,7 +871,8 @@
           },
           "as_date": {
             "type": "string",
-            "format": "date"
+            "format": "date",
+            "nullable": true
           }
         }
       },
@@ -961,7 +980,12 @@
             "$ref": "#/components/schemas/Day"
           },
           "year": {
-            "$ref": "#/components/schemas/GetTestObjectPartYear"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/GetTestObjectPartYear"
+              }
+            ],
+            "nullable": true
           }
         }
       },
@@ -1121,7 +1145,12 @@
             "$ref": "#/components/schemas/Day"
           },
           "year": {
-            "$ref": "#/components/schemas/PostTestObjectPartYear"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PostTestObjectPartYear"
+              }
+            ],
+            "nullable": true
           }
         }
       },
