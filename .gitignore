@@ -15,3 +15,5 @@
 .rubocop-https---dev-k-io-rubocop-*
 
 *.gem
+
+Gemfile.lock
