@@ -40,7 +40,7 @@ module Apia
           @definition = definition
           @schema = schema
           @id = id
-          @endpoint = endpoint
+          @endpoint = endpoint # endpoint gets specified when we are dealing with a partial response
           @path = path
           @children = []
         end
@@ -130,6 +130,10 @@ module Apia
             schema[:properties][child.name.to_s] = generate_scalar_schema(child)
           end
 
+          if child.try(:null?)
+            schema[:properties][child.name.to_s][:nullable] = true
+          end
+
           if child.try(:required?)
             schema[:required] ||= []
             schema[:required] << child.name.to_s
@@ -141,7 +145,7 @@ module Apia
           schema[:type] = "object"
           schema[:properties] ||= {}
           if all_properties_included
-            schema[:properties][child.name.to_s] = generate_schema_ref(child)
+            ref = generate_schema_ref(child)
           else
             child_path = @path.nil? ? nil : @path + [child]
 
@@ -149,13 +153,16 @@ module Apia
             # very long IDs, so we truncate them to avoid hitting the 100 character
             # filename limit imposed by the rubygems gem builder.
             truncated_id = @id.match(/^(.*?)\d*?(Response|Part).*$/)[1]
-            schema[:properties][child.name.to_s] = generate_schema_ref(
+            ref = generate_schema_ref(
               child,
               id: "#{truncated_id}Part_#{child.name}".camelize,
               endpoint: @endpoint,
               path: child_path
             )
           end
+
+          # Using allOf is a workaround to allow us to set a ref as `nullable` in OpenAPI 3.0
+          schema[:properties][child.name.to_s] = { allOf: [ref] }
         end
 
       end
