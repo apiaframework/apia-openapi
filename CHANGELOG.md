@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.5](https://github.com/krystal/apia-openapi/compare/v0.1.4...v0.1.5) (2024-01-24)
+
+
+### Features
+
+* ensure apia objects can be declared as nullable ([#56](https://github.com/krystal/apia-openapi/issues/56)) ([7cb80e7](https://github.com/krystal/apia-openapi/commit/7cb80e773b2f27659b932288da0aaea7faf3c85a))
+
 ## [0.1.4](https://github.com/krystal/apia-openapi/compare/v0.1.3...v0.1.4) (2023-12-14)
 
 
