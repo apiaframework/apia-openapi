@@ -98,15 +98,15 @@ module Apia
           else
             # We assume the partially selected attributes must be present in all of the polymorph options
             # and that each option returns the same data type for that attribute.
-            # The same 'allOf workaround' is used here as for objects and enums below.
             ref = generate_schema_ref(
               field.type.klass.definition.options.values.first,
               id: generate_field_id(field_name),
+              sibling_props: field.description.present? || field.null?,
               endpoint: @endpoint,
               path: [field]
             )
 
-            properties[field_name] = { allOf: [ref] }
+            properties[field_name] = ref
           end
           properties[field_name][:description] = field.description if field.description.present?
         end
@@ -135,24 +135,26 @@ module Apia
           properties[field_name][:description] = field.description if field.description.present?
         end
 
-        # Using allOf is a 'workaround' so that we can include a description for the field
-        # In OpenAPI 3.0 sibling properties are not allowed for $refs (but are allowed in 3.1)
         # We don't want to put the description on the $ref itself because the description is
         # specific to the endpoint and not necessarily applicable to all uses of the $ref.
         def build_properties_for_object_or_enum(field_name, field, properties)
-          properties[field_name] = {}
-          properties[field_name][:description] = field.description if field.description.present?
+          sibling_props = field.description.present? || field.null?
           if field_includes_all_properties?(field)
-            ref = generate_schema_ref(field)
+            ref = generate_schema_ref(field, sibling_props: sibling_props)
           else
             ref = generate_schema_ref(
               field,
               id: generate_field_id(field_name),
+              sibling_props: sibling_props,
               endpoint: @endpoint,
               path: [field]
             )
           end
-          properties[field_name][:allOf] = [ref]
+
+          properties[field_name] = {
+            description: (field.description if field.description.present?),
+            **ref
+          }.compact
         end
 
         def field_includes_all_properties?(field)
@@ -173,7 +175,11 @@ module Apia
             d.http_status_code.to_s.to_sym
           end
 
-          sorted_grouped_potential_errors = grouped_potential_errors.sort_by do |http_status_code, _|
+          deduplicated_potential_errors = grouped_potential_errors.map do |http_status_code, potential_errors|
+            [http_status_code, potential_errors.uniq { |error| error.code }]
+          end
+
+          sorted_grouped_potential_errors = deduplicated_potential_errors.sort_by do |http_status_code, _|
             http_status_code.to_s.to_i
           end
 
@@ -270,6 +276,7 @@ module Apia
               oneOf: definitions.map { |d| generate_ref("schemas", http_status_code, [d]) }
             }
 
+            # we don't need the ref allOf workaround here because these responses are not nullable
             schema = { "$ref": "#/components/schemas/#{one_of_id}" }
           end
 

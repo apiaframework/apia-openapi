@@ -14,7 +14,7 @@ module CoreAPI
         backend { |t| t }
       end
 
-      field :day_of_week, type: Objects::Day do
+      field :day_of_week, type: Objects::Day, null: true do
         backend { |t| t.strftime("%A") }
       end
 

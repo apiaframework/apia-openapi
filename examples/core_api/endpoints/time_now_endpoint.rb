@@ -27,9 +27,7 @@ module CoreAPI
       field :my_polymorph, type: Objects::MonthPolymorph do
         description "A polymorphic field!"
       end
-      field :my_partial_polymorph, type: Objects::MonthPolymorph, include: "number", null: true do
-        description "Partial polymorph"
-      end
+      field :my_partial_polymorph, type: Objects::MonthPolymorph, include: "number", null: true
 
       scope "time"
 

@@ -52,11 +52,18 @@ module Apia
         schema
       end
 
-      def generate_schema_ref(definition, id: nil, **schema_opts)
+      def generate_schema_ref(definition, id: nil, sibling_props: false, **schema_opts)
         id ||= generate_id_from_definition(definition.type.klass.definition)
         success = add_to_components_schemas(definition, id, **schema_opts)
 
-        if success
+        # sibling_props indicates we want to allow sibling properties (typically setting nullable: true)
+        # In OpenAPI 3.0 sibling properties are not allowed for $refs (but are allowed in 3.1)
+        # Using allOf is a workaround to allow us to set a ref as `nullable` in OpenAPI 3.0
+        if success && sibling_props
+          {
+            allOf: [{ "$ref": "#/components/schemas/#{id}" }]
+          }
+        elsif success
           { "$ref": "#/components/schemas/#{id}" }
         else # no properties were defined, so just declare an object with unknown properties
           { type: "object" }

@@ -115,22 +115,23 @@ module Apia
         end
 
         def generate_schema_for_child(schema, child, all_properties_included)
+          nullable = child.try(:null?)
           if enum_definition?
             schema[:type] = "string"
             schema[:enum] = @children.map { |c| c[:name] }
           elsif child.type.argument_set? || child.type.enum? || child.type.polymorph?
             schema[:type] = "object"
             schema[:properties] ||= {}
-            schema[:properties][child.name.to_s] = generate_schema_ref(child)
+            schema[:properties][child.name.to_s] = generate_schema_ref(child, sibling_props: nullable)
           elsif child.type.object?
-            generate_properties_for_object(schema, child, all_properties_included)
+            generate_properties_for_object(schema, child, all_properties_included, nullable)
           else # scalar
             schema[:type] = "object"
             schema[:properties] ||= {}
             schema[:properties][child.name.to_s] = generate_scalar_schema(child)
           end
 
-          if child.try(:null?)
+          if nullable
             schema[:properties][child.name.to_s][:nullable] = true
           end
 
@@ -141,11 +142,11 @@ module Apia
           schema
         end
 
-        def generate_properties_for_object(schema, child, all_properties_included)
+        def generate_properties_for_object(schema, child, all_properties_included, nullable)
           schema[:type] = "object"
           schema[:properties] ||= {}
           if all_properties_included
-            ref = generate_schema_ref(child)
+            ref = generate_schema_ref(child, sibling_props: nullable)
           else
             child_path = @path.nil? ? nil : @path + [child]
 
@@ -156,13 +157,13 @@ module Apia
             ref = generate_schema_ref(
               child,
               id: "#{truncated_id}Part_#{child.name}".camelize,
+              sibling_props: nullable,
               endpoint: @endpoint,
               path: child_path
             )
           end
 
-          # Using allOf is a workaround to allow us to set a ref as `nullable` in OpenAPI 3.0
-          schema[:properties][child.name.to_s] = { allOf: [ref] }
+          schema[:properties][child.name.to_s] = ref
         end
 
       end
