@@ -11,6 +11,7 @@ gem "rspec", "~> 3.0"
 gem "rubocop", "~> 1.21"
 
 group :test do
+  gem "openapi3_parser"
   gem "pry"
   gem "simplecov", require: false
 end
