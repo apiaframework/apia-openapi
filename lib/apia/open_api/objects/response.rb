@@ -157,8 +157,10 @@ module Apia
           }.compact
         end
 
+        # We used to check if field.include was nil, but explicitly checking for a string is more robust.
+        # As some apia definitions declare `include: true`, which is not the correct way to use the option.
         def field_includes_all_properties?(field)
-          field.include.nil?
+          !field.include.is_a?(String)
         end
 
         def generate_field_id(field_name)
