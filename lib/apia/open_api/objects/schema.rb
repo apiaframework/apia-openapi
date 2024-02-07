@@ -40,7 +40,7 @@ module Apia
           @definition = definition
           @schema = schema
           @id = id
-          @endpoint = endpoint # endpoint gets specified when we are dealing with a partial response
+          @endpoint = endpoint # endpoint gets specified when we are dealing with a partial response (see below)
           @path = path
           @children = []
         end
@@ -90,15 +90,34 @@ module Apia
 
           return if @children.empty?
 
-          all_properties_included = error_definition? || enum_definition? || @endpoint.nil?
           @children.each do |child|
             next unless @endpoint.nil? || (!enum_definition? && @endpoint.include_field?(@path + [child]))
 
+            all_properties_included = all_properties_included_for_child?(child)
             if child.respond_to?(:array?) && child.array?
               generate_schema_for_child_array(@schema, child, all_properties_included)
             else
               generate_schema_for_child(@schema, child, all_properties_included)
             end
+          end
+        end
+
+        # We need to check if all properties are included, because if they aren't we cannot use
+        # an existing schema $ref. We need to generate a new schema only for the endpoint.
+        # A field is considered 'partial' when declared in Apia with the `include` option, e.g.:
+        # ```
+        #   field :zones,
+        #     type: [Objects::Zone],
+        #     include: 'id,name,permalink,data_center[reference]'
+        # ```
+        # the above example means we only want to include the id, name and permalink fields for the zone
+        # and data_center is a nested object in zone, which should only include reference.
+        # so the parent zone is a partial object and the child data_center is also a partial object.
+        def all_properties_included_for_child?(child)
+          return true if error_definition? || enum_definition? || @endpoint.nil? || !child.type.object?
+
+          child.type.klass.definition.fields.values.all? do |child_field|
+            @endpoint.include_field?(@path + [child, child_field])
           end
         end
 
