@@ -70,6 +70,8 @@ module Apia
         end
       end
 
+      # Converts the definition id to a short version:
+      # e.g. CoreAPI/Objects/TimeZone => TimeZone
       def generate_id_from_definition(definition)
         definition.id.split("/").last
       end

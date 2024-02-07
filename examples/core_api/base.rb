@@ -3,6 +3,7 @@
 require "core_api/authenticators/main_authenticator"
 require "core_api/controllers/time_controller"
 require "core_api/endpoints/test_endpoint"
+require "core_api/endpoints/legacy_endpoint"
 
 module CoreAPI
   class Base < Apia::API
@@ -39,6 +40,13 @@ module CoreAPI
           get "time/formatting/incredibly/super/duper/long/format", endpoint: :format
           post "time/formatting/format", endpoint: :format
         end
+      end
+
+      # This endpoint should not be included in the OpenAPI spec
+      group :legacy do
+        no_schema
+
+        get "legacy", endpoint: Endpoints::LegacyEndpoint
       end
     end
 
