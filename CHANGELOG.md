@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.6](https://github.com/krystal/apia-openapi/compare/v0.1.5...v0.1.6) (2024-02-08)
+
+
+### Bug Fixes
+
+* handle nullable, remove duplication ([#60](https://github.com/krystal/apia-openapi/issues/60)) ([1ecfc13](https://github.com/krystal/apia-openapi/commit/1ecfc133071fb14e273e0a847f84112aaf7e2452)), closes [#55](https://github.com/krystal/apia-openapi/issues/55)
+
 ## [0.1.5](https://github.com/krystal/apia-openapi/compare/v0.1.4...v0.1.5) (2024-01-24)
 
 
