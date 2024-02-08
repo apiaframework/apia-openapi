@@ -28,6 +28,9 @@ module Apia
           },
           security: []
         }
+
+        # path_ids is used to keep track of all the IDs of all the paths we've generated, to avoid duplicates
+        # refer to the Path object for more info
         @path_ids = []
         build_spec
       end
@@ -60,7 +63,9 @@ module Apia
 
       def add_paths
         @api.definition.route_set.routes.each do |route|
-          next unless route.endpoint.definition.schema? # not all routes should be documented
+          # not all routes should be documented
+          next unless route.group.nil? || route.group.schema?
+          next unless route.endpoint.definition.schema?
 
           Objects::Path.new(
             spec: @spec,

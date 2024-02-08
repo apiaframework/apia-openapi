@@ -18,6 +18,13 @@ module CoreAPI
         http_status 404
       end
 
+      # this is intentionally a duplicate potential_error (it's also defined on the endpoint)
+      # to test that we deduplicate them
+      potential_error "SomethingWrong" do
+        code :something_wrong
+        http_status 400
+      end
+
       resolver do |set, _request, _scope|
         objects = [{ id: "123", permalink: "perma-123" }]
         object = objects.find { |o| o[:id] == set[:id] || o[:permalink] == set[:permalink] }

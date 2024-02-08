@@ -13,7 +13,9 @@ module CoreAPI
         description "Any string will do, it's not validated"
       end
 
-      field :time, type: Objects::Time, include: "unix,day_of_week,year[as_string]", null: true do
+      field :time,
+            type: Objects::Time,
+            include: "unix,day_of_week,year[*,-as_integer,-as_array_of_strings,-as_array_of_enums]", null: true do
         condition do |o|
           o[:time].year.to_s == "2023"
         end

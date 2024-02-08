@@ -281,7 +281,6 @@
                           "$ref": "#/components/schemas/GetTimeNow200ResponseMyPartialPolymorph"
                         }
                       ],
-                      "description": "Partial polymorph",
                       "nullable": true
                     }
                   },
@@ -383,7 +382,6 @@
                           "$ref": "#/components/schemas/PostTimeNow200ResponseMyPartialPolymorph"
                         }
                       ],
-                      "description": "Partial polymorph",
                       "nullable": true
                     }
                   },
@@ -798,11 +796,7 @@
           "as_array_of_objects": {
             "type": "array",
             "items": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/PostExampleFormatMultiplePartAsArrayOfObjects"
-                }
-              ]
+              "$ref": "#/components/schemas/PostExampleFormatMultiplePartAsArrayOfObjects"
             }
           }
         }
@@ -830,7 +824,12 @@
             "type": "integer"
           },
           "day_of_week": {
-            "$ref": "#/components/schemas/Day"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Day"
+              }
+            ],
+            "nullable": true
           },
           "full": {
             "type": "string"
@@ -855,11 +854,7 @@
           "as_array_of_objects": {
             "type": "array",
             "items": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/Year"
-                }
-              ]
+              "$ref": "#/components/schemas/Year"
             }
           },
           "as_decimal": {
@@ -977,7 +972,12 @@
             "type": "integer"
           },
           "day_of_week": {
-            "$ref": "#/components/schemas/Day"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Day"
+              }
+            ],
+            "nullable": true
           },
           "year": {
             "allOf": [
@@ -994,6 +994,26 @@
         "properties": {
           "as_string": {
             "type": "string"
+          }
+        }
+      },
+      "SomethingWrongEnum": {
+        "type": "string",
+        "enum": [
+          "something_wrong"
+        ]
+      },
+      "SomethingWrongSchema": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/SomethingWrongEnum"
+          },
+          "description": {
+            "type": "string"
+          },
+          "detail": {
+            "type": "object"
           }
         }
       },
@@ -1057,26 +1077,6 @@
           }
         }
       },
-      "SomethingWrongEnum": {
-        "type": "string",
-        "enum": [
-          "something_wrong"
-        ]
-      },
-      "SomethingWrongSchema": {
-        "type": "object",
-        "properties": {
-          "code": {
-            "$ref": "#/components/schemas/SomethingWrongEnum"
-          },
-          "description": {
-            "type": "string"
-          },
-          "detail": {
-            "type": "object"
-          }
-        }
-      },
       "ReallyWrongEnum": {
         "type": "string",
         "enum": [
@@ -1100,6 +1100,9 @@
       "OneOfAnotherInvalidTestSomethingVeryLongProblemBoomSomethingWrong400Res": {
         "oneOf": [
           {
+            "$ref": "#/components/schemas/SomethingWrongSchema"
+          },
+          {
             "$ref": "#/components/schemas/SomethingVeryLongProblemBoomSchema"
           },
           {
@@ -1107,9 +1110,6 @@
           },
           {
             "$ref": "#/components/schemas/AnotherInvalidTestSchema"
-          },
-          {
-            "$ref": "#/components/schemas/SomethingWrongSchema"
           },
           {
             "$ref": "#/components/schemas/ReallyWrongSchema"
@@ -1142,7 +1142,12 @@
             "type": "integer"
           },
           "day_of_week": {
-            "$ref": "#/components/schemas/Day"
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Day"
+              }
+            ],
+            "nullable": true
           },
           "year": {
             "allOf": [

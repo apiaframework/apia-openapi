@@ -14,6 +14,8 @@ RSpec.describe Apia::OpenApi::Specification do
 
       spec = described_class.new(example_api, base_url, "Core")
 
+      # uncomment the following line for debugging :)
+      # puts spec.json
       expected_spec = File.read(fixture_path).strip
 
       expect(spec.json).to eq(expected_spec)
@@ -26,6 +28,7 @@ RSpec.describe Apia::OpenApi::Specification do
     it "produces a valid spec" do
       spec = Openapi3Parser.load_file(fixture_path)
 
+      expect(spec.errors).to be_empty
       expect(spec.valid?).to be true
     end
   end
