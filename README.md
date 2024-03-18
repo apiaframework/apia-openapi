@@ -1,6 +1,6 @@
 # Apia OpenAPI Specification
 
-This gem can generate an [OpenAPI](https://www.openapis.org/) compatible schema from an API implemented using [Apia](https://github.com/krystal/apia).
+This gem can generate an [OpenAPI](https://www.openapis.org/) compatible schema from an API implemented using [Apia](https://github.com/apiaframework/apia).
 
 This gem is in the early phases of development and breaking changes may be introduced whilst the gem is in the 0.1.x version range.
 
@@ -12,7 +12,7 @@ Install the gem and add to the application's Gemfile by executing:
 
 ## Usage
 
-The schema can be mounted in much the same way as an [Apia API](https://github.com/krystal/apia) itself.
+The schema can be mounted in much the same way as an [Apia API](https://github.com/apiaframework/apia) itself.
 
 For example, for a Ruby on Rails application:
 
@@ -85,7 +85,7 @@ You can also run `bin/console` for an interactive prompt that will allow you to 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/krystal/apia-open_api.
+Bug reports and pull requests are welcome on GitHub at https://github.com/apiaframework/apia-open_api.
 
 ## License
 
