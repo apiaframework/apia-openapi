@@ -39,10 +39,8 @@ module CoreAPI
         field :formatted_times, type: [:string]
         field :times, type: [Objects::Time], include: "unix,year[as_string],as_array_of_objects[as_integer]"
         action do
-          times = []
-          request.arguments[:times].each do |time|
-            times << time.resolve
-          end
+          times = request.arguments[:times].map(&:resolve)
+
           response.add_field :formatted_times, times.map(&:to_s).join(", ")
           response.add_field :times, times
         end
