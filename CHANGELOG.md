@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.7](https://github.com/apiaframework/apia-openapi/compare/v0.1.6...v0.1.7) (2024-05-22)
+
+
+### Features
+
+* Support plain text responses ([c3e0c6a](https://github.com/apiaframework/apia-openapi/commit/c3e0c6ac045581371d440c615c045815f7046dc4))
+
 ## [0.1.6](https://github.com/krystal/apia-openapi/compare/v0.1.5...v0.1.6) (2024-02-08)
 
 
