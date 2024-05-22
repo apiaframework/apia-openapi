@@ -198,6 +198,32 @@
         }
       }
     },
+    "/plain_text": {
+      "get": {
+        "operationId": "get:plain_text",
+        "tags": [
+          "Core"
+        ],
+        "parameters": [
+
+        ],
+        "responses": {
+          "200": {
+            "description": "Return a plain text response",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/APIAuthenticator403Response"
+          }
+        }
+      }
+    },
     "/time/now": {
       "get": {
         "operationId": "get:time_now",

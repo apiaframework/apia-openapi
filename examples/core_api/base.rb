@@ -3,6 +3,7 @@
 require "core_api/authenticators/main_authenticator"
 require "core_api/controllers/time_controller"
 require "core_api/endpoints/test_endpoint"
+require "core_api/endpoints/plain_text_endpoint"
 require "core_api/endpoints/legacy_endpoint"
 
 module CoreAPI
@@ -23,6 +24,8 @@ module CoreAPI
                                                                 endpoint: :format
       post "example/format", controller: Controllers::TimeController, endpoint: :format
       post "example/format_multiple", controller: Controllers::TimeController, endpoint: :format_multiple
+
+      get "plain_text", endpoint: Endpoints::PlainTextEndpoint
 
       group :time do
         name "Time functions"

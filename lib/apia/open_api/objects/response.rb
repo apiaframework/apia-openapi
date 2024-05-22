@@ -36,6 +36,7 @@ module Apia
           @route_spec = route_spec
           @api_authenticator = api_authenticator
           @http_status = @endpoint.definition.http_status
+          @response_type = @endpoint.definition.response_type
         end
 
         def add_to_spec
@@ -46,9 +47,14 @@ module Apia
         private
 
         def add_sucessful_response_schema
-          content_schema = {
-            properties: generate_properties_for_successful_response
-          }
+          if @response_type == Apia::Response::PLAIN
+            content_schema = { type: "string" }
+          else
+            content_schema = {
+              properties: generate_properties_for_successful_response
+            }
+          end
+
           required_fields = @endpoint.definition.fields.select { |_, field| field.condition.nil? }
           content_schema[:required] = required_fields.keys if required_fields.any?
 
@@ -56,7 +62,7 @@ module Apia
             "#{@http_status}": {
               description: @endpoint.definition.description || "",
               content: {
-                "application/json": {
+                @response_type => {
                   schema: content_schema
                 }
               }
