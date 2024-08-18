@@ -36,7 +36,9 @@ module Apia
           @api_authenticator = api_authenticator
           @route_spec = {
             operationId: convert_route_to_id,
-            tags: [name]
+            summary: @route.endpoint.definition.name,
+            description: @route.endpoint.definition.description,
+            tags: @route.endpoint.definition.scopes
           }
         end
 

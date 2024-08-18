@@ -3,7 +3,7 @@
 module CoreAPI
   module Endpoints
     class PlainTextEndpoint < Apia::Endpoint
-
+      name "Plain Text Endpoint"
       description "Return a plain text response"
       response_type Apia::Response::PLAIN
 
