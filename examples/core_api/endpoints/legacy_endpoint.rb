@@ -3,6 +3,7 @@
 module CoreAPI
   module Endpoints
     class LegacyEndpoint < Apia::Endpoint
+
       name "Legacy Endpoint"
       description "We don't use this any more"
 

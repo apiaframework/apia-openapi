@@ -14,6 +14,8 @@
     "/time_formatting/incredibly/super/duper/long/format": {
       "get": {
         "operationId": "get:time_formatting_incredibly_super_duper_long_format",
+        "summary": "Format Time",
+        "description": "Format the given time",
         "tags": [
           "Core"
         ],
@@ -78,6 +80,8 @@
     "/example/format": {
       "post": {
         "operationId": "post:example_format",
+        "summary": "Format Time",
+        "description": "Format the given time",
         "tags": [
           "Core"
         ],
@@ -136,6 +140,8 @@
     "/example/format_multiple": {
       "post": {
         "operationId": "post:example_format_multiple",
+        "summary": "Format Multiple Times",
+        "description": "Format the given times",
         "tags": [
           "Core"
         ],
@@ -201,6 +207,8 @@
     "/plain_text": {
       "get": {
         "operationId": "get:plain_text",
+        "summary": "Plain Text Endpoint",
+        "description": "Return a plain text response",
         "tags": [
           "Core"
         ],
@@ -227,6 +235,8 @@
     "/time/now": {
       "get": {
         "operationId": "get:time_now",
+        "summary": "Time Now Endpoint",
+        "description": "Returns the current time",
         "tags": [
           "Core"
         ],
@@ -331,6 +341,8 @@
       },
       "post": {
         "operationId": "post:time_now",
+        "summary": "Time Now Endpoint",
+        "description": "Returns the current time",
         "tags": [
           "Core"
         ],
@@ -434,6 +446,8 @@
     "/test/:object": {
       "get": {
         "operationId": "get:test_object",
+        "summary": "Test Endpoint",
+        "description": "Returns the current time",
         "tags": [
           "Core"
         ],
@@ -505,6 +519,8 @@
       },
       "post": {
         "operationId": "post:test_object",
+        "summary": "Test Endpoint",
+        "description": "Returns the current time",
         "tags": [
           "Core"
         ],
@@ -570,6 +586,8 @@
     "/time/formatting/incredibly/super/duper/long/format": {
       "get": {
         "operationId": "get:t_f_i_s_d_l_f",
+        "summary": "Format Time",
+        "description": "Format the given time",
         "tags": [
           "Core"
         ],
@@ -634,6 +652,8 @@
     "/time/formatting/format": {
       "post": {
         "operationId": "post:time_formatting_format",
+        "summary": "Format Time",
+        "description": "Format the given time",
         "tags": [
           "Core"
         ],
