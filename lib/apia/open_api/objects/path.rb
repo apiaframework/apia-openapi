@@ -38,7 +38,7 @@ module Apia
             operationId: convert_route_to_id,
             summary: @route.endpoint.definition.name,
             description: @route.endpoint.definition.description,
-            tags: @route.endpoint.definition.scopes
+            tags: [name]
           }
         end
 
