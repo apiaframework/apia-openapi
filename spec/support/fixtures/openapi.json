@@ -238,7 +238,7 @@
         "summary": "Time Now Endpoint",
         "description": "Returns the current time",
         "tags": [
-          "Core"
+          "Time functions"
         ],
         "parameters": [
           {
@@ -344,7 +344,7 @@
         "summary": "Time Now Endpoint",
         "description": "Returns the current time",
         "tags": [
-          "Core"
+          "Time functions"
         ],
         "requestBody": {
           "content": {
@@ -449,7 +449,7 @@
         "summary": "Test Endpoint",
         "description": "Returns the current time",
         "tags": [
-          "Core"
+          "Time functions"
         ],
         "parameters": [
           {
@@ -522,7 +522,7 @@
         "summary": "Test Endpoint",
         "description": "Returns the current time",
         "tags": [
-          "Core"
+          "Time functions"
         ],
         "requestBody": {
           "content": {
@@ -589,7 +589,7 @@
         "summary": "Format Time",
         "description": "Format the given time",
         "tags": [
-          "Core"
+          "Formatting"
         ],
         "parameters": [
           {
@@ -655,7 +655,7 @@
         "summary": "Format Time",
         "description": "Format the given time",
         "tags": [
-          "Core"
+          "Formatting"
         ],
         "requestBody": {
           "content": {
