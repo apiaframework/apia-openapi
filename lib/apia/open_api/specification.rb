@@ -41,11 +41,19 @@ module Apia
 
       private
 
+      def sort_hash_by_nested_tag(hash)
+        hash.sort_by do |_, nested_hash|
+          nested_hash.values.first[:tags]&.first
+        end.to_h
+      end
+
       def build_spec
         add_info
         add_servers
         add_paths
         add_security
+
+        @spec[:paths] = sort_hash_by_nested_tag(@spec[:paths])
       end
 
       def add_info
