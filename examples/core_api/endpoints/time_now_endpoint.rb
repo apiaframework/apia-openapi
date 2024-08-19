@@ -10,7 +10,7 @@ module CoreAPI
       name "Time Now Endpoint"
       description "Returns the current time"
 
-      scopes "time"
+      scopes "time", "time:now"
 
       authenticator Authenticators::TimeNowAuthenticator
 
