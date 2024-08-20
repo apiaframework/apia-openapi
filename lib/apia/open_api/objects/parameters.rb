@@ -82,6 +82,10 @@ module Apia
         # refer to: https://swagger.io/docs/specification/describing-parameters/#dependencies
         def generate_argument_set_params
           @argument.type.klass.definition.arguments.each_value do |child_arg|
+            # Complex argument sets are not supported in query params (e.g. nested objects)
+            # https://github.com/apiaframework/apia-openapi/issues/66
+            next if child_arg.type.argument_set?
+
             param = {
               name: "#{@argument.name}[#{child_arg.name}]",
               in: "query",

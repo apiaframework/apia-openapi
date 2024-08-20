@@ -799,11 +799,27 @@
           },
           "string": {
             "type": "string"
+          },
+          "nested": {
+            "$ref": "#/components/schemas/ObjectLookup"
           }
         },
         "required": [
           "unix"
         ]
+      },
+      "ObjectLookup": {
+        "description": "All 'nested[]' params are mutually exclusive, only one can be provided.",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "permalink": {
+            "type": "string",
+            "description": "The permalink of the object to look up"
+          }
+        }
       },
       "PostExampleFormatMultiple200ResponseTimes": {
         "type": "object",
@@ -1147,19 +1163,6 @@
         "enum": [
           "object_not_found"
         ]
-      },
-      "ObjectLookup": {
-        "description": "All 'object[]' params are mutually exclusive, only one can be provided.",
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "permalink": {
-            "type": "string",
-            "description": "The permalink of the object to look up"
-          }
-        }
       },
       "PostTestObject200ResponseTime": {
         "type": "object",
