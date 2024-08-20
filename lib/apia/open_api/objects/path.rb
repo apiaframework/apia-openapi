@@ -29,6 +29,18 @@ module Apia
 
         include Apia::OpenApi::Helpers
 
+        def get_group_name(group)
+          tags = []
+          current_group = group
+
+          while current_group
+            tags.unshift(current_group.name)
+            current_group = current_group.parent
+          end
+
+          tags
+        end
+
         def initialize(spec:, path_ids:, route:, name:, api_authenticator:)
           @spec = spec
           @path_ids = path_ids
@@ -38,20 +50,26 @@ module Apia
             operationId: convert_route_to_id,
             summary: @route.endpoint.definition.name,
             description: @route.endpoint.definition.description,
-            tags: route.group ? [route.group.name] : [name]
+            tags: route.group ? get_group_name(route.group) : [name]
           }
         end
 
         def add_to_spec
           path = @route.path
+
           if @route.request_method == :get
             add_parameters
           else
             add_request_body
           end
 
-          @spec[:paths]["/#{path}"] ||= {}
-          @spec[:paths]["/#{path}"][@route.request_method.to_s] = @route_spec
+          path = "/#{path}"
+          # Remove the `:` from the url parameters in the path
+          # This is because some tools based on the OpenAPI spec don't like the `:` in the path
+          path = path.gsub(/:([^\/]+)/, '\1')
+
+          @spec[:paths][path] ||= {}
+          @spec[:paths][path][@route.request_method.to_s] = @route_spec
 
           add_responses
         end
