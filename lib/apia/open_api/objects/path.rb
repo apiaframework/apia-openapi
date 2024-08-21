@@ -29,18 +29,6 @@ module Apia
 
         include Apia::OpenApi::Helpers
 
-        def get_group_name(group)
-          tags = []
-          current_group = group
-
-          while current_group
-            tags.unshift(current_group.name)
-            current_group = current_group.parent
-          end
-
-          tags
-        end
-
         def initialize(spec:, path_ids:, route:, name:, api_authenticator:)
           @spec = spec
           @path_ids = path_ids
@@ -50,28 +38,12 @@ module Apia
             operationId: convert_route_to_id,
             summary: @route.endpoint.definition.name,
             description: @route.endpoint.definition.description,
-            tags: route.group ? get_group_name(route.group) : [name],
-            security: [{
-              Authenticator: @route.endpoint.definition.scopes
-
-            }]
+            tags: route.group ? get_group_tags(route.group) : [name]
           }
-
-          return unless @route.endpoint.definition.scopes.any?
-
-          @route_spec[:description] =
-            <<~DESCRIPTION
-              #{@route_spec[:description]}
-
-              ## Scopes
-
-              #{route.endpoint.definition.scopes.map do |scope|
-                "- `#{scope}`"
-              end.join("\n")}
-            DESCRIPTION
         end
 
         def add_to_spec
+          add_scopes_description
           path = @route.path
 
           if @route.request_method == :get
@@ -114,6 +86,24 @@ module Apia
             route_spec: @route_spec,
             api_authenticator: @api_authenticator
           ).add_to_spec
+        end
+
+        # Adds a description of the scopes to the route specification.
+        #
+        # This method checks if the route's endpoint definition has any scopes.
+        # If there are scopes, it appends a description of the scopes to the existing route specification description.
+        # The description of the scopes is formatted as a markdown list, with each scope represented as a bullet point.
+        def add_scopes_description
+          return unless @route.endpoint.definition.scopes.any?
+
+          @route_spec[:description] =
+            <<~DESCRIPTION
+              #{@route_spec[:description]}
+              ## Scopes
+              #{@route.endpoint.definition.scopes.map do |scope|
+                "- `#{scope}`"
+              end.join("\n")}
+            DESCRIPTION
         end
 
         # It's worth creating a 'nice' operationId for each route, as this is used as the
@@ -161,6 +151,22 @@ module Apia
             end.join("_")
           end
           "#{first_part}#{last_part}"
+        end
+
+        # Returns an array of tags representing the group hierarchy for a given group.
+        #
+        # @param group [Group] The group for which to retrieve the tags.
+        # @return [Array<String>] An array of tags representing the group hierarchy.
+        def get_group_tags(group)
+          tags = []
+          current_group = group
+
+          while current_group
+            tags.unshift(current_group.name)
+            current_group = current_group.parent
+          end
+
+          tags
         end
 
       end

@@ -104,6 +104,18 @@ module Apia
         nil
       end
 
+      # Adds tag groups to the OpenAPI specification.
+      #
+      # This method iterates over the paths in the specification and adds tag groups
+      # based on the tags specified for each method.
+      # It ensures that each tag is included in the `tags` array of the specification,
+      # and creates tag groups based on the order of the tags.
+      # Tag groups are represented by the `x-tagGroups` property in the specification.
+      # Tag groups are nested groups and are used to group tags together in documentation.
+      # A Tag *must* be included in a tag group. So if it is not part of a group / has no parent tag,
+      # it will be added to a group with the same name as the tag.
+      #
+      # @return [void]
       def add_tag_groups
         @spec[:paths].each_value do |methods|
           methods.each_value do |method_spec|

@@ -15,17 +15,9 @@
       "get": {
         "operationId": "get:time_formatting_incredibly_super_duper_long_format",
         "summary": "Format Time",
-        "description": "Format the given time\n\n## Scopes\n\n- `time`\n- `time:format`\n",
+        "description": "Format the given time\n## Scopes\n- `time`\n- `time:format`\n",
         "tags": [
           "Core"
-        ],
-        "security": [
-          {
-            "Authenticator": [
-              "time",
-              "time:format"
-            ]
-          }
         ],
         "parameters": [
           {
@@ -89,17 +81,9 @@
       "post": {
         "operationId": "post:example_format",
         "summary": "Format Time",
-        "description": "Format the given time\n\n## Scopes\n\n- `time`\n- `time:format`\n",
+        "description": "Format the given time\n## Scopes\n- `time`\n- `time:format`\n",
         "tags": [
           "Core"
-        ],
-        "security": [
-          {
-            "Authenticator": [
-              "time",
-              "time:format"
-            ]
-          }
         ],
         "requestBody": {
           "content": {
@@ -157,17 +141,9 @@
       "post": {
         "operationId": "post:example_format_multiple",
         "summary": "Format Multiple Times",
-        "description": "Format the given times\n\n## Scopes\n\n- `time`\n- `time:format`\n",
+        "description": "Format the given times\n## Scopes\n- `time`\n- `time:format`\n",
         "tags": [
           "Core"
-        ],
-        "security": [
-          {
-            "Authenticator": [
-              "time",
-              "time:format"
-            ]
-          }
         ],
         "requestBody": {
           "content": {
@@ -236,13 +212,6 @@
         "tags": [
           "Core"
         ],
-        "security": [
-          {
-            "Authenticator": [
-
-            ]
-          }
-        ],
         "parameters": [
 
         ],
@@ -267,17 +236,9 @@
       "get": {
         "operationId": "get:time_now",
         "summary": "Time Now Endpoint",
-        "description": "Returns the current time\n\n## Scopes\n\n- `time`\n- `time:now`\n",
+        "description": "Returns the current time\n## Scopes\n- `time`\n- `time:now`\n",
         "tags": [
           "Time functions"
-        ],
-        "security": [
-          {
-            "Authenticator": [
-              "time",
-              "time:now"
-            ]
-          }
         ],
         "parameters": [
           {
@@ -381,17 +342,9 @@
       "post": {
         "operationId": "post:time_now",
         "summary": "Time Now Endpoint",
-        "description": "Returns the current time\n\n## Scopes\n\n- `time`\n- `time:now`\n",
+        "description": "Returns the current time\n## Scopes\n- `time`\n- `time:now`\n",
         "tags": [
           "Time functions"
-        ],
-        "security": [
-          {
-            "Authenticator": [
-              "time",
-              "time:now"
-            ]
-          }
         ],
         "requestBody": {
           "content": {
@@ -494,16 +447,9 @@
       "get": {
         "operationId": "get:test_object",
         "summary": "Test Endpoint",
-        "description": "Returns the current time\n\n## Scopes\n\n- `time`\n",
+        "description": "Returns the current time\n## Scopes\n- `time`\n",
         "tags": [
           "Time functions"
-        ],
-        "security": [
-          {
-            "Authenticator": [
-              "time"
-            ]
-          }
         ],
         "parameters": [
           {
@@ -574,16 +520,9 @@
       "post": {
         "operationId": "post:test_object",
         "summary": "Test Endpoint",
-        "description": "Returns the current time\n\n## Scopes\n\n- `time`\n",
+        "description": "Returns the current time\n## Scopes\n- `time`\n",
         "tags": [
           "Time functions"
-        ],
-        "security": [
-          {
-            "Authenticator": [
-              "time"
-            ]
-          }
         ],
         "requestBody": {
           "content": {
@@ -648,18 +587,10 @@
       "get": {
         "operationId": "get:t_f_i_s_d_l_f",
         "summary": "Format Time",
-        "description": "Format the given time\n\n## Scopes\n\n- `time`\n- `time:format`\n",
+        "description": "Format the given time\n## Scopes\n- `time`\n- `time:format`\n",
         "tags": [
           "Time functions",
           "Formatting"
-        ],
-        "security": [
-          {
-            "Authenticator": [
-              "time",
-              "time:format"
-            ]
-          }
         ],
         "parameters": [
           {
@@ -723,18 +654,10 @@
       "post": {
         "operationId": "post:time_formatting_format",
         "summary": "Format Time",
-        "description": "Format the given time\n\n## Scopes\n\n- `time`\n- `time:format`\n",
+        "description": "Format the given time\n## Scopes\n- `time`\n- `time:format`\n",
         "tags": [
           "Time functions",
           "Formatting"
-        ],
-        "security": [
-          {
-            "Authenticator": [
-              "time",
-              "time:format"
-            ]
-          }
         ],
         "requestBody": {
           "content": {
