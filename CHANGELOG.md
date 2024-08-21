@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.9](https://github.com/apiaframework/apia-openapi/compare/v0.1.8...v0.1.9) (2024-08-21)
+
+
+### Features
+
+* add documentation details to endpoints ([#65](https://github.com/apiaframework/apia-openapi/issues/65)) ([ed9e9d2](https://github.com/apiaframework/apia-openapi/commit/ed9e9d239e463f22b10d6974c2d639e43f0af81a))
+
 ## [0.1.8](https://github.com/apiaframework/apia-openapi/compare/v0.1.7...v0.1.8) (2024-08-21)
 
 
