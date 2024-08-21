@@ -41,7 +41,7 @@ module Apia
         specification = Specification.new(api_class, base_url, @options[:name])
         body = specification.json
 
-        [200, { "Content-Type" => "application/json", "Content-Length" => body.bytesize.to_s }, [body]]
+        [200, { "content-type" => "application/json", "content-length" => body.bytesize.to_s }, [body]]
       end
 
     end

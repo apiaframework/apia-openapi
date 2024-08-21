@@ -3,10 +3,10 @@
 # Uncomment the following if you need to use a local version of the Apia gem
 require "bundler/inline"
 gemfile do
-  gem "rack", "2.2.8"
+  gem "rack", "3.1.7"
   gem "apia", path: "../../apia"
   gem "activesupport"
-  gem "puma"
+  gem "puma", "~> 6.0"
   gem "pry"
 end
 
@@ -25,7 +25,7 @@ use Apia::OpenApi::Rack,
 use Apia::Rack, CoreAPI::Base, "/core/v1", development: true
 
 app = proc do
-  [400, { "Content-Type" => "text/plain" },
+  [400, { "content-type" => "text/plain" },
    ["Apia Example API Server. Make a request to a an example API for example /core/v1."]]
 end
 

@@ -55,7 +55,7 @@ RSpec.describe Apia::OpenApi::Rack do
         expect(middleware_response).to match_array(
           [
             200,
-            hash_including("Content-Type" => "application/json"),
+            hash_including("content-type" => "application/json"),
             [mock_spec.json]
           ]
         )
@@ -113,7 +113,7 @@ RSpec.describe Apia::OpenApi::Rack do
             expect(middleware_response).to match_array(
               [
                 200,
-                hash_including("Content-Type" => "application/json"),
+                hash_including("content-type" => "application/json"),
                 [mock_spec.json]
               ]
             )
@@ -145,7 +145,7 @@ RSpec.describe Apia::OpenApi::Rack do
           expect(middleware_response).to match_array(
             [
               200,
-              hash_including("Content-Type" => "application/json"),
+              hash_including("content-type" => "application/json"),
               [mock_spec.json]
             ]
           )
