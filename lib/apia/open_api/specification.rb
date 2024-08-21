@@ -126,22 +126,18 @@ module Apia
 
               next if tag_index.zero?
 
-              parent_tag = method_spec[:tags][tag_index - 1]
-              index = get_tag_group_index(parent_tag)
+              tags = method_spec[:tags]
 
-              if index.nil? && method_spec[:tags].size > 1
+              parent_tag = tags[tag_index - 1]
+              parent_index = get_tag_group_index(parent_tag)
+
+              if parent_index.nil? && tags.size > 1
                 @spec[:"x-tagGroups"] << { name: parent_tag, tags: [parent_tag] }
-                index = @spec[:"x-tagGroups"].size - 1
+                parent_index = @spec[:"x-tagGroups"].size - 1
               end
 
-              unless @spec[:"x-tagGroups"][index][:tags].include?(tag)
-                @spec[:"x-tagGroups"][index][:tags] << tag
-              end
-
-              index = get_tag_group_index(tag)
-
-              if index.nil? && method_spec[:tags].size > 1 && tag_index < method_spec[:tags].size - 1
-                @spec[:"x-tagGroups"] << { name: tag, tags: [] }
+              unless @spec[:"x-tagGroups"][parent_index][:tags].include?(tag)
+                @spec[:"x-tagGroups"][parent_index][:tags] << tag
               end
             end
           end
