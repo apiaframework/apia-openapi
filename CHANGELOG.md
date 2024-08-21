@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.8](https://github.com/apiaframework/apia-openapi/compare/v0.1.7...v0.1.8) (2024-08-21)
+
+
+### Bug Fixes
+
+* ensure nested params don't break schema ([c224beb](https://github.com/apiaframework/apia-openapi/commit/c224beb44bd201d83691b05c5a4ad9f66ef13428))
+
 ## [0.1.7](https://github.com/apiaframework/apia-openapi/compare/v0.1.6...v0.1.7) (2024-05-22)
 
 
