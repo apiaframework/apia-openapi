@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
+require_relative "object_lookup"
+
 module CoreAPI
   module ArgumentSets
     class TimeLookupArgumentSet < Apia::LookupArgumentSet
 
       argument :unix, type: :string, required: true
       argument :string, type: :string
+      argument :nested, type: ObjectLookup
 
       potential_error "InvalidTime" do
         code :invalid_time
