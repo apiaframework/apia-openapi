@@ -50,8 +50,25 @@ module Apia
             operationId: convert_route_to_id,
             summary: @route.endpoint.definition.name,
             description: @route.endpoint.definition.description,
-            tags: route.group ? get_group_name(route.group) : [name]
+            tags: route.group ? get_group_name(route.group) : [name],
+            security: [{
+              Authenticator: @route.endpoint.definition.scopes
+
+            }]
           }
+
+          return unless @route.endpoint.definition.scopes.any?
+
+          @route_spec[:description] =
+            <<~DESCRIPTION
+              #{@route_spec[:description]}
+
+              ## Scopes
+
+              #{route.endpoint.definition.scopes.map do |scope|
+                "- `#{scope}`"
+              end.join("\n")}
+            DESCRIPTION
         end
 
         def add_to_spec
