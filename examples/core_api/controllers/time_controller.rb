@@ -19,7 +19,9 @@ module CoreAPI
       # TODO: add example of multiple objects using the same objects, to ensure
       # we are handing circular references correctly
       endpoint :format do
+        name "Format Time"
         description "Format the given time"
+        scopes "time", "time:format"
         argument :time, type: ArgumentSets::TimeLookupArgumentSet, required: true do
           description "Time is a lookup argument set"
         end
@@ -34,7 +36,9 @@ module CoreAPI
       end
 
       endpoint :format_multiple do
+        name "Format Multiple Times"
         description "Format the given times"
+        scopes "time", "time:format"
         argument :times, type: [ArgumentSets::TimeLookupArgumentSet], required: true
         field :formatted_times, type: [:string]
         field :times, type: [Objects::Time], include: "unix,year[as_string],as_array_of_objects[as_integer]"

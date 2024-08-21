@@ -7,7 +7,10 @@ module CoreAPI
   module Endpoints
     class TimeNowEndpoint < Apia::Endpoint
 
+      name "Time Now Endpoint"
       description "Returns the current time"
+
+      scopes "time", "time:now"
 
       authenticator Authenticators::TimeNowAuthenticator
 

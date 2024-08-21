@@ -26,7 +26,9 @@ module Apia
           components: {
             schemas: {}
           },
-          security: []
+          security: [],
+          tags: [],
+          "x-tagGroups": []
         }
 
         # path_ids is used to keep track of all the IDs of all the paths we've generated, to avoid duplicates
@@ -41,11 +43,20 @@ module Apia
 
       private
 
+      def sort_hash_by_nested_tag(hash)
+        hash.sort_by do |_, nested_hash|
+          nested_hash.values.first[:tags]&.first
+        end.to_h
+      end
+
       def build_spec
         add_info
         add_servers
         add_paths
         add_security
+        add_tag_groups
+
+        @spec[:paths] = sort_hash_by_nested_tag(@spec[:paths])
       end
 
       def add_info
@@ -83,6 +94,63 @@ module Apia
 
           Objects::BearerSecurityScheme.new(spec: @spec, authenticator: authenticator).add_to_spec
         end
+      end
+
+      def get_tag_group_index(tag)
+        @spec[:"x-tagGroups"].each_with_index do |group, index|
+          return index if !group.nil? && group[:name] == tag
+        end
+
+        nil
+      end
+
+      # Adds tag groups to the OpenAPI specification.
+      #
+      # This method iterates over the paths in the specification and adds tag groups
+      # based on the tags specified for each method.
+      # It ensures that each tag is included in the `tags` array of the specification,
+      # and creates tag groups based on the order of the tags.
+      # Tag groups are represented by the `x-tagGroups` property in the specification.
+      # Tag groups are nested groups and are used to group tags together in documentation.
+      # A Tag *must* be included in a tag group. So if it is not part of a group / has no parent tag,
+      # it will be added to a group with the same name as the tag.
+      #
+      # @return [void]
+      def add_tag_groups
+        @spec[:paths].each_value do |methods|
+          methods.each_value do |method_spec|
+            method_spec[:tags].each_with_index do |tag, tag_index|
+              unless @spec[:tags].any? { |t| t[:name] == tag }
+                @spec[:tags] << { name: tag }
+              end
+
+              next if tag_index.zero?
+
+              tags = method_spec[:tags]
+
+              parent_tag = tags[tag_index - 1]
+              parent_index = get_tag_group_index(parent_tag)
+
+              if parent_index.nil? && tags.size > 1
+                @spec[:"x-tagGroups"] << { name: parent_tag, tags: [parent_tag] }
+                parent_index = @spec[:"x-tagGroups"].size - 1
+              end
+
+              unless @spec[:"x-tagGroups"][parent_index][:tags].include?(tag)
+                @spec[:"x-tagGroups"][parent_index][:tags] << tag
+              end
+            end
+          end
+        end
+
+        @spec[:tags].each do |tag|
+          unless @spec[:"x-tagGroups"].any? { |group| group[:tags].include?(tag[:name]) }
+            @spec[:"x-tagGroups"] << { name: tag[:name], tags: [tag[:name]] }
+          end
+        end
+
+        @spec[:"x-tagGroups"].sort_by! { |group| group[:name] }
+        @spec[:"x-tagGroups"].each { |group| group[:tags].sort! }
       end
 
     end

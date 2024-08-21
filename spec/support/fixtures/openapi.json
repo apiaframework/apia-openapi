@@ -14,6 +14,8 @@
     "/time_formatting/incredibly/super/duper/long/format": {
       "get": {
         "operationId": "get:time_formatting_incredibly_super_duper_long_format",
+        "summary": "Format Time",
+        "description": "Format the given time\n## Scopes\n- `time`\n- `time:format`\n",
         "tags": [
           "Core"
         ],
@@ -78,6 +80,8 @@
     "/example/format": {
       "post": {
         "operationId": "post:example_format",
+        "summary": "Format Time",
+        "description": "Format the given time\n## Scopes\n- `time`\n- `time:format`\n",
         "tags": [
           "Core"
         ],
@@ -136,6 +140,8 @@
     "/example/format_multiple": {
       "post": {
         "operationId": "post:example_format_multiple",
+        "summary": "Format Multiple Times",
+        "description": "Format the given times\n## Scopes\n- `time`\n- `time:format`\n",
         "tags": [
           "Core"
         ],
@@ -201,6 +207,8 @@
     "/plain_text": {
       "get": {
         "operationId": "get:plain_text",
+        "summary": "Plain Text Endpoint",
+        "description": "Return a plain text response",
         "tags": [
           "Core"
         ],
@@ -227,8 +235,10 @@
     "/time/now": {
       "get": {
         "operationId": "get:time_now",
+        "summary": "Time Now Endpoint",
+        "description": "Returns the current time\n## Scopes\n- `time`\n- `time:now`\n",
         "tags": [
-          "Core"
+          "Time functions"
         ],
         "parameters": [
           {
@@ -331,8 +341,10 @@
       },
       "post": {
         "operationId": "post:time_now",
+        "summary": "Time Now Endpoint",
+        "description": "Returns the current time\n## Scopes\n- `time`\n- `time:now`\n",
         "tags": [
-          "Core"
+          "Time functions"
         ],
         "requestBody": {
           "content": {
@@ -431,11 +443,13 @@
         }
       }
     },
-    "/test/:object": {
+    "/test/object": {
       "get": {
         "operationId": "get:test_object",
+        "summary": "Test Endpoint",
+        "description": "Returns the current time\n## Scopes\n- `time`\n",
         "tags": [
-          "Core"
+          "Time functions"
         ],
         "parameters": [
           {
@@ -505,8 +519,10 @@
       },
       "post": {
         "operationId": "post:test_object",
+        "summary": "Test Endpoint",
+        "description": "Returns the current time\n## Scopes\n- `time`\n",
         "tags": [
-          "Core"
+          "Time functions"
         ],
         "requestBody": {
           "content": {
@@ -570,8 +586,11 @@
     "/time/formatting/incredibly/super/duper/long/format": {
       "get": {
         "operationId": "get:t_f_i_s_d_l_f",
+        "summary": "Format Time",
+        "description": "Format the given time\n## Scopes\n- `time`\n- `time:format`\n",
         "tags": [
-          "Core"
+          "Time functions",
+          "Formatting"
         ],
         "parameters": [
           {
@@ -634,8 +653,11 @@
     "/time/formatting/format": {
       "post": {
         "operationId": "post:time_formatting_format",
+        "summary": "Format Time",
+        "description": "Format the given time\n## Scopes\n- `time`\n- `time:format`\n",
         "tags": [
-          "Core"
+          "Time functions",
+          "Formatting"
         ],
         "requestBody": {
           "content": {
@@ -1310,6 +1332,32 @@
     {
       "MainAuthenticator": [
 
+      ]
+    }
+  ],
+  "tags": [
+    {
+      "name": "Core"
+    },
+    {
+      "name": "Time functions"
+    },
+    {
+      "name": "Formatting"
+    }
+  ],
+  "x-tagGroups": [
+    {
+      "name": "Core",
+      "tags": [
+        "Core"
+      ]
+    },
+    {
+      "name": "Time functions",
+      "tags": [
+        "Formatting",
+        "Time functions"
       ]
     }
   ]

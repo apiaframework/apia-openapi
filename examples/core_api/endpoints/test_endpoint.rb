@@ -6,6 +6,7 @@ module CoreAPI
   module Endpoints
     class TestEndpoint < Apia::Endpoint
 
+      name "Test Endpoint"
       description "Returns the current time"
 
       argument :object, type: ArgumentSets::ObjectLookup, required: true
