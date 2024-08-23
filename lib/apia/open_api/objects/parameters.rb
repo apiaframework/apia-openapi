@@ -87,14 +87,31 @@ module Apia
             next if child_arg.type.argument_set?
 
             param = {
-              name: "#{@argument.name}[#{child_arg.name}]",
-              in: "query",
-              schema: generate_scalar_schema(child_arg)
+              in: "query"
             }
+
             description = []
             description << formatted_description(@argument.description) if @argument.description.present?
             description << formatted_description(child_arg.description) if child_arg.description.present?
-            description << "All '#{@argument.name}[]' params are mutually exclusive, only one can be provided."
+
+            if @argument.type.id.end_with?("Lookup")
+
+              description << "\n\nAll '#{@argument.name}[]' params are mutually exclusive, only one can be provided."
+
+              # else
+              #   require "pry-remote"
+              #   binding.remote_pry
+            end
+
+            if @argument.array
+              param[:name] = "#{@argument.name}[][#{child_arg.name}]"
+              param[:schema] = generate_array_schema(child_arg)
+              description << "\n\nAll `#{@argument.name}[]` params should have the same amount of elements."
+            else
+              param[:name] = "#{@argument.name}[#{child_arg.name}]"
+              param[:schema] = generate_scalar_schema(child_arg)
+            end
+
             param[:description] = description.join(" ")
             add_to_parameters(param)
           end
