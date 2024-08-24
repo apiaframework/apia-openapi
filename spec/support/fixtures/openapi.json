@@ -232,6 +232,132 @@
         }
       }
     },
+    "/time/formatting/incredibly/super/duper/long/format": {
+      "get": {
+        "operationId": "get:t_f_i_s_d_l_f",
+        "summary": "Format Time",
+        "description": "Format the given time\n## Scopes\n- `time`\n- `time:format`\n",
+        "tags": [
+          "Formatting"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "time[unix]",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Time is a lookup argument set."
+          },
+          {
+            "in": "query",
+            "name": "time[string]",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Time is a lookup argument set."
+          },
+          {
+            "name": "timezone",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/TimeZone"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Format the given time",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "formatted_time": {
+                      "type": "string",
+                      "description": "Time formatted time as a string",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "formatted_time"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/InvalidTimeResponse"
+          },
+          "403": {
+            "$ref": "#/components/responses/APIAuthenticator403Response"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimitReachedResponse"
+          }
+        }
+      }
+    },
+    "/time/formatting/format": {
+      "post": {
+        "operationId": "post:time_formatting_format",
+        "summary": "Format Time",
+        "description": "Format the given time\n## Scopes\n- `time`\n- `time:format`\n",
+        "tags": [
+          "Formatting"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "time": {
+                    "$ref": "#/components/schemas/TimeLookupArgumentSet"
+                  },
+                  "timezone": {
+                    "$ref": "#/components/schemas/TimeZone"
+                  }
+                },
+                "required": [
+                  "time",
+                  "timezone"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Format the given time",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "formatted_time": {
+                      "type": "string",
+                      "description": "Time formatted time as a string",
+                      "nullable": true
+                    }
+                  },
+                  "required": [
+                    "formatted_time"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/InvalidTimeResponse"
+          },
+          "403": {
+            "$ref": "#/components/responses/APIAuthenticator403Response"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimitReachedResponse"
+          }
+        }
+      }
+    },
     "/time/now": {
       "get": {
         "operationId": "get:time_now",
@@ -579,134 +705,6 @@
           },
           "404": {
             "$ref": "#/components/responses/ObjectNotFoundResponse"
-          }
-        }
-      }
-    },
-    "/time/formatting/incredibly/super/duper/long/format": {
-      "get": {
-        "operationId": "get:t_f_i_s_d_l_f",
-        "summary": "Format Time",
-        "description": "Format the given time\n## Scopes\n- `time`\n- `time:format`\n",
-        "tags": [
-          "Time functions",
-          "Formatting"
-        ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "time[unix]",
-            "schema": {
-              "type": "string"
-            },
-            "description": "Time is a lookup argument set."
-          },
-          {
-            "in": "query",
-            "name": "time[string]",
-            "schema": {
-              "type": "string"
-            },
-            "description": "Time is a lookup argument set."
-          },
-          {
-            "name": "timezone",
-            "in": "query",
-            "schema": {
-              "$ref": "#/components/schemas/TimeZone"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Format the given time",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "formatted_time": {
-                      "type": "string",
-                      "description": "Time formatted time as a string",
-                      "nullable": true
-                    }
-                  },
-                  "required": [
-                    "formatted_time"
-                  ]
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/InvalidTimeResponse"
-          },
-          "403": {
-            "$ref": "#/components/responses/APIAuthenticator403Response"
-          },
-          "429": {
-            "$ref": "#/components/responses/RateLimitReachedResponse"
-          }
-        }
-      }
-    },
-    "/time/formatting/format": {
-      "post": {
-        "operationId": "post:time_formatting_format",
-        "summary": "Format Time",
-        "description": "Format the given time\n## Scopes\n- `time`\n- `time:format`\n",
-        "tags": [
-          "Time functions",
-          "Formatting"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "properties": {
-                  "time": {
-                    "$ref": "#/components/schemas/TimeLookupArgumentSet"
-                  },
-                  "timezone": {
-                    "$ref": "#/components/schemas/TimeZone"
-                  }
-                },
-                "required": [
-                  "time",
-                  "timezone"
-                ]
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Format the given time",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "formatted_time": {
-                      "type": "string",
-                      "description": "Time formatted time as a string",
-                      "nullable": true
-                    }
-                  },
-                  "required": [
-                    "formatted_time"
-                  ]
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/InvalidTimeResponse"
-          },
-          "403": {
-            "$ref": "#/components/responses/APIAuthenticator403Response"
-          },
-          "429": {
-            "$ref": "#/components/responses/RateLimitReachedResponse"
           }
         }
       }
@@ -1337,22 +1335,14 @@
   ],
   "tags": [
     {
-      "name": "Core"
-    },
-    {
-      "name": "Time functions"
+      "name": "Time functions",
+      "description": "Everything related to time elements"
     },
     {
       "name": "Formatting"
     }
   ],
   "x-tagGroups": [
-    {
-      "name": "Core",
-      "tags": [
-        "Core"
-      ]
-    },
     {
       "name": "Time functions",
       "tags": [
