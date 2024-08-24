@@ -70,16 +70,7 @@ module Apia
             }
             param[:description] = @argument.description if @argument.description.present?
 
-            if param[:name] == "page"
-              param[:description] = "The page number to request. If not provided, the first page will be returned."
-              param[:schema][:default] = 1
-              param[:schema][:minimum] = 1
-            elsif param[:name] == "per_page"
-              param[:description] =
-                "The number of items to return per page. If not provided, the default value will be used."
-              param[:schema][:default] = 25
-              param[:schema][:minimum] = 1
-            end
+            decorate_path_params(param)
 
             param[:required] = true if @argument.required?
             add_to_parameters(param)
@@ -87,6 +78,19 @@ module Apia
         end
 
         private
+
+        def decorate_path_params(param)
+          if param[:name] == "page"
+            param[:description] = "The page number to request. If not provided, the first page will be returned."
+            param[:schema][:default] = 1
+            param[:schema][:minimum] = 1
+          elsif param[:name] == "per_page"
+            param[:description] =
+              "The number of items to return per page. If not provided, the default value will be used."
+            param[:schema][:default] = 25
+            param[:schema][:minimum] = 1
+          end
+        end
 
         # Complex argument sets are not supported in query params (e.g. nested objects)
         # For any LookupArgumentSet only one argument is expected to be provided.
