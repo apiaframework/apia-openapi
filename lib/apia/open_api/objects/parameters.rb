@@ -79,7 +79,6 @@ module Apia
                 "The number of items to return per page. If not provided, the default value will be used."
               param[:schema][:default] = 25
               param[:schema][:minimum] = 1
-              param[:schema][:maximum] = 100
             end
 
             param[:required] = true if @argument.required?
