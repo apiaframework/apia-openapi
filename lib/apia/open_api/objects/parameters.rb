@@ -69,6 +69,19 @@ module Apia
               schema: generate_scalar_schema(@argument)
             }
             param[:description] = @argument.description if @argument.description.present?
+
+            if param[:name] == "page"
+              param[:description] = "The page number to request. If not provided, the first page will be returned."
+              param[:schema][:default] = 1
+              param[:schema][:minimum] = 1
+            elsif param[:name] == "per_page"
+              param[:description] =
+                "The number of items to return per page. If not provided, the default value will be used."
+              param[:schema][:default] = 25
+              param[:schema][:minimum] = 1
+              param[:schema][:maximum] = 100
+            end
+
             param[:required] = true if @argument.required?
             add_to_parameters(param)
           end
