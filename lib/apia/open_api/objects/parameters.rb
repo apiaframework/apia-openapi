@@ -70,7 +70,7 @@ module Apia
             }
             param[:description] = @argument.description if @argument.description.present?
 
-            decorate_path_params(param)
+            add_pagination_params(param)
 
             param[:required] = true if @argument.required?
             add_to_parameters(param)
@@ -79,7 +79,7 @@ module Apia
 
         private
 
-        def decorate_path_params(param)
+        def add_pagination_params(param)
           if param[:name] == "page"
             param[:description] = "The page number to request. If not provided, the first page will be returned."
             param[:schema][:default] = 1
