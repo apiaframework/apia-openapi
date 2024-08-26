@@ -87,7 +87,7 @@ module Apia
           elsif param[:name] == "per_page"
             param[:description] =
               "The number of items to return per page. If not provided, the default value will be used."
-            param[:schema][:default] = 25
+            param[:schema][:default] = 30
             param[:schema][:minimum] = 1
           end
         end
