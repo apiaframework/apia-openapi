@@ -111,18 +111,14 @@ module Apia
             description << formatted_description(child_arg.description) if child_arg.description.present?
 
             if @argument.type.id.end_with?("Lookup")
-
-              description << "\n\nAll '#{@argument.name}[]' params are mutually exclusive, only one can be provided."
-
-              # else
-              #   require "pry-remote"
-              #   binding.remote_pry
+             description =  add_description_section(description, "All '#{@argument.name}[]' params are mutually exclusive, only one can be provided.")
             end
 
             if @argument.array
               param[:name] = "#{@argument.name}[][#{child_arg.name}]"
               param[:schema] = generate_array_schema(child_arg)
-              description << "\n\nAll `#{@argument.name}[]` params should have the same amount of elements."
+
+             description = add_description_section(description, "All `#{@argument.name}[]` params should have the same amount of elements.")
             else
               param[:name] = "#{@argument.name}[#{child_arg.name}]"
               param[:schema] = generate_scalar_schema(child_arg)
@@ -131,6 +127,19 @@ module Apia
             param[:description] = description.join(" ")
             add_to_parameters(param)
           end
+        end
+
+        # Adds a section to the description of a parameter.
+        #
+        # @param description [String] The current description of the parameter.
+        # @param addition [String] The section to be added to the description.
+        # @return [String] The updated description with the added section.
+        def add_description_section(description, addition) 
+          if description.present?
+            description << "\n\n"
+          end
+
+          description << addition
         end
 
         def add_to_parameters(param)
