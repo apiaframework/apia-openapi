@@ -110,17 +110,17 @@ module Apia
             description << formatted_description(@argument.description) if @argument.description.present?
             description << formatted_description(child_arg.description) if child_arg.description.present?
 
-            if @argument.type.id.end_with?("Lookup")
-              description = add_description_section(description,
-                                                    "All '#{@argument.name}[]' params are mutually exclusive, only one can be provided.")
-            end
+            add_lookup_description(description)
 
             if @argument.array
               param[:name] = "#{@argument.name}[][#{child_arg.name}]"
               param[:schema] = generate_array_schema(child_arg)
 
-              description = add_description_section(description,
-                                                    "All `#{@argument.name}[]` params should have the same amount of elements.")
+              add_description_section(
+                description,
+                "All `#{@argument.name}[]` params should have the same amount of elements."
+              )
+
             else
               param[:name] = "#{@argument.name}[#{child_arg.name}]"
               param[:schema] = generate_scalar_schema(child_arg)
@@ -132,16 +132,24 @@ module Apia
         end
 
         # Adds a section to the description of a parameter.
+        # If the description is not empty, a blank line is added before the section.
         #
         # @param description [String] The current description of the parameter.
         # @param addition [String] The section to be added to the description.
         # @return [String] The updated description with the added section.
         def add_description_section(description, addition)
-          if description.present?
+          unless description.empty?
             description << "\n\n"
           end
 
           description << addition
+        end
+
+        def add_lookup_description(description)
+          add_description_section(
+            description,
+            "All '#{@argument.name}[]' params are mutually exclusive, only one can be provided."
+          )
         end
 
         def add_to_parameters(param)
