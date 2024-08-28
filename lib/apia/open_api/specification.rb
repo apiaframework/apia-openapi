@@ -21,7 +21,6 @@ module Apia
         @spec = {
           openapi: OPEN_API_VERSION,
           info: info,
-          externalDocs: external_docs,
           servers: [],
           paths: {},
           components: {
@@ -31,6 +30,10 @@ module Apia
           tags: [],
           "x-tagGroups": []
         }
+
+        if external_docs.any?
+          @spec[:externalDocs] = external_docs
+        end
 
         # path_ids is used to keep track of all the IDs of all the paths we've generated, to avoid duplicates
         # refer to the Path object for more info
