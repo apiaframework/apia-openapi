@@ -21,7 +21,25 @@ require "core_api/base"
 use Apia::OpenApi::Rack,
     api_class: "CoreAPI::Base",
     schema_path: "/core/v1/schema/openapi.json",
-    base_url: "http://127.0.0.1:9292/core/v1/"
+    base_url: "http://127.0.0.1:9292/core/v1/",
+    info: {
+      version: "2.1.3",
+      externalDocs: {
+        description: "Find out more",
+        url: "https://example.com"
+      },
+      contact: {
+        name: "API Support",
+        email: "support@example.com",
+        url: "https://example.com/support"
+      },
+      license: {
+        name: "Apache 2.0",
+        url: "https://www.apache.org/licenses/LICENSE-2.0.html"
+      },
+      termsOfService: "https://example.com/terms",
+      "x-added-info": "This is an example of adding custom information to the OpenAPI spec"
+    }
 use Apia::Rack, CoreAPI::Base, "/core/v1", development: true
 
 app = proc do
