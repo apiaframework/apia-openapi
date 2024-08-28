@@ -119,14 +119,10 @@ module Apia
       def add_tag_groups
         @spec[:paths].each_value do |methods|
           methods.each_value do |method_spec|
-            method_spec[:tags].each_with_index do |tag, tag_index|
-              unless @spec[:tags].any? { |t| t[:name] == tag }
-                @spec[:tags] << { name: tag }
-              end
+            tags = method_spec[:tags]
 
+            tags.each_with_index do |tag, tag_index|
               next if tag_index.zero?
-
-              tags = method_spec[:tags]
 
               parent_tag = tags[tag_index - 1]
               parent_index = get_tag_group_index(parent_tag)
@@ -140,6 +136,10 @@ module Apia
                 @spec[:"x-tagGroups"][parent_index][:tags] << tag
               end
             end
+
+            # Set the last tag as the tag for the method
+            # After we have built the tag group.
+            method_spec[:tags] = [tags.last] if tags.any?
           end
         end
 

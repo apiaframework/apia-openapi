@@ -5,6 +5,7 @@ require "core_api/controllers/time_controller"
 require "core_api/endpoints/test_endpoint"
 require "core_api/endpoints/plain_text_endpoint"
 require "core_api/endpoints/legacy_endpoint"
+require "core_api/endpoints/paginated_endpoint"
 
 module CoreAPI
   class Base < Apia::API
@@ -26,6 +27,8 @@ module CoreAPI
       post "example/format_multiple", controller: Controllers::TimeController, endpoint: :format_multiple
 
       get "plain_text", endpoint: Endpoints::PlainTextEndpoint
+
+      get "paginated", endpoint: Endpoints::PaginatedEndpoint
 
       group :time do
         name "Time functions"

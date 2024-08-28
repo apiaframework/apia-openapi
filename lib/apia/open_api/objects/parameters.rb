@@ -69,12 +69,28 @@ module Apia
               schema: generate_scalar_schema(@argument)
             }
             param[:description] = @argument.description if @argument.description.present?
+
+            add_pagination_params(param)
+
             param[:required] = true if @argument.required?
             add_to_parameters(param)
           end
         end
 
         private
+
+        def add_pagination_params(param)
+          if param[:name] == "page"
+            param[:description] = "The page number to request. If not provided, the first page will be returned."
+            param[:schema][:default] = 1
+            param[:schema][:minimum] = 1
+          elsif param[:name] == "per_page"
+            param[:description] =
+              "The number of items to return per page. If not provided, the default value will be used."
+            param[:schema][:default] = @argument.default
+            param[:schema][:minimum] = 1
+          end
+        end
 
         # Complex argument sets are not supported in query params (e.g. nested objects)
         # For any LookupArgumentSet only one argument is expected to be provided.
@@ -87,17 +103,53 @@ module Apia
             next if child_arg.type.argument_set?
 
             param = {
-              name: "#{@argument.name}[#{child_arg.name}]",
-              in: "query",
-              schema: generate_scalar_schema(child_arg)
+              in: "query"
             }
+
             description = []
             description << formatted_description(@argument.description) if @argument.description.present?
             description << formatted_description(child_arg.description) if child_arg.description.present?
-            description << "All '#{@argument.name}[]' params are mutually exclusive, only one can be provided."
+
+            add_lookup_description(description)
+
+            if @argument.array
+              param[:name] = "#{@argument.name}[][#{child_arg.name}]"
+              param[:schema] = generate_array_schema(child_arg)
+
+              add_description_section(
+                description,
+                "All `#{@argument.name}[]` params should have the same amount of elements."
+              )
+
+            else
+              param[:name] = "#{@argument.name}[#{child_arg.name}]"
+              param[:schema] = generate_scalar_schema(child_arg)
+            end
+
             param[:description] = description.join(" ")
             add_to_parameters(param)
           end
+        end
+
+        # Adds a section to the description of a parameter.
+        # If the description is not empty, a blank line is added before the section.
+        #
+        # @param description [String] The current description of the parameter.
+        # @param addition [String] The section to be added to the description.
+        # @return [String] The updated description with the added section.
+        def add_description_section(description, addition)
+          unless description.empty?
+            description << "\n\n"
+          end
+
+          description << addition
+        end
+
+        def add_lookup_description(description)
+          add_description_section(
+            description,
+            "All '#{@argument.name}[]' params are mutually exclusive, only one can be provided."
+          )
         end
 
         def add_to_parameters(param)

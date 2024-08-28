@@ -52,6 +52,20 @@ module Apia
         schema
       end
 
+      def generate_array_schema(definition)
+        type = definition.type
+        schema = {
+          type: "array",
+          items: {
+            type: convert_type_to_open_api_data_type(type)
+          }
+        }
+        schema[:description] = definition.description if definition.description.present?
+        schema[:items][:format] = "float" if type.klass == Apia::Scalars::Decimal
+        schema[:items][:format] = "date" if type.klass == Apia::Scalars::Date
+        schema
+      end
+
       def generate_schema_ref(definition, id: nil, sibling_props: false, **schema_opts)
         id ||= generate_id_from_definition(definition.type.klass.definition)
         success = add_to_components_schemas(definition, id, **schema_opts)

@@ -162,6 +162,15 @@ module Apia
           current_group = group
 
           while current_group
+            # Add tags to the spec global tags if they don't already exist
+            # Include a description if the group has one.
+            unless @spec[:tags].any? { |t| t[:name] == current_group.name }
+              global_tag = { name: current_group.name }
+              global_tag[:description] = current_group.description if current_group.description
+              @spec[:tags] << global_tag
+
+            end
+
             tags.unshift(current_group.name)
             current_group = current_group.parent
           end
