@@ -12,7 +12,25 @@ RSpec.describe Apia::OpenApi::Specification do
       base_url = "http://127.0.0.1:9292/core/v1/"
       example_api = CoreAPI::Base
 
-      spec = described_class.new(example_api, base_url, "Core")
+      spec = described_class.new(example_api, base_url, "Core",
+                                 {
+                                   version: "2.1.3",
+                                   contact: {
+                                     name: "API Support",
+                                     email: "support@example.com",
+                                     url: "https://example.com/support"
+                                   },
+                                   license: {
+                                     name: "Apache 2.0",
+                                     url: "https://www.apache.org/licenses/LICENSE-2.0.html"
+                                   },
+                                   termsOfService: "https://example.com/terms",
+                                   "x-added-info": "This is an example of adding custom information to the OpenAPI spec"
+                                 },
+                                 {
+                                  description: "Find out more",
+                                  url: "https://example.com"
+                                 })
 
       # uncomment the following line for debugging :)
       # puts spec.json
@@ -27,7 +45,6 @@ RSpec.describe Apia::OpenApi::Specification do
     # confidence that the resulting JSON is valid according to OpenAPI.
     it "produces a valid spec" do
       spec = Openapi3Parser.load_file(fixture_path)
-
       expect(spec.errors).to be_empty
       expect(spec.valid?).to be true
     end

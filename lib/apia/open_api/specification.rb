@@ -14,13 +14,14 @@ module Apia
 
       OPEN_API_VERSION = "3.0.0" # The Ruby client generator currently only supports v3.0.0 https://openapi-generator.tech/
 
-      def initialize(api, base_url, name)
+      def initialize(api, base_url, name, info = {}, external_docs = {})
         @api = api
         @base_url = base_url
         @name = name || "Core" # will be suffixed with 'Api' and used in the client generator
         @spec = {
           openapi: OPEN_API_VERSION,
-          info: {},
+          info: info,
+          externalDocs: external_docs,
           servers: [],
           paths: {},
           components: {
@@ -30,6 +31,10 @@ module Apia
           tags: [],
           "x-tagGroups": []
         }
+
+        if @spec[:externalDocs].nil? || @spec[:externalDocs].empty?
+          @spec.delete(:externalDocs)
+        end
 
         # path_ids is used to keep track of all the IDs of all the paths we've generated, to avoid duplicates
         # refer to the Path object for more info
@@ -61,11 +66,13 @@ module Apia
 
       def add_info
         title = @api.definition.name || @api.definition.id
-        @spec[:info] = {
-          version: "1.0.0",
-          title: title
-        }
-        @spec[:info][:description] = @api.definition.description || "Welcome to the documentation for the #{title}"
+        @spec[:info][:version] = "1.0.0" if @spec[:info][:version].nil?
+        @spec[:info][:title] = title if @spec[:info][:title].nil?
+
+        return unless @spec[:info][:description].nil?
+
+        @spec[:info][:description] =
+          @api.definition.description || "Welcome to the documentation for the #{title}"
       end
 
       def add_servers

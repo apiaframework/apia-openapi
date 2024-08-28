@@ -1,9 +1,24 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "version": "1.0.0",
+    "version": "2.1.3",
+    "contact": {
+      "name": "API Support",
+      "email": "support@example.com",
+      "url": "https://example.com/support"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "termsOfService": "https://example.com/terms",
+    "x-added-info": "This is an example of adding custom information to the OpenAPI spec",
     "title": "Example API",
     "description": "Welcome to the documentation for the Example API"
+  },
+  "externalDocs": {
+    "description": "Find out more",
+    "url": "https://example.com"
   },
   "servers": [
     {

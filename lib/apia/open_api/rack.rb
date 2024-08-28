@@ -29,6 +29,14 @@ module Apia
         @options[:base_url] || "https://api.example.com/api/v1"
       end
 
+      def external_docs
+        @options[:external_docs] || {}
+      end
+
+      def info
+        @options[:info] || {}
+      end
+
       def call(env)
         if @options[:hosts]&.none? { |host| host == env["HTTP_HOST"] }
           return @app.call(env)
@@ -38,7 +46,7 @@ module Apia
           return @app.call(env)
         end
 
-        specification = Specification.new(api_class, base_url, @options[:name])
+        specification = Specification.new(api_class, base_url, @options[:name], info, external_docs)
         body = specification.json
 
         [200, { "content-type" => "application/json", "content-length" => body.bytesize.to_s }, [body]]
