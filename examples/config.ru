@@ -38,8 +38,8 @@ use Apia::OpenApi::Rack,
       "x-added-info": "This is an example of adding custom information to the OpenAPI spec"
     },
     external_docs: {
-        description: "Find out more",
-        url: "https://example.com"
+      description: "Find out more",
+      url: "https://example.com"
     }
 use Apia::Rack, CoreAPI::Base, "/core/v1", development: true
 
