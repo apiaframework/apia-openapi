@@ -24,10 +24,7 @@ use Apia::OpenApi::Rack,
     base_url: "http://127.0.0.1:9292/core/v1/",
     info: {
       version: "2.1.3",
-      externalDocs: {
-        description: "Find out more",
-        url: "https://example.com"
-      },
+
       contact: {
         name: "API Support",
         email: "support@example.com",
@@ -39,6 +36,10 @@ use Apia::OpenApi::Rack,
       },
       termsOfService: "https://example.com/terms",
       "x-added-info": "This is an example of adding custom information to the OpenAPI spec"
+    },
+    external_docs: {
+        description: "Find out more",
+        url: "https://example.com"
     }
 use Apia::Rack, CoreAPI::Base, "/core/v1", development: true
 

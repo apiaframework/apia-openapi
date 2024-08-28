@@ -61,7 +61,7 @@ RSpec.describe Apia::OpenApi::Rack do
         )
 
         expect(Apia::OpenApi::Specification).to have_received(:new).with(
-          MockApi, default_base_url, name_option
+          MockApi, default_base_url, name_option, {}, {}
         )
       end
 
@@ -80,7 +80,7 @@ RSpec.describe Apia::OpenApi::Rack do
           middleware_response
 
           expect(Apia::OpenApi::Specification).to have_received(:new).with(
-            MockApi, base_url_option, name_option
+            MockApi, base_url_option, name_option, {}, {}
           )
         end
       end
@@ -119,7 +119,7 @@ RSpec.describe Apia::OpenApi::Rack do
             )
 
             expect(Apia::OpenApi::Specification).to have_received(:new).with(
-              MockApi, default_base_url, name_option
+              MockApi, default_base_url, name_option, {}, {}
             )
           end
         end
@@ -151,7 +151,7 @@ RSpec.describe Apia::OpenApi::Rack do
           )
 
           expect(Apia::OpenApi::Specification).to have_received(:new).with(
-            api_class, default_base_url, name_option
+            api_class, default_base_url, name_option, {}, {}
           )
         end
       end

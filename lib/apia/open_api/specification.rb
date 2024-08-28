@@ -14,13 +14,14 @@ module Apia
 
       OPEN_API_VERSION = "3.0.0" # The Ruby client generator currently only supports v3.0.0 https://openapi-generator.tech/
 
-      def initialize(api, base_url, name, info = {})
+      def initialize(api, base_url, name, info = {}, external_docs = {})
         @api = api
         @base_url = base_url
         @name = name || "Core" # will be suffixed with 'Api' and used in the client generator
         @spec = {
           openapi: OPEN_API_VERSION,
           info: info,
+          externalDocs: external_docs,
           servers: [],
           paths: {},
           components: {
