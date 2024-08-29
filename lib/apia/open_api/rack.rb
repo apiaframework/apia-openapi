@@ -50,11 +50,12 @@ module Apia
           return @app.call(env)
         end
 
-        specification = Specification.new(api_class, base_url, @options[:name], {
-          info: info,
-          external_docs: external_docs,
-          security_schemes: security_schemes
-      })
+        specification = Specification.new(api_class, base_url, @options[:name],
+                                          {
+                                              info: info,
+                                              external_docs: external_docs,
+                                              security_schemes: security_schemes
+                                          })
         body = specification.json
 
         [200, { "content-type" => "application/json", "content-length" => body.bytesize.to_s }, [body]]

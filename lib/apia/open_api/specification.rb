@@ -14,7 +14,7 @@ module Apia
 
       OPEN_API_VERSION = "3.0.0" # The Ruby client generator currently only supports v3.0.0 https://openapi-generator.tech/
 
-      def initialize(api, base_url, name, additions)
+      def initialize(api, base_url, name, additions = {})
         default_additions = { info: {}, external_docs: {}, security_schemes: {} }
         additions = default_additions.merge(additions)
 
