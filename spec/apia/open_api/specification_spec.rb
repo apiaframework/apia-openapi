@@ -14,6 +14,7 @@ RSpec.describe Apia::OpenApi::Specification do
 
       spec = described_class.new(example_api, base_url, "Core",
                                  {
+                                 info: {
                                    version: "2.1.3",
                                    contact: {
                                      name: "API Support",
@@ -27,10 +28,22 @@ RSpec.describe Apia::OpenApi::Specification do
                                    termsOfService: "https://example.com/terms",
                                    "x-added-info": "This is an example of adding custom information to the OpenAPI spec"
                                  },
-                                 {
+                                 external_docs: {
                                   description: "Find out more",
                                   url: "https://example.com"
-                                 })
+                                 },
+                                 security_schemes: {
+                                  OAuth2: {
+                                    type: "oauth2",
+                                    flows: {
+                                      authorizationCode: {
+                                        authorizationUrl: "https://example.com/oauth/authorize",
+                                        tokenUrl: "https://example.com/oauth/token"
+                                      }
+                                    }
+                                  }
+                                 }
+                                })
 
       # uncomment the following line for debugging :)
       # puts spec.json

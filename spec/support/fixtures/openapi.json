@@ -34,6 +34,20 @@
         "tags": [
           "Core"
         ],
+        "security": [
+          {
+            "OAuth2": [
+              "time",
+              "time:format"
+            ]
+          },
+          {
+            "MainAuthenticator": [
+              "time",
+              "time:format"
+            ]
+          }
+        ],
         "parameters": [
           {
             "in": "query",
@@ -100,6 +114,20 @@
         "tags": [
           "Core"
         ],
+        "security": [
+          {
+            "OAuth2": [
+              "time",
+              "time:format"
+            ]
+          },
+          {
+            "MainAuthenticator": [
+              "time",
+              "time:format"
+            ]
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -159,6 +187,20 @@
         "description": "Format the given times\n## Scopes\n- `time`\n- `time:format`\n",
         "tags": [
           "Core"
+        ],
+        "security": [
+          {
+            "OAuth2": [
+              "time",
+              "time:format"
+            ]
+          },
+          {
+            "MainAuthenticator": [
+              "time",
+              "time:format"
+            ]
+          }
         ],
         "requestBody": {
           "content": {
@@ -227,6 +269,9 @@
         "tags": [
           "Core"
         ],
+        "security": [
+
+        ],
         "parameters": [
           {
             "in": "query",
@@ -275,6 +320,9 @@
         "description": "Returns a paginated list of strings",
         "tags": [
           "Core"
+        ],
+        "security": [
+
         ],
         "parameters": [
           {
@@ -336,6 +384,20 @@
         "description": "Format the given time\n## Scopes\n- `time`\n- `time:format`\n",
         "tags": [
           "Formatting"
+        ],
+        "security": [
+          {
+            "OAuth2": [
+              "time",
+              "time:format"
+            ]
+          },
+          {
+            "MainAuthenticator": [
+              "time",
+              "time:format"
+            ]
+          }
         ],
         "parameters": [
           {
@@ -403,6 +465,20 @@
         "tags": [
           "Formatting"
         ],
+        "security": [
+          {
+            "OAuth2": [
+              "time",
+              "time:format"
+            ]
+          },
+          {
+            "MainAuthenticator": [
+              "time",
+              "time:format"
+            ]
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -462,6 +538,20 @@
         "description": "Returns the current time\n## Scopes\n- `time`\n- `time:now`\n",
         "tags": [
           "Time functions"
+        ],
+        "security": [
+          {
+            "OAuth2": [
+              "time",
+              "time:now"
+            ]
+          },
+          {
+            "MainAuthenticator": [
+              "time",
+              "time:now"
+            ]
+          }
         ],
         "parameters": [
           {
@@ -569,6 +659,20 @@
         "tags": [
           "Time functions"
         ],
+        "security": [
+          {
+            "OAuth2": [
+              "time",
+              "time:now"
+            ]
+          },
+          {
+            "MainAuthenticator": [
+              "time",
+              "time:now"
+            ]
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -674,6 +778,18 @@
         "tags": [
           "Time functions"
         ],
+        "security": [
+          {
+            "OAuth2": [
+              "time"
+            ]
+          },
+          {
+            "MainAuthenticator": [
+              "time"
+            ]
+          }
+        ],
         "parameters": [
           {
             "in": "query",
@@ -746,6 +862,18 @@
         "description": "Returns the current time\n## Scopes\n- `time`\n",
         "tags": [
           "Time functions"
+        ],
+        "security": [
+          {
+            "OAuth2": [
+              "time"
+            ]
+          },
+          {
+            "MainAuthenticator": [
+              "time"
+            ]
+          }
         ],
         "requestBody": {
           "content": {
@@ -1341,6 +1469,21 @@
         }
       }
     },
+    "securitySchemes": {
+      "OAuth2": {
+        "type": "oauth2",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://example.com/oauth/authorize",
+            "tokenUrl": "https://example.com/oauth/token"
+          }
+        }
+      },
+      "MainAuthenticator": {
+        "scheme": "bearer",
+        "type": "http"
+      }
+    },
     "responses": {
       "InvalidTimeResponse": {
         "description": "400 error response",
@@ -1442,15 +1585,14 @@
           }
         }
       }
-    },
-    "securitySchemes": {
-      "MainAuthenticator": {
-        "scheme": "bearer",
-        "type": "http"
-      }
     }
   },
   "security": [
+    {
+      "OAuth2": [
+
+      ]
+    },
     {
       "MainAuthenticator": [
 

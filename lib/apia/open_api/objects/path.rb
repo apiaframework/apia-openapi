@@ -38,12 +38,14 @@ module Apia
             operationId: convert_route_to_id,
             summary: @route.endpoint.definition.name,
             description: @route.endpoint.definition.description,
-            tags: route.group ? get_group_tags(route.group) : [name]
+            tags: route.group ? get_group_tags(route.group) : [name],
+            security: []
           }
         end
 
         def add_to_spec
           add_scopes_description
+          add_scopes_security
           path = @route.path
 
           if @route.request_method == :get
@@ -104,6 +106,16 @@ module Apia
                 "- `#{scope}`"
               end.join("\n")}
             DESCRIPTION
+        end
+
+        def add_scopes_security
+          return unless @route.endpoint.definition.scopes.any?
+
+          @spec[:security].each do |auth|
+            auth.each_key do |key|
+              @route_spec[:security] << { key => @route.endpoint.definition.scopes }
+            end
+          end
         end
 
         # It's worth creating a 'nice' operationId for each route, as this is used as the

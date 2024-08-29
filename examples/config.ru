@@ -40,6 +40,17 @@ use Apia::OpenApi::Rack,
     external_docs: {
       description: "Find out more",
       url: "https://example.com"
+    },
+    security_schemes: {
+      OAuth2: {
+        type: "oauth2",
+        flows: {
+          authorizationCode: {
+            authorizationUrl: "https://example.com/oauth/authorize",
+            tokenUrl: "https://example.com/oauth/token"
+          }
+        }
+      }
     }
 use Apia::Rack, CoreAPI::Base, "/core/v1", development: true
 
