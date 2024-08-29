@@ -37,8 +37,8 @@
         "security": [
           {
             "OAuth2": [
-              "time",
-              "time:format"
+              "example.com/core/v1/time",
+              "example.com/core/v1/time:format"
             ]
           },
           {
@@ -117,8 +117,8 @@
         "security": [
           {
             "OAuth2": [
-              "time",
-              "time:format"
+              "example.com/core/v1/time",
+              "example.com/core/v1/time:format"
             ]
           },
           {
@@ -191,8 +191,8 @@
         "security": [
           {
             "OAuth2": [
-              "time",
-              "time:format"
+              "example.com/core/v1/time",
+              "example.com/core/v1/time:format"
             ]
           },
           {
@@ -388,8 +388,8 @@
         "security": [
           {
             "OAuth2": [
-              "time",
-              "time:format"
+              "example.com/core/v1/time",
+              "example.com/core/v1/time:format"
             ]
           },
           {
@@ -468,8 +468,8 @@
         "security": [
           {
             "OAuth2": [
-              "time",
-              "time:format"
+              "example.com/core/v1/time",
+              "example.com/core/v1/time:format"
             ]
           },
           {
@@ -542,8 +542,8 @@
         "security": [
           {
             "OAuth2": [
-              "time",
-              "time:now"
+              "example.com/core/v1/time",
+              "example.com/core/v1/time:now"
             ]
           },
           {
@@ -662,8 +662,8 @@
         "security": [
           {
             "OAuth2": [
-              "time",
-              "time:now"
+              "example.com/core/v1/time",
+              "example.com/core/v1/time:now"
             ]
           },
           {
@@ -781,7 +781,7 @@
         "security": [
           {
             "OAuth2": [
-              "time"
+              "example.com/core/v1/time"
             ]
           },
           {
@@ -866,7 +866,7 @@
         "security": [
           {
             "OAuth2": [
-              "time"
+              "example.com/core/v1/time"
             ]
           },
           {
@@ -1472,6 +1472,7 @@
     "securitySchemes": {
       "OAuth2": {
         "type": "oauth2",
+        "x-scope-prefix": "example.com/core/v1",
         "flows": {
           "authorizationCode": {
             "authorizationUrl": "https://example.com/oauth/authorize",

@@ -108,12 +108,24 @@ module Apia
             DESCRIPTION
         end
 
+        # Adds scopes security to the OpenAPI path specification.
+        #
+        # This method checks if the route's endpoint definition has any scopes defined.
+        # If scopes are present, it iterates over the security schemes in the OpenAPI
+        # specification and adds the corresponding scopes to the route's security section.
+        #
+        # @return [void]
         def add_scopes_security
           return unless @route.endpoint.definition.scopes.any?
 
           @spec[:security].each do |auth|
             auth.each_key do |key|
-              @route_spec[:security] << { key => @route.endpoint.definition.scopes }
+              scopes = @route.endpoint.definition.scopes
+              if scope_prefix = @spec[:components][:securitySchemes][key][:"x-scope-prefix"]
+                scopes = scopes.map { |v| "#{scope_prefix}/#{v}" }
+              end
+
+              @route_spec[:security] << { key => scopes }
             end
           end
         end
