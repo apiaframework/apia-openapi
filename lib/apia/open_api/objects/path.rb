@@ -38,12 +38,14 @@ module Apia
             operationId: convert_route_to_id,
             summary: @route.endpoint.definition.name,
             description: @route.endpoint.definition.description,
-            tags: route.group ? get_group_tags(route.group) : [name]
+            tags: route.group ? get_group_tags(route.group) : [name],
+            security: []
           }
         end
 
         def add_to_spec
           add_scopes_description
+          add_scopes_security
           path = @route.path
 
           if @route.request_method == :get
@@ -104,6 +106,45 @@ module Apia
                 "- `#{scope}`"
               end.join("\n")}
             DESCRIPTION
+
+          @spec[:security].each do |auth|
+            auth.each_key do |key|
+              scope_prefix = @spec[:components][:securitySchemes][key][:"x-scope-prefix"]
+              next unless scope_prefix.present?
+
+              @route_spec[:description] =
+                <<~DESCRIPTION
+                  #{@route_spec[:description]}
+                  ### #{key} Scopes
+                  When using #{key} authentication, scopes are prefixed with `#{scope_prefix}`.
+                DESCRIPTION
+            end
+          end
+        end
+
+        # Adds scopes security to the OpenAPI path specification.
+        #
+        # This method checks if the route's endpoint definition has any scopes defined.
+        # If scopes are present, it iterates over the security schemes in the OpenAPI
+        # specification and adds the corresponding scopes to the route's security section.
+        #
+        # @return [void]
+        def add_scopes_security
+          unless @route.endpoint.definition.scopes.any?
+            @route_spec.delete(:security)
+            return
+          end
+
+          @spec[:security].each do |auth|
+            auth.each_key do |key|
+              scopes = @route.endpoint.definition.scopes
+              if scope_prefix = @spec[:components][:securitySchemes][key][:"x-scope-prefix"]
+                scopes = scopes.map { |v| "#{scope_prefix}/#{v}" }
+              end
+
+              @route_spec[:security] << { key => scopes }
+            end
+          end
         end
 
         # It's worth creating a 'nice' operationId for each route, as this is used as the

@@ -29,6 +29,10 @@ module Apia
         @options[:base_url] || "https://api.example.com/api/v1"
       end
 
+      def security_schemes
+        @options[:security_schemes] || {}
+      end
+
       def external_docs
         @options[:external_docs] || {}
       end
@@ -46,7 +50,12 @@ module Apia
           return @app.call(env)
         end
 
-        specification = Specification.new(api_class, base_url, @options[:name], info, external_docs)
+        specification = Specification.new(api_class, base_url, @options[:name],
+                                          {
+                                              info: info,
+                                              external_docs: external_docs,
+                                              security_schemes: security_schemes
+                                          })
         body = specification.json
 
         [200, { "content-type" => "application/json", "content-length" => body.bytesize.to_s }, [body]]

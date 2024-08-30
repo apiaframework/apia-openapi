@@ -30,9 +30,23 @@
       "get": {
         "operationId": "get:time_formatting_incredibly_super_duper_long_format",
         "summary": "Format Time",
-        "description": "Format the given time\n## Scopes\n- `time`\n- `time:format`\n",
+        "description": "Format the given time\n## Scopes\n- `time`\n- `time:format`\n\n### OAuth2 Scopes\nWhen using OAuth2 authentication, scopes are prefixed with `example.com/core/v1`.\n",
         "tags": [
           "Core"
+        ],
+        "security": [
+          {
+            "OAuth2": [
+              "example.com/core/v1/time",
+              "example.com/core/v1/time:format"
+            ]
+          },
+          {
+            "MainAuthenticator": [
+              "time",
+              "time:format"
+            ]
+          }
         ],
         "parameters": [
           {
@@ -96,9 +110,23 @@
       "post": {
         "operationId": "post:example_format",
         "summary": "Format Time",
-        "description": "Format the given time\n## Scopes\n- `time`\n- `time:format`\n",
+        "description": "Format the given time\n## Scopes\n- `time`\n- `time:format`\n\n### OAuth2 Scopes\nWhen using OAuth2 authentication, scopes are prefixed with `example.com/core/v1`.\n",
         "tags": [
           "Core"
+        ],
+        "security": [
+          {
+            "OAuth2": [
+              "example.com/core/v1/time",
+              "example.com/core/v1/time:format"
+            ]
+          },
+          {
+            "MainAuthenticator": [
+              "time",
+              "time:format"
+            ]
+          }
         ],
         "requestBody": {
           "content": {
@@ -156,9 +184,23 @@
       "post": {
         "operationId": "post:example_format_multiple",
         "summary": "Format Multiple Times",
-        "description": "Format the given times\n## Scopes\n- `time`\n- `time:format`\n",
+        "description": "Format the given times\n## Scopes\n- `time`\n- `time:format`\n\n### OAuth2 Scopes\nWhen using OAuth2 authentication, scopes are prefixed with `example.com/core/v1`.\n",
         "tags": [
           "Core"
+        ],
+        "security": [
+          {
+            "OAuth2": [
+              "example.com/core/v1/time",
+              "example.com/core/v1/time:format"
+            ]
+          },
+          {
+            "MainAuthenticator": [
+              "time",
+              "time:format"
+            ]
+          }
         ],
         "requestBody": {
           "content": {
@@ -333,9 +375,23 @@
       "get": {
         "operationId": "get:t_f_i_s_d_l_f",
         "summary": "Format Time",
-        "description": "Format the given time\n## Scopes\n- `time`\n- `time:format`\n",
+        "description": "Format the given time\n## Scopes\n- `time`\n- `time:format`\n\n### OAuth2 Scopes\nWhen using OAuth2 authentication, scopes are prefixed with `example.com/core/v1`.\n",
         "tags": [
           "Formatting"
+        ],
+        "security": [
+          {
+            "OAuth2": [
+              "example.com/core/v1/time",
+              "example.com/core/v1/time:format"
+            ]
+          },
+          {
+            "MainAuthenticator": [
+              "time",
+              "time:format"
+            ]
+          }
         ],
         "parameters": [
           {
@@ -399,9 +455,23 @@
       "post": {
         "operationId": "post:time_formatting_format",
         "summary": "Format Time",
-        "description": "Format the given time\n## Scopes\n- `time`\n- `time:format`\n",
+        "description": "Format the given time\n## Scopes\n- `time`\n- `time:format`\n\n### OAuth2 Scopes\nWhen using OAuth2 authentication, scopes are prefixed with `example.com/core/v1`.\n",
         "tags": [
           "Formatting"
+        ],
+        "security": [
+          {
+            "OAuth2": [
+              "example.com/core/v1/time",
+              "example.com/core/v1/time:format"
+            ]
+          },
+          {
+            "MainAuthenticator": [
+              "time",
+              "time:format"
+            ]
+          }
         ],
         "requestBody": {
           "content": {
@@ -459,9 +529,23 @@
       "get": {
         "operationId": "get:time_now",
         "summary": "Time Now Endpoint",
-        "description": "Returns the current time\n## Scopes\n- `time`\n- `time:now`\n",
+        "description": "Returns the current time\n## Scopes\n- `time`\n- `time:now`\n\n### OAuth2 Scopes\nWhen using OAuth2 authentication, scopes are prefixed with `example.com/core/v1`.\n",
         "tags": [
           "Time functions"
+        ],
+        "security": [
+          {
+            "OAuth2": [
+              "example.com/core/v1/time",
+              "example.com/core/v1/time:now"
+            ]
+          },
+          {
+            "MainAuthenticator": [
+              "time",
+              "time:now"
+            ]
+          }
         ],
         "parameters": [
           {
@@ -565,9 +649,23 @@
       "post": {
         "operationId": "post:time_now",
         "summary": "Time Now Endpoint",
-        "description": "Returns the current time\n## Scopes\n- `time`\n- `time:now`\n",
+        "description": "Returns the current time\n## Scopes\n- `time`\n- `time:now`\n\n### OAuth2 Scopes\nWhen using OAuth2 authentication, scopes are prefixed with `example.com/core/v1`.\n",
         "tags": [
           "Time functions"
+        ],
+        "security": [
+          {
+            "OAuth2": [
+              "example.com/core/v1/time",
+              "example.com/core/v1/time:now"
+            ]
+          },
+          {
+            "MainAuthenticator": [
+              "time",
+              "time:now"
+            ]
+          }
         ],
         "requestBody": {
           "content": {
@@ -670,9 +768,21 @@
       "get": {
         "operationId": "get:test_object",
         "summary": "Test Endpoint",
-        "description": "Returns the current time\n## Scopes\n- `time`\n",
+        "description": "Returns the current time\n## Scopes\n- `time`\n\n### OAuth2 Scopes\nWhen using OAuth2 authentication, scopes are prefixed with `example.com/core/v1`.\n",
         "tags": [
           "Time functions"
+        ],
+        "security": [
+          {
+            "OAuth2": [
+              "example.com/core/v1/time"
+            ]
+          },
+          {
+            "MainAuthenticator": [
+              "time"
+            ]
+          }
         ],
         "parameters": [
           {
@@ -743,9 +853,21 @@
       "post": {
         "operationId": "post:test_object",
         "summary": "Test Endpoint",
-        "description": "Returns the current time\n## Scopes\n- `time`\n",
+        "description": "Returns the current time\n## Scopes\n- `time`\n\n### OAuth2 Scopes\nWhen using OAuth2 authentication, scopes are prefixed with `example.com/core/v1`.\n",
         "tags": [
           "Time functions"
+        ],
+        "security": [
+          {
+            "OAuth2": [
+              "example.com/core/v1/time"
+            ]
+          },
+          {
+            "MainAuthenticator": [
+              "time"
+            ]
+          }
         ],
         "requestBody": {
           "content": {
@@ -1341,6 +1463,22 @@
         }
       }
     },
+    "securitySchemes": {
+      "OAuth2": {
+        "type": "oauth2",
+        "x-scope-prefix": "example.com/core/v1",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://example.com/oauth/authorize",
+            "tokenUrl": "https://example.com/oauth/token"
+          }
+        }
+      },
+      "MainAuthenticator": {
+        "scheme": "bearer",
+        "type": "http"
+      }
+    },
     "responses": {
       "InvalidTimeResponse": {
         "description": "400 error response",
@@ -1442,15 +1580,14 @@
           }
         }
       }
-    },
-    "securitySchemes": {
-      "MainAuthenticator": {
-        "scheme": "bearer",
-        "type": "http"
-      }
     }
   },
   "security": [
+    {
+      "OAuth2": [
+
+      ]
+    },
     {
       "MainAuthenticator": [
 

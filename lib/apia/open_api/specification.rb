@@ -14,14 +14,17 @@ module Apia
 
       OPEN_API_VERSION = "3.0.0" # The Ruby client generator currently only supports v3.0.0 https://openapi-generator.tech/
 
-      def initialize(api, base_url, name, info = {}, external_docs = {})
+      def initialize(api, base_url, name, additions = {})
+        default_additions = { info: {}, external_docs: {}, security_schemes: {} }
+        additions = default_additions.merge(additions)
+
         @api = api
         @base_url = base_url
         @name = name || "Core" # will be suffixed with 'Api' and used in the client generator
         @spec = {
           openapi: OPEN_API_VERSION,
-          info: info,
-          externalDocs: external_docs,
+          info: additions[:info],
+          externalDocs: additions[:external_docs],
           servers: [],
           paths: {},
           components: {
@@ -35,6 +38,8 @@ module Apia
         if @spec[:externalDocs].nil? || @spec[:externalDocs].empty?
           @spec.delete(:externalDocs)
         end
+
+        add_additional_security_schemes(additions[:security_schemes])
 
         # path_ids is used to keep track of all the IDs of all the paths we've generated, to avoid duplicates
         # refer to the Path object for more info
@@ -57,8 +62,8 @@ module Apia
       def build_spec
         add_info
         add_servers
-        add_paths
         add_security
+        add_paths
         add_tag_groups
 
         @spec[:paths] = sort_hash_by_nested_tag(@spec[:paths])
@@ -158,6 +163,14 @@ module Apia
 
         @spec[:"x-tagGroups"].sort_by! { |group| group[:name] }
         @spec[:"x-tagGroups"].each { |group| group[:tags].sort! }
+      end
+
+      def add_additional_security_schemes(security_schemes)
+        security_schemes.each do |key, value|
+          @spec[:components][:securitySchemes] ||= {}
+          @spec[:components][:securitySchemes][key] = value
+          @spec[:security] << { key => [] }
+        end
       end
 
     end
