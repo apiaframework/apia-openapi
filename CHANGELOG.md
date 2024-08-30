@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.1.10](https://github.com/apiaframework/apia-openapi/compare/v0.1.9...v0.1.10) (2024-08-30)
+
+
+### Features
+
+* allow passing of info + external_docs to the openapi specification. ([#72](https://github.com/apiaframework/apia-openapi/issues/72)) ([349f236](https://github.com/apiaframework/apia-openapi/commit/349f236bdbe17e8c81e3d0888079dfe01392cdba))
+* allow passing over security_shemes to the specification and add… ([#73](https://github.com/apiaframework/apia-openapi/issues/73)) ([275d771](https://github.com/apiaframework/apia-openapi/commit/275d771051d6dfaf602bbb2b08113b420ad27369))
+
+
+### Bug Fixes
+
+* handle standard argument sets and array types for argument sets ([#70](https://github.com/apiaframework/apia-openapi/issues/70)) ([8d1d288](https://github.com/apiaframework/apia-openapi/commit/8d1d288738dac2a4702f0c8a50217d44a1d472b8))
+
 ## [0.1.9](https://github.com/apiaframework/apia-openapi/compare/v0.1.8...v0.1.9) (2024-08-21)
 
 
