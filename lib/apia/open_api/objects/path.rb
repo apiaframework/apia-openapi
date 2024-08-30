@@ -98,22 +98,27 @@ module Apia
         def add_scopes_description
           return unless @route.endpoint.definition.scopes.any?
 
-          prefixes = {}
+          @route_spec[:description] =
+            <<~DESCRIPTION
+              #{@route_spec[:description]}
+              ## Scopes
+              #{@route.endpoint.definition.scopes.map do |scope|
+                "- `#{scope}`"
+              end.join("\n")}
+            DESCRIPTION
+
           @spec[:security].each do |auth|
             auth.each_key do |key|
-              prefixes[key] = @spec[:components][:securitySchemes][key][:"x-scope-prefix"] || ""
-            end
-          end
+              scope_prefix = @spec[:components][:securitySchemes][key][:"x-scope-prefix"]
+              next unless scope_prefix.present?
 
-          prefixes.each do |key, prefix|
-            @route_spec[:description] =
-              <<~DESCRIPTION
-                #{@route_spec[:description]}
-                ## #{key} Scopes
-                #{@route.endpoint.definition.scopes.map do |scope|
-                  "- `#{prefix ? "#{prefix}/" : ''}#{scope}`"
-                end.join("\n")}
-              DESCRIPTION
+              @route_spec[:description] =
+                <<~DESCRIPTION
+                  #{@route_spec[:description]}
+                  ### #{key} Scopes
+                  When using #{key} authentication, scopes are prefixed with `#{scope_prefix}`.
+                DESCRIPTION
+            end
           end
         end
 
@@ -125,7 +130,10 @@ module Apia
         #
         # @return [void]
         def add_scopes_security
-          return unless @route.endpoint.definition.scopes.any?
+          unless @route.endpoint.definition.scopes.any?
+            @route_spec.delete(:security)
+            return
+          end
 
           @spec[:security].each do |auth|
             auth.each_key do |key|
