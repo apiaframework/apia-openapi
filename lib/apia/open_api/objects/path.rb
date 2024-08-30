@@ -98,14 +98,23 @@ module Apia
         def add_scopes_description
           return unless @route.endpoint.definition.scopes.any?
 
-          @route_spec[:description] =
-            <<~DESCRIPTION
-              #{@route_spec[:description]}
-              ## Scopes
-              #{@route.endpoint.definition.scopes.map do |scope|
-                "- `#{scope}`"
-              end.join("\n")}
-            DESCRIPTION
+          prefixes = {}
+          @spec[:security].each do |auth|
+            auth.each_key do |key|
+              prefixes[key] = @spec[:components][:securitySchemes][key][:"x-scope-prefix"] || ""
+            end
+          end
+
+          prefixes.each do |key, prefix|
+            @route_spec[:description] =
+              <<~DESCRIPTION
+                #{@route_spec[:description]}
+                ## #{key} Scopes
+                #{@route.endpoint.definition.scopes.map do |scope|
+                  "- `#{prefix ? "#{prefix}/" : ''}#{scope}`"
+                end.join("\n")}
+              DESCRIPTION
+          end
         end
 
         # Adds scopes security to the OpenAPI path specification.
