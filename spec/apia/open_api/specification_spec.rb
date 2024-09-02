@@ -35,7 +35,7 @@ RSpec.describe Apia::OpenApi::Specification do
                                  security_schemes: {
                                   OAuth2: {
                                     type: "oauth2",
-                                    "x-scope-prefix": "example.com/core/v1",
+                                    "x-scope-prefix": "example.com/core/v1/",
                                     flows: {
                                       authorizationCode: {
                                         authorizationUrl: "https://example.com/oauth/authorize",
