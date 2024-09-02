@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.11](https://github.com/apiaframework/apia-openapi/compare/v0.1.10...v0.1.11) (2024-09-02)
+
+
+### Bug Fixes
+
+* security schemes keys to symbols ([#74](https://github.com/apiaframework/apia-openapi/issues/74)) ([3506742](https://github.com/apiaframework/apia-openapi/commit/3506742bb48d39bd1f3ce9651296a717019b1583))
+
 ## [0.1.10](https://github.com/apiaframework/apia-openapi/compare/v0.1.9...v0.1.10) (2024-08-30)
 
 
