@@ -168,7 +168,7 @@ module Apia
       def add_additional_security_schemes(security_schemes)
         security_schemes.each do |key, value|
           @spec[:components][:securitySchemes] ||= {}
-          @spec[:components][:securitySchemes][key] = value
+          @spec[:components][:securitySchemes][key] = value.transform_keys(&:to_sym)
           @spec[:security] << { key => [] }
         end
       end
