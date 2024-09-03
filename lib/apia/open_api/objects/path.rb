@@ -139,7 +139,7 @@ module Apia
             auth.each_key do |key|
               scopes = @route.endpoint.definition.scopes
               if scope_prefix = @spec[:components][:securitySchemes][key][:"x-scope-prefix"]
-                scopes = scopes.map { |v| "#{scope_prefix}/#{v}" }
+                scopes = scopes.map { |v| "#{scope_prefix}#{v}" }
               end
 
               @route_spec[:security] << { key => scopes }
