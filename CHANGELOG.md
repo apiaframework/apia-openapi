@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.12](https://github.com/apiaframework/apia-openapi/compare/v0.1.11...v0.1.12) (2024-09-03)
+
+
+### Bug Fixes
+
+* don't insert `/` between prefix and scope, assume any prefix should contain it's own separator. ([#76](https://github.com/apiaframework/apia-openapi/issues/76)) ([8cad391](https://github.com/apiaframework/apia-openapi/commit/8cad39125b2a0d2c3ca920c23fac48a15cf74c63))
+
 ## [0.1.11](https://github.com/apiaframework/apia-openapi/compare/v0.1.10...v0.1.11) (2024-09-02)
 
 
