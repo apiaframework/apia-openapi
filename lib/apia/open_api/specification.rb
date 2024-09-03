@@ -190,7 +190,6 @@ module Apia
           value = JSON.parse(value.to_json, symbolize_names: true)
 
           if value[:type] == "oauth2" && value[:flows].key?(:authorizationCode)
-            puts "Adding scopes to OAuth2 security scheme"
             value[:flows][:authorizationCode][:scopes] = build_scope_map
           end
 
