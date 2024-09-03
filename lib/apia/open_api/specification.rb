@@ -28,7 +28,9 @@ module Apia
           servers: [],
           paths: {},
           components: {
-            schemas: {}
+            schemas: {},
+            responses: {},
+            securitySchemes: {}
           },
           security: [],
           tags: [],
@@ -100,6 +102,21 @@ module Apia
         end
       end
 
+      def build_scope_map
+        scopes = {}
+
+        @api.definition.route_set.routes.each do |route|
+          next unless route.group.nil? || route.group.schema?
+          next unless route.endpoint.definition.schema?
+
+          route.endpoint.definition.scopes.each do |scope|
+            scopes[scope] = ""
+          end
+        end
+
+        scopes
+      end
+
       def add_security
         @api.objects.select { |o| o.ancestors.include?(Apia::Authenticator) }.each do |authenticator|
           next unless authenticator.definition.type == :bearer
@@ -168,6 +185,11 @@ module Apia
       def add_additional_security_schemes(security_schemes)
         security_schemes.each do |key, value|
           @spec[:components][:securitySchemes] ||= {}
+
+          if value[:type] == "oauth2" && value[:flows].key?(:authorizationCode)
+            value[:flows][:authorizationCode][:scopes] = build_scope_map
+          end
+
           @spec[:components][:securitySchemes][key] = value.transform_keys(&:to_sym)
           @spec[:security] << { key => [] }
         end

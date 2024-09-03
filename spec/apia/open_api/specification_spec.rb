@@ -39,7 +39,9 @@ RSpec.describe Apia::OpenApi::Specification do
                                     flows: {
                                       authorizationCode: {
                                         authorizationUrl: "https://example.com/oauth/authorize",
-                                        tokenUrl: "https://example.com/oauth/token"
+                                        tokenUrl: "https://example.com/oauth/token",
+                                        refreshUrl: "https://example.com/oauth/token",
+                                        scopes: {}
                                       }
                                     }
                                   }
