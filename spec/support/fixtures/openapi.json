@@ -1575,9 +1575,9 @@
             "tokenUrl": "https://example.com/oauth/token",
             "refreshUrl": "https://example.com/oauth/token",
             "scopes": {
-              "time": "",
-              "time:format": "",
-              "time:now": ""
+              "example.com/core/v1/time": "",
+              "example.com/core/v1/time:format": "",
+              "example.com/core/v1/time:now": ""
             }
           }
         }
