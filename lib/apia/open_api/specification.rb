@@ -186,11 +186,15 @@ module Apia
         security_schemes.each do |key, value|
           @spec[:components][:securitySchemes] ||= {}
 
+          # Ensure we have symbolized keys
+          value = JSON.parse(value.to_json, symbolize_names: true)
+
           if value[:type] == "oauth2" && value[:flows].key?(:authorizationCode)
+            puts "Adding scopes to OAuth2 security scheme"
             value[:flows][:authorizationCode][:scopes] = build_scope_map
           end
 
-          @spec[:components][:securitySchemes][key] = value.transform_keys(&:to_sym)
+          @spec[:components][:securitySchemes][key] = value
           @spec[:security] << { key => [] }
         end
       end
