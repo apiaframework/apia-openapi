@@ -102,7 +102,7 @@ module Apia
         end
       end
 
-      def build_scope_map
+      def build_scope_map(scope_prefix)
         scopes = {}
 
         @api.definition.route_set.routes.each do |route|
@@ -110,7 +110,7 @@ module Apia
           next unless route.endpoint.definition.schema?
 
           route.endpoint.definition.scopes.each do |scope|
-            scopes[scope] = ""
+            scopes["#{scope_prefix}#{scope}"] = ""
           end
         end
 
@@ -190,7 +190,7 @@ module Apia
           value = JSON.parse(value.to_json, symbolize_names: true)
 
           if value[:type] == "oauth2" && value[:flows].key?(:authorizationCode)
-            value[:flows][:authorizationCode][:scopes] = build_scope_map
+            value[:flows][:authorizationCode][:scopes] = build_scope_map(value[:"x-scope-prefix"])
           end
 
           @spec[:components][:securitySchemes][key] = value
