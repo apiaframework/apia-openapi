@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.13](https://github.com/apiaframework/apia-openapi/compare/v0.1.12...v0.1.13) (2024-09-13)
+
+
+### Bug Fixes
+
+* only add mutually exclusive description to lookup argument sets ([#79](https://github.com/apiaframework/apia-openapi/issues/79)) ([77f0e31](https://github.com/apiaframework/apia-openapi/commit/77f0e31d4bf09ab2cafcc0446dcff24dba627565))
+
 ## [0.1.12](https://github.com/apiaframework/apia-openapi/compare/v0.1.11...v0.1.12) (2024-09-03)
 
 
