@@ -146,6 +146,8 @@ module Apia
         end
 
         def add_lookup_description(description)
+          return unless @argument.type.klass.ancestors.include?(Apia::LookupArgumentSet)
+
           add_description_section(
             description,
             "All '#{@argument.name}[]' params are mutually exclusive, only one can be provided."
