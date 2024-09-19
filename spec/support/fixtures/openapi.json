@@ -308,6 +308,45 @@
             "$ref": "#/components/responses/APIAuthenticator403Response"
           }
         }
+      },
+      "post": {
+        "operationId": "post:plain_text",
+        "summary": "Plain Text Endpoint",
+        "description": "Return a plain text response",
+        "tags": [
+          "Core"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "disk_template_options": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/KeyValue"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return a plain text response",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/APIAuthenticator403Response"
+          }
+        }
       }
     },
     "/paginated": {
@@ -1097,6 +1136,20 @@
             "type": "integer"
           }
         }
+      },
+      "KeyValue": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "key"
+        ]
       },
       "PaginationObject": {
         "type": "object",

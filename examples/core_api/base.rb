@@ -18,7 +18,7 @@ module CoreAPI
       add "time", "Allows time telling functions"
     end
 
-    routes do
+    routes do # rubocop:disable Metrics/BlockLength
       schema
 
       get "time_formatting/incredibly/super/duper/long/format", controller: Controllers::TimeController,
@@ -27,6 +27,7 @@ module CoreAPI
       post "example/format_multiple", controller: Controllers::TimeController, endpoint: :format_multiple
 
       get "plain_text", endpoint: Endpoints::PlainTextEndpoint
+      post "plain_text", endpoint: Endpoints::PlainTextEndpoint
 
       get "paginated", endpoint: Endpoints::PaginatedEndpoint
 
