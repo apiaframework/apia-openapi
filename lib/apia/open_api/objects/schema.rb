@@ -80,7 +80,9 @@ module Apia
             @children = @definition.fields.values
           elsif @definition.type.argument_set?
             @children = @definition.type.klass.definition.arguments.values
-            if @definition.type.klass.ancestors.include?(Apia::LookupArgumentSet)
+            if @definition.type.klass.ancestors.include?(Apia::LookupArgumentSet) &&
+               @definition.type.klass.definition.arguments.length > 1
+
               @schema[:description] ||=
                 "All '#{@definition.name}[]' params are mutually exclusive, only one can be provided."
             end
