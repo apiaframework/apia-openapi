@@ -146,7 +146,8 @@ module Apia
         end
 
         def add_lookup_description(description)
-          return unless @argument.type.klass.ancestors.include?(Apia::LookupArgumentSet)
+          return unless @argument.type.klass.ancestors.include?(Apia::LookupArgumentSet) &&
+                        @argument.type.klass.definition.arguments.length > 1
 
           add_description_section(
             description,

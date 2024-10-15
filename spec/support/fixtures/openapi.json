@@ -842,6 +842,14 @@
             "description": "The permalink of the object to look up. \n\n All 'object[]' params are mutually exclusive, only one can be provided."
           },
           {
+            "in": "query",
+            "name": "thing[id]",
+            "schema": {
+              "type": "string"
+            },
+            "description": ""
+          },
+          {
             "name": "scalar",
             "in": "query",
             "schema": {
@@ -916,6 +924,9 @@
                   "object": {
                     "$ref": "#/components/schemas/ObjectLookup"
                   },
+                  "thing": {
+                    "$ref": "#/components/schemas/SingleLookup"
+                  },
                   "scalar": {
                     "type": "string",
                     "description": "Any string will do, it's not validated"
@@ -923,6 +934,7 @@
                 },
                 "required": [
                   "object",
+                  "thing",
                   "scalar"
                 ]
               }
@@ -1482,6 +1494,14 @@
         "enum": [
           "object_not_found"
         ]
+      },
+      "SingleLookup": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        }
       },
       "PostTestObject200ResponseTime": {
         "type": "object",

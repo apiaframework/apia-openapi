@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "core_api/argument_sets/object_lookup"
+require "core_api/argument_sets/single_lookup"
 
 module CoreAPI
   module Endpoints
@@ -10,6 +11,7 @@ module CoreAPI
       description "Returns the current time"
 
       argument :object, type: ArgumentSets::ObjectLookup, required: true
+      argument :thing, type: ArgumentSets::SingleLookup, required: true
       argument :scalar, type: :string, required: true do
         description "Any string will do, it's not validated"
       end
